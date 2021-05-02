@@ -1,11 +1,201 @@
-html,
-body {
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300&display=swap");
+
+$themeColor: (
+  "p": #6dc5ec,
+  "ps": #d6f1f6,
+  "s": #d6f1f6,
+  "t": #707070,
+  "gray": #aeaeae,
+  "white": #ffff,
+  "red": #f16b6b,
+  "green": #76d173,
+);
+
+$ThemeFontFamily: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+
+@mixin font($fs: null, $fw: null, $fa: null, $fst: null) {
+  font-size: $fs;
+  font-weight: $fw;
+  text-align: $fa;
+  font-style: $fst;
+}
+
+* {
   margin: 0;
   padding: 0;
+  font-family: $ThemeFontFamily;
+}
+html {
+}
+body {
+  //background: white;
+  //background: map-get($themeColor, "hover");
+  @include font(1rem, 500);
 }
 h1 {
+  @include font(2rem, bold);
+  color: map-get($themeColor, "white");
+  margin: 0;
 }
 h2 {
+  @include font(3rem, 200);
 }
 h3 {
+  font-size: 2.5rem;
+}
+h4 {
+  font-size: 1rem;
+}
+p {
+  font-weight: 500;
+  color: map-get($themeColor, "t");
+}
+ul {
+  list-style: none;
+}
+a {
+  color: white;
+  text-decoration: none !important;
+}
+a:hover {
+  color: unset;
+}
+
+input {
+  @include font(1.5rem, bold);
+  color: map-get($themeColor, "t");
+}
+
+button {
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0px 3px 10px 0px map-get($themeColor, "t");
+  text-transform: uppercase;
+  background-color: white;
+  cursor: pointer;
+  color: map-get($themeColor, "t");
+}
+button:hover {
+  background-color: map-get($themeColor, "ps");
+}
+
+input:focus,
+select:focus,
+option:focus,
+textarea:focus,
+button:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+header {
+  display: flex;
+  flex-direction: row;
+  background-color: map-get($themeColor, "p");
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 80%;
+    margin: auto;
+    min-height: 8vh;
+    .logo {
+    }
+    ul {
+      display: flex;
+      @include font(1rem, 800);
+      text-transform: uppercase;
+      li {
+        margin: 0 0.5rem;
+      }
+      li:hover {
+        color: map-get($themeColor, "t");
+      }
+    }
+  }
+}
+.body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 92vh;
+  background-color: map-get($themeColor, "ps");
+  background-image: url(../../Asset/g10.png);
+  .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: map-get($themeColor, "white");
+    box-shadow: 0px 3px 10px 0px map-get($themeColor, "t");
+    padding: 35px 75px;
+    border-radius: 30px;
+    h1 {
+      color: map-get($themeColor, "t");
+    }
+    .row {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+      margin: 65px 0 40px 0;
+      button {
+        border-radius: 5px;
+        padding: 5px 15px;
+      }
+    }
+    .form {
+      .form-item {
+        position: relative;
+        margin-top: 1rem;
+        // 340+ label padding-left = 350
+        width: 340px;
+        .content-name {
+          position: absolute;
+          bottom: 20px;
+          transition: all 0.3s ease;
+        }
+      }
+      input {
+        width: 100%;
+        height: 100%;
+        padding: 20px 10px 15px 10px;
+        border: none;
+      }
+      label {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        padding-left: 10px;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        box-shadow: 0px 3px 10px 0px map-get($themeColor, "t");
+        border-radius: 10px;
+        font-size: 18px;
+        font-weight: bold;
+        color: map-get($themeColor, "gray");
+        text-transform: uppercase;
+      }
+      input:focus + .label-name .content-name,
+      input:valid + .label-name .content-name {
+        transform: translateY(-150%);
+        font-size: 13px;
+      }
+      button {
+        width: 350px;
+        height: 64px;
+        margin-top: 3rem;
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0px 3px 10px 0px map-get($themeColor, "t");
+        @include font(1.5rem);
+        text-transform: uppercase;
+        background-color: white;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: map-get($themeColor, "ps");
+      }
+    }
+  }
 }
