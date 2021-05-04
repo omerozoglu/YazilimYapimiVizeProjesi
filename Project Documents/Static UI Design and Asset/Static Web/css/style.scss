@@ -31,6 +31,7 @@ body {
   //background: white;
   //background: map-get($themeColor, "hover");
   @include font(1rem, 500);
+  color: map-get($themeColor, "t");
 }
 h1 {
   @include font(2rem, bold);
@@ -54,15 +55,15 @@ ul {
   list-style: none;
 }
 a {
-  color: white;
   text-decoration: none !important;
 }
-a:hover {
+a:hover,
+a:visited {
   color: unset;
 }
 
 input {
-  @include font(1.5rem, bold);
+  @include font(16px, bold);
   color: map-get($themeColor, "t");
 }
 
@@ -116,9 +117,11 @@ header {
 }
 .body {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 92vh;
+  min-height: 92vh;
+  padding: 50px 0;
   background-color: map-get($themeColor, "ps");
   background-image: url(../../Asset/g10.png);
   .container {
@@ -126,9 +129,10 @@ header {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 350px;
     background-color: map-get($themeColor, "white");
     box-shadow: 0px 3px 10px 0px map-get($themeColor, "t");
-    padding: 35px 75px;
+    padding: 35px;
     border-radius: 30px;
     h1 {
       color: map-get($themeColor, "t");
@@ -144,21 +148,21 @@ header {
       }
     }
     .form {
+      width: 100%;
       .form-item {
         position: relative;
         margin-top: 1rem;
-        // 340+ label padding-left = 350
-        width: 340px;
+        width: 100%;
         .content-name {
           position: absolute;
-          bottom: 20px;
+          bottom: 16px;
           transition: all 0.3s ease;
         }
       }
       input {
         width: 100%;
         height: 100%;
-        padding: 20px 10px 15px 10px;
+        padding: 20px 10px 10px 10px;
         border: none;
       }
       label {
@@ -171,24 +175,24 @@ header {
         pointer-events: none;
         box-shadow: 0px 3px 10px 0px map-get($themeColor, "t");
         border-radius: 10px;
-        font-size: 18px;
+        font-size: 16px;
         font-weight: bold;
         color: map-get($themeColor, "gray");
         text-transform: uppercase;
       }
       input:focus + .label-name .content-name,
       input:valid + .label-name .content-name {
-        transform: translateY(-150%);
-        font-size: 13px;
+        transform: translateY(-100%);
+        font-size: 12px;
       }
       button {
-        width: 350px;
+        width: 100%;
         height: 64px;
         margin-top: 3rem;
         border: none;
         border-radius: 15px;
         box-shadow: 0px 3px 10px 0px map-get($themeColor, "t");
-        @include font(1.5rem);
+        @include font(16px, bold);
         text-transform: uppercase;
         background-color: white;
         cursor: pointer;
@@ -196,6 +200,18 @@ header {
       button:hover {
         background-color: map-get($themeColor, "ps");
       }
+    }
+    a {
+      border: none;
+      border-radius: 5px;
+      padding: 5px;
+      box-shadow: 0px 3px 10px 0px map-get($themeColor, "t");
+      // @include font(12px, bold);
+      background-color: white;
+      cursor: pointer;
+    }
+    a:hover {
+      background-color: map-get($themeColor, "ps");
     }
   }
 }

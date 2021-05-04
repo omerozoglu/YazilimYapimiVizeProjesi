@@ -8,6 +8,7 @@
 body {
   font-size: 1rem;
   font-weight: 500;
+  color: #707070;
 }
 
 h1 {
@@ -40,16 +41,16 @@ ul {
 }
 
 a {
-  color: white;
   text-decoration: none !important;
 }
 
-a:hover {
+a:hover,
+a:visited {
   color: unset;
 }
 
 input {
-  font-size: 1.5rem;
+  font-size: 16px;
   font-weight: bold;
   color: #707070;
 }
@@ -126,13 +127,18 @@ header nav ul li:hover {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  height: 92vh;
+  min-height: 92vh;
+  padding: 50px 0;
   background-color: #d6f1f6;
   background-image: url(../../Asset/g10.png);
 }
@@ -151,10 +157,11 @@ header nav ul li:hover {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  width: 350px;
   background-color: #ffff;
   -webkit-box-shadow: 0px 3px 10px 0px #707070;
           box-shadow: 0px 3px 10px 0px #707070;
-  padding: 35px 75px;
+  padding: 35px;
   border-radius: 30px;
 }
 
@@ -178,15 +185,19 @@ header nav ul li:hover {
   padding: 5px 15px;
 }
 
+.body .container .form {
+  width: 100%;
+}
+
 .body .container .form .form-item {
   position: relative;
   margin-top: 1rem;
-  width: 340px;
+  width: 100%;
 }
 
 .body .container .form .form-item .content-name {
   position: absolute;
-  bottom: 20px;
+  bottom: 16px;
   -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
@@ -194,7 +205,7 @@ header nav ul li:hover {
 .body .container .form input {
   width: 100%;
   height: 100%;
-  padding: 20px 10px 15px 10px;
+  padding: 20px 10px 10px 10px;
   border: none;
 }
 
@@ -209,7 +220,7 @@ header nav ul li:hover {
   -webkit-box-shadow: 0px 3px 10px 0px #707070;
           box-shadow: 0px 3px 10px 0px #707070;
   border-radius: 10px;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: bold;
   color: #aeaeae;
   text-transform: uppercase;
@@ -217,26 +228,41 @@ header nav ul li:hover {
 
 .body .container .form input:focus + .label-name .content-name,
 .body .container .form input:valid + .label-name .content-name {
-  -webkit-transform: translateY(-150%);
-          transform: translateY(-150%);
-  font-size: 13px;
+  -webkit-transform: translateY(-100%);
+          transform: translateY(-100%);
+  font-size: 12px;
 }
 
 .body .container .form button {
-  width: 350px;
+  width: 100%;
   height: 64px;
   margin-top: 3rem;
   border: none;
   border-radius: 15px;
   -webkit-box-shadow: 0px 3px 10px 0px #707070;
           box-shadow: 0px 3px 10px 0px #707070;
-  font-size: 1.5rem;
+  font-size: 16px;
+  font-weight: bold;
   text-transform: uppercase;
   background-color: white;
   cursor: pointer;
 }
 
 .body .container .form button:hover {
+  background-color: #d6f1f6;
+}
+
+.body .container a {
+  border: none;
+  border-radius: 5px;
+  padding: 5px;
+  -webkit-box-shadow: 0px 3px 10px 0px #707070;
+          box-shadow: 0px 3px 10px 0px #707070;
+  background-color: white;
+  cursor: pointer;
+}
+
+.body .container a:hover {
   background-color: #d6f1f6;
 }
 /*# sourceMappingURL=style.css.map */
