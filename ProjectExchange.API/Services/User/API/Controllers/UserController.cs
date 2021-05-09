@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
-using Application.Features.Command.CreateCommand;
-using Application.Features.Command.DeleteCommand;
-using Application.Features.Command.UpdateCommand;
+using Application.Features.Commands.CreateCommand;
+using Application.Features.Commands.DeleteCommand;
+using Application.Features.Commands.UpdateCommand;
 using Application.Features.Queries.Get;
 using Application.Features.Queries.GetList;
 using Application.Models;
