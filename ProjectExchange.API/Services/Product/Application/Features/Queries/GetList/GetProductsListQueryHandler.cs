@@ -6,7 +6,7 @@ using Application.Models;
 using AutoMapper;
 using MediatR;
 
-namespace Application.Features.Queries.GetlList {
+namespace Application.Features.Queries.GetList {
     public class GetProductsListQueryHandler : IRequestHandler<GetProductsListQuery, List<ProductVm>> {
 
         private readonly IProductRepository _productRepository;
