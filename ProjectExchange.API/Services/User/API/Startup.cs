@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Application;
+using Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -27,6 +29,8 @@ namespace API {
             services.AddSwaggerGen (c => {
                 c.SwaggerDoc ("v1", new OpenApiInfo { Title = "API", Version = "v1" });
             });
+            services.AddApplicationservices ();
+            services.AddInfrastructureServices (Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
