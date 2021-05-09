@@ -4,7 +4,7 @@ using Application.Contracts.Persistence;
 using AutoMapper;
 using MediatR;
 
-namespace Application.Features.Command.DeleteCommand {
+namespace Application.Features.Commands.DeleteCommand {
     public class DeleteUserCommandHandler : IRequestHandler<DeleteUserCommand, bool> {
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;

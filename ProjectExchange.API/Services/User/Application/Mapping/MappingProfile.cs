@@ -1,5 +1,5 @@
-using Application.Features.Command.CreateCommand;
-using Application.Features.Command.UpdateCommand;
+using Application.Features.Commands.CreateCommand;
+using Application.Features.Commands.UpdateCommand;
 using Application.Models;
 using AutoMapper;
 using Domain.Entities;

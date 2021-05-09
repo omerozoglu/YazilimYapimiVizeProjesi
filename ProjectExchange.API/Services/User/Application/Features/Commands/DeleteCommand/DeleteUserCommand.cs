@@ -1,6 +1,6 @@
 using MediatR;
 
-namespace Application.Features.Command.DeleteCommand {
+namespace Application.Features.Commands.DeleteCommand {
     public class DeleteUserCommand : IRequest<bool> {
         public string Id { get; set; }
     }

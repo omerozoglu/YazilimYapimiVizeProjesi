@@ -5,7 +5,7 @@ using AutoMapper;
 using Domain.Entities;
 using MediatR;
 
-namespace Application.Features.Command.UpdateCommand {
+namespace Application.Features.Commands.UpdateCommand {
     public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand, bool> {
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
