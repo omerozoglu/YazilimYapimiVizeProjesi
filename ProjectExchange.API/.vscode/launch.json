@@ -1,7 +1,6 @@
 {
     "version": "0.2.0",
     "configurations": [
-    
         {
             "name": ".NET Core Launch (web)",
             "type": "coreclr",
@@ -34,7 +33,7 @@
             "request": "launch",
             "preLaunchTask": "docker-run: debug",
             "netCore": {
-                "appProject": "${workspaceFolder}/Services/User/API/API.csproj"
+                "appProject": "${workspaceFolder}/Services/Admin/API/API.csproj"
             }
         }
     ]

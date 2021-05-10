@@ -47,12 +47,12 @@
             "dockerBuild": {
                 "tag": "projectexchangeapi:dev",
                 "target": "base",
-                "dockerfile": "${workspaceFolder}/Services/User/API/Dockerfile",
+                "dockerfile": "${workspaceFolder}/Services/Admin/API/Dockerfile",
                 "context": "${workspaceFolder}",
                 "pull": true
             },
             "netCore": {
-                "appProject": "${workspaceFolder}/Services/User/API/API.csproj"
+                "appProject": "${workspaceFolder}/Services/Admin/API/API.csproj"
             }
         },
         {
@@ -63,12 +63,12 @@
             ],
             "dockerBuild": {
                 "tag": "projectexchangeapi:latest",
-                "dockerfile": "${workspaceFolder}/Services/User/API/Dockerfile",
+                "dockerfile": "${workspaceFolder}/Services/Admin/API/Dockerfile",
                 "context": "${workspaceFolder}",
                 "pull": true
             },
             "netCore": {
-                "appProject": "${workspaceFolder}/Services/User/API/API.csproj"
+                "appProject": "${workspaceFolder}/Services/Admin/API/API.csproj"
             }
         },
         {
@@ -79,7 +79,7 @@
             ],
             "dockerRun": {},
             "netCore": {
-                "appProject": "${workspaceFolder}/Services/User/API/API.csproj",
+                "appProject": "${workspaceFolder}/Services/Admin/API/API.csproj",
                 "enableDebugging": true
             }
         },
@@ -91,7 +91,7 @@
             ],
             "dockerRun": {},
             "netCore": {
-                "appProject": "${workspaceFolder}/Services/User/API/API.csproj"
+                "appProject": "${workspaceFolder}/Services/Admin/API/API.csproj"
             }
         }
     ]
