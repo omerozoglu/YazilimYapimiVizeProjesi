@@ -25,7 +25,7 @@ namespace API.Controllers {
         #region GetCommonEntity ()
         [HttpGet]
         [ProducesResponseType (typeof (IEnumerable<CommonEntityVm>), (int) HttpStatusCode.OK)]
-        public async Task<ActionResult<IEnumerable<CommonEntityVm>>> GetCommonEntitys () {
+        public async Task<ActionResult<IEnumerable<CommonEntityVm>>> GetCommonEntities () {
             var query = new GetListCommonEntityQuery ();
             var orders = await _mediator.Send (query);
             return Ok (orders);

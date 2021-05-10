@@ -16,6 +16,7 @@ namespace Domain.Entities {
         public string TCNumber { get; set; }
         public string Phone { get; set; }
         public string Address { get; set; }
+        public double Credit { get; set; }
 
     }
 }

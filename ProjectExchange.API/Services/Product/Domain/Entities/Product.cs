@@ -6,7 +6,7 @@ namespace Domain.Entities {
         [BsonElement ("Name")]
         public string Name { get; set; }
         public string ImgUrl { get; set; }
-        public int Weight { get; set; }
+        public double Weight { get; set; }
         public int UnitPrice { get; set; }
     }
 }

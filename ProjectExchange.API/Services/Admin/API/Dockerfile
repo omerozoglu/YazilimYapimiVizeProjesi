@@ -12,6 +12,9 @@ USER appuser
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
 COPY ["Services/Admin/API/API.csproj", "Services/Admin/API/"]
+COPY ["Services/Admin/Application/Application.csproj", "Services/Admin/Application/"]
+COPY ["Services/Admin/Domain/Domain.csproj", "Services/Admin/Domain/"]
+COPY ["Services/Admin/Infrastructure/Infrastructure.csproj", "Services/Admin/Infrastructure/"]
 RUN dotnet restore "Services/Admin/API/API.csproj"
 COPY . .
 WORKDIR "/src/Services/Admin/API"
