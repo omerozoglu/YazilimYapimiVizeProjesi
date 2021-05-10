@@ -3,10 +3,10 @@ using Domain.Entities;
 using Infrastructure.Persistence;
 
 namespace Infrastructure.Repositories {
-    public class ProductRepository : MongoDbRepositoryBase<Product>, IProductRepository {
+    public class CommonEntityRepository : MongoDbRepositoryBase<CommonEntity>, ICommonEntityRepository {
 
         //* İhtiyaca yönelik Product repository
-        public ProductRepository (MongoDbProductContext context) : base (context) {
+        public CommonEntityRepository (MongoDbCommonEntityContext context) : base (context) {
 
         }
     }

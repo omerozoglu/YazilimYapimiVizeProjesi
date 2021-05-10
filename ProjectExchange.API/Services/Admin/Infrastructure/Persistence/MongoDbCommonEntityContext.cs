@@ -9,14 +9,14 @@ using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 
 namespace Infrastructure.Persistence {
-    public class MongoDbProductContext : IMongoContext<Product> {
+    public class MongoDbCommonEntityContext : IMongoContext<CommonEntity> {
 
         public IClientSessionHandle Session { get; set; }
         private readonly List<Func<Task>> _commands;
 
         #region MongoDb
         public MongoClient MongoClient { get; set; }
-        public IMongoCollection<Product> Collection { get; }
+        public IMongoCollection<CommonEntity> Collection { get; }
         private IMongoDatabase Database { get; set; }
         #endregion
 
@@ -25,11 +25,11 @@ namespace Infrastructure.Persistence {
         private readonly IConfiguration _configuration;
         #endregion
 
-        public MongoDbProductContext (IOptions<MongoDbSettings> options) {
+        public MongoDbCommonEntityContext (IOptions<MongoDbSettings> options) {
             this._settings = options.Value;
             MongoClient = new MongoClient (this._settings.ConnectionString);
             Database = MongoClient.GetDatabase (this._settings.DatabaseName);
-            Collection = Database.GetCollection<Product> (this._settings.CollectionName);
+            Collection = Database.GetCollection<CommonEntity> (this._settings.CollectionName);
 
             _commands = new List<Func<Task>> ();
         }
