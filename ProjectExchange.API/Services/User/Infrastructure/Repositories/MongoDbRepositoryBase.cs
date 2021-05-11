@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Application.Contracts.Persistence;
 using Domain.Common;
 using Infrastructure.Persistence;
+using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace Infrastructure.Repositories {

@@ -2,12 +2,12 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Contracts.Persistence;
-using Application.Models;
 using AutoMapper;
+using Domain.Entities;
 using MediatR;
 
 namespace Application.Features.Queries.GetList {
-    public class GetUsersListQueryHandler : IRequestHandler<GetUsersListQuery, List<UserVm>> {
+    public class GetUsersListQueryHandler : IRequestHandler<GetUsersListQuery, List<User>> {
 
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
@@ -17,9 +17,9 @@ namespace Application.Features.Queries.GetList {
             _mapper = mapper;
         }
 
-        public async Task<List<UserVm>> Handle (GetUsersListQuery request, CancellationToken cancellationToken) {
+        public async Task<List<User>> Handle (GetUsersListQuery request, CancellationToken cancellationToken) {
             var userList = await _userRepository.GetAllAsync ();
-            return _mapper.Map<List<UserVm>> (userList);
+            return _mapper.Map<List<User>> (userList);
         }
     }
 }

@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Application.Features.Commands.CreateCommand;
 using Application.Features.Commands.DeleteCommand;
 using Application.Features.Commands.UpdateCommand;
+using Application.Features.Commands.UpdateCommand.UpdateOneProperty;
 using Application.Features.Queries.Get;
 using Application.Features.Queries.GetList;
 using Application.Models;
@@ -62,8 +63,19 @@ namespace API.Controllers {
         [ProducesResponseType (StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
         public async Task<ActionResult> UpdateUser (UpdateUserCommand command) {
-            await _mediator.Send (command);
-            return NoContent ();
+            var result = await _mediator.Send (command);
+            return Ok (result);
+        }
+        #endregion
+        #region UpdateUser ()
+        [HttpPut]
+        [Route ("UpdateOneProp")]
+        [ProducesResponseType (StatusCodes.Status204NoContent)]
+        [ProducesResponseType (StatusCodes.Status404NotFound)]
+        [ProducesDefaultResponseType]
+        public async Task<ActionResult> UpdateUserOneProp (UpdateOnePropertyCommand command) {
+            var result = await _mediator.Send (command);
+            return Ok (result);
         }
         #endregion
 
@@ -73,8 +85,8 @@ namespace API.Controllers {
         [ProducesResponseType (StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
         public async Task<ActionResult> DeleteUser (DeleteUserCommand command) {
-            await _mediator.Send (command);
-            return NoContent ();
+            var result = await _mediator.Send (command);
+            return Ok (result);
         }
         #endregion
     }

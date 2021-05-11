@@ -6,6 +6,7 @@ using Application.Features.Commands.DeleteCommand;
 using Application.Features.Commands.UpdateCommand;
 using Application.Features.Queries.Get;
 using Application.Features.Queries.GetList;
+using Application.Features.Queries.GetList.GetProductsByName;
 using Application.Models;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -23,13 +24,24 @@ namespace API.Controllers {
             _mediator = mediator;
         }
 
-        #region GetProduct ()
+        #region GetProducts ()
         [HttpGet]
         [ProducesResponseType (typeof (IEnumerable<ProductVm>), (int) HttpStatusCode.OK)]
         public async Task<ActionResult<IEnumerable<ProductVm>>> GetProducts () {
             var query = new GetProductsListQuery ();
             var orders = await _mediator.Send (query);
             return Ok (orders);
+        }
+        #endregion
+
+        #region GetProductByName ()
+        [HttpPost]
+        [Route ("GetProductByName")]
+        [ProducesResponseType (typeof (ProductVm), (int) HttpStatusCode.OK)]
+        public async Task<ActionResult<IEnumerable<ProductVm>>> GetProductByName (ProductVm model) {
+            var query = new GetProductsByNameQuery (model);
+            var result = await _mediator.Send (query);
+            return Ok (result);
         }
         #endregion
 
@@ -62,19 +74,19 @@ namespace API.Controllers {
         [ProducesResponseType (StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
         public async Task<ActionResult> UpdateProduct (UpdateProductCommand command) {
-            await _mediator.Send (command);
-            return NoContent ();
+            var result = await _mediator.Send (command);
+            return Ok (result);
         }
         #endregion
 
         #region DeleteProduct ()
-        [HttpDelete ("{id:length(24)}", Name = "DeleteProduct")]
+        [HttpDelete]
         [ProducesResponseType (StatusCodes.Status204NoContent)]
         [ProducesResponseType (StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
         public async Task<ActionResult> DeleteProduct (DeleteProductCommand command) {
-            await _mediator.Send (command);
-            return NoContent ();
+            var result = await _mediator.Send (command);
+            return Ok (result);
         }
         #endregion
     }

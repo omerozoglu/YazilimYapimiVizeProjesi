@@ -1,14 +1,15 @@
 {
     "version": "0.2.0",
     "configurations": [
+
         {
             "name": ".NET Core Launch (web)",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/Services/User/API/bin/Debug/net5.0/API.dll",
+            "program": "${workspaceFolder}/ApiGateWays/ExchangeGateway/bin/Debug/net5.0/ExchangeGateway.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/Services/User/API",
+            "cwd": "${workspaceFolder}/ApiGateWays/ExchangeGateway/",
             "stopAtEntry": false,
             "serverReadyAction": {
                 "action": "openExternally",

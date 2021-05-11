@@ -1,9 +1,9 @@
 using System.Collections.Generic;
-using Application.Models;
+using Domain.Entities;
 using MediatR;
 
 namespace Application.Features.Queries.GetList {
-    public class GetUsersListQuery : IRequest<List<UserVm>> {
+    public class GetUsersListQuery : IRequest<List<User>> {
         //* tamamını çağırdığım için herhangi bir özelllik eklemiyorum
     }
 }

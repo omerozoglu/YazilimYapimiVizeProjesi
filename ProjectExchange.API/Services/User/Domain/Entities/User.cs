@@ -17,6 +17,7 @@ namespace Domain.Entities {
         public string Phone { get; set; }
         public string Address { get; set; }
         public double Credit { get; set; }
+        public List<string> Products { get; set; }
 
     }
 }

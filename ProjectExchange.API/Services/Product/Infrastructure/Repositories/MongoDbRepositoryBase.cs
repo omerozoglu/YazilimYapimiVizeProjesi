@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Application.Contracts.Persistence;
 using Domain.Common;
@@ -39,6 +41,10 @@ namespace Infrastructure.Repositories {
         }
         public async Task<T> DeleteAsync (string id) {
             return await _context.Collection.FindOneAndDeleteAsync (x => x.Id == id);
+        }
+
+        public async Task<IReadOnlyList<T>> GetAsync (Expression<Func<T, bool>> predicate) {
+            return await _context.Collection.Find (predicate).ToListAsync ();
         }
     }
 }

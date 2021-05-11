@@ -1,12 +1,12 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Contracts.Persistence;
-using Application.Models;
 using AutoMapper;
+using Domain.Entities;
 using MediatR;
 
 namespace Application.Features.Queries.Get {
-    public class GetUserQueryHandler : IRequestHandler<GetUserQuery, UserVm> {
+    public class GetUserQueryHandler : IRequestHandler<GetUserQuery, User> {
 
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
@@ -16,9 +16,9 @@ namespace Application.Features.Queries.Get {
             _mapper = mapper;
         }
 
-        public async Task<UserVm> Handle (GetUserQuery request, CancellationToken cancellationToken) {
+        public async Task<User> Handle (GetUserQuery request, CancellationToken cancellationToken) {
             var user = await _userRepository.GetByIdAsync (request.Id);
-            return _mapper.Map<UserVm> (user);
+            return _mapper.Map<User> (user);
         }
     }
 }
