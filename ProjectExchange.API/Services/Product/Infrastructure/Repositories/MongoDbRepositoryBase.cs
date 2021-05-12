@@ -23,28 +23,28 @@ namespace Infrastructure.Repositories {
         public async Task<T> GetByIdAsync (string id) {
             return await _context.Collection.Find (x => x.Id == id).FirstOrDefaultAsync ();
         }
+        public async Task<IReadOnlyList<T>> GetAsync (Expression<Func<T, bool>> predicate) {
+            return await _context.Collection.Find (predicate).ToListAsync ();
+        }
         public async Task<T> AddAsync (T entity) {
             var options = new InsertOneOptions { BypassDocumentValidation = false };
-            _context.AddCommand (() => _context.Collection.InsertOneAsync (entity, options));
-            await _context.SaveChangesAsync ();
+            entity.CreatedDate = DateTime.UtcNow;
+            await _context.Collection.InsertOneAsync (entity, options);
             return entity;
         }
         public async Task<T> UpdateAsync (T entity) {
-            _context.AddCommand (() => _context.Collection.FindOneAndReplaceAsync (x => x.Id == entity.Id, entity));
-            await _context.SaveChangesAsync ();
+            entity.LastModifiedBy = entity.Id;
+            entity.LastModifiedDate = DateTime.UtcNow;
+            await _context.Collection.FindOneAndReplaceAsync (x => x.Id == entity.Id, entity);
             return entity;
         }
         public async Task<T> DeleteAsync (T entity) {
-            _context.AddCommand (() => _context.Collection.FindOneAndDeleteAsync (x => x.Id == entity.Id));
-            await _context.SaveChangesAsync ();
+            await _context.Collection.FindOneAndDeleteAsync (x => x.Id == entity.Id);
             return entity;
         }
         public async Task<T> DeleteAsync (string id) {
             return await _context.Collection.FindOneAndDeleteAsync (x => x.Id == id);
         }
 
-        public async Task<IReadOnlyList<T>> GetAsync (Expression<Func<T, bool>> predicate) {
-            return await _context.Collection.Find (predicate).ToListAsync ();
-        }
     }
 }

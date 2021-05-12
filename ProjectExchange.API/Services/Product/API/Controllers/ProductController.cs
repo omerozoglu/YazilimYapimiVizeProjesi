@@ -8,6 +8,8 @@ using Application.Features.Queries.Get;
 using Application.Features.Queries.GetList;
 using Application.Features.Queries.GetList.GetProductsByName;
 using Application.Models;
+using Domain.Common;
+using Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -26,19 +28,19 @@ namespace API.Controllers {
 
         #region GetProducts ()
         [HttpGet]
-        [ProducesResponseType (typeof (IEnumerable<ProductVm>), (int) HttpStatusCode.OK)]
-        public async Task<ActionResult<IEnumerable<ProductVm>>> GetProducts () {
+        [ProducesResponseType (typeof (EntityResponse<Product>), (int) HttpStatusCode.OK)]
+        public async Task<ActionResult<EntityResponse<Product>>> GetProducts () {
             var query = new GetProductsListQuery ();
-            var orders = await _mediator.Send (query);
-            return Ok (orders);
+            var result = await _mediator.Send (query);
+            return Ok (result);
         }
         #endregion
 
         #region GetProductByName ()
         [HttpPost]
         [Route ("GetProductByName")]
-        [ProducesResponseType (typeof (ProductVm), (int) HttpStatusCode.OK)]
-        public async Task<ActionResult<IEnumerable<ProductVm>>> GetProductByName (ProductVm model) {
+        [ProducesResponseType (typeof (EntityResponse<Product>), (int) HttpStatusCode.OK)]
+        public async Task<ActionResult<EntityResponse<Product>>> GetProductByName (ProductVm model) {
             var query = new GetProductsByNameQuery (model);
             var result = await _mediator.Send (query);
             return Ok (result);
@@ -47,33 +49,29 @@ namespace API.Controllers {
 
         #region GetProduct ()
         [HttpGet ("{id:length(24)}", Name = "GetProduct")]
-        [ProducesResponseType (typeof (ProductVm), (int) HttpStatusCode.OK)]
-        public async Task<ActionResult<ProductVm>> GetProduct (string id) {
+        [ProducesResponseType (typeof (EntityResponse<Product>), (int) HttpStatusCode.OK)]
+        public async Task<ActionResult<EntityResponse<Product>>> GetProduct (string id) {
             var query = new GetProductQuery (id);
-            var orders = await _mediator.Send (query);
-            if (orders == null) {
-                return NotFound ();
-            }
-
-            return Ok (orders);
+            var result = await _mediator.Send (query);
+            return Ok (result);
         }
         #endregion
 
         #region CreaterProduct ()
         [HttpPost]
-        [ProducesResponseType (typeof (ProductVm), (int) HttpStatusCode.OK)]
-        public async Task<ActionResult<ProductVm>> CreateProduct (CreateProductCommand command) {
+        [ProducesResponseType (typeof (EntityResponse<Product>), (int) HttpStatusCode.OK)]
+        public async Task<ActionResult<EntityResponse<Product>>> CreateProduct (CreateProductCommand command) {
             var result = await _mediator.Send (command);
             return Ok (result);
         }
         #endregion
 
         #region UpdateProduct ()
-        [HttpPut (Name = "UpdateProduct")]
+        [HttpPut]
+        [ProducesResponseType (typeof (EntityResponse<Product>), (int) HttpStatusCode.OK)]
         [ProducesResponseType (StatusCodes.Status204NoContent)]
         [ProducesResponseType (StatusCodes.Status404NotFound)]
-        [ProducesDefaultResponseType]
-        public async Task<ActionResult> UpdateProduct (UpdateProductCommand command) {
+        public async Task<ActionResult<EntityResponse<Product>>> UpdateProduct (UpdateProductCommand command) {
             var result = await _mediator.Send (command);
             return Ok (result);
         }
@@ -81,10 +79,10 @@ namespace API.Controllers {
 
         #region DeleteProduct ()
         [HttpDelete]
+        [ProducesResponseType (typeof (EntityResponse<Product>), (int) HttpStatusCode.OK)]
         [ProducesResponseType (StatusCodes.Status204NoContent)]
         [ProducesResponseType (StatusCodes.Status404NotFound)]
-        [ProducesDefaultResponseType]
-        public async Task<ActionResult> DeleteProduct (DeleteProductCommand command) {
+        public async Task<ActionResult<EntityResponse<Product>>> DeleteProduct (DeleteProductCommand command) {
             var result = await _mediator.Send (command);
             return Ok (result);
         }

@@ -2,13 +2,13 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Contracts.Persistence;
-using Application.Models;
 using AutoMapper;
+using Domain.Common;
 using Domain.Entities;
 using MediatR;
 
 namespace Application.Features.Queries.GetList.GetProductsByName {
-    public class GetProductsByNameQueryHandler : IRequestHandler<GetProductsByNameQuery, List<ProductVm>> {
+    public class GetProductsByNameQueryHandler : IRequestHandler<GetProductsByNameQuery, EntityResponse<Product>> {
         private readonly IProductRepository _productRepository;
         private readonly IMapper _mapper;
 
@@ -17,11 +17,21 @@ namespace Application.Features.Queries.GetList.GetProductsByName {
             _mapper = mapper;
         }
 
-        public async Task<List<ProductVm>> Handle (GetProductsByNameQuery request, CancellationToken cancellationToken) {
+        public async Task<EntityResponse<Product>> Handle (GetProductsByNameQuery request, CancellationToken cancellationToken) {
+            var response = new EntityResponse<Product> () { ReponseName = nameof (GetProductsByNameQuery), Content = new List<Product> () { } };
             var productList = await _productRepository.GetAsync (
                 p => (p.Name == request.model.Name) && (p.UnitPrice != 0));
-
-            return _mapper.Map<List<ProductVm>> (productList);
+            _mapper.Map<List<Product>> (productList);
+            if (productList == null) {
+                response.Status = ResponseType.Error;
+                response.Message = "No products were found.";
+                response.Content = null;
+            } else {
+                response.Status = ResponseType.Success;
+                response.Message = "Products get successfully.";
+                response.Content.AddRange (productList);
+            }
+            return response;
         }
     }
 }
