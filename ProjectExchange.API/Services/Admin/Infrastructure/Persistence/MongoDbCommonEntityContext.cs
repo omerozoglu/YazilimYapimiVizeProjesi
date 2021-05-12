@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Domain.Entities;
 using Infrastructure.Utilities.AppSettings;
 using Microsoft.Extensions.Configuration;
@@ -11,13 +7,12 @@ using MongoDB.Driver;
 namespace Infrastructure.Persistence {
     public class MongoDbCommonEntityContext : IMongoContext<CommonEntity> {
 
-        public IClientSessionHandle Session { get; set; }
-        private readonly List<Func<Task>> _commands;
+        //* MongoDbUserContext, MongoDb için gerekli ayarlamaları yapması ve asenkron bir şekilde komutları yürüttmesi için tasarlanmıştır
 
         #region MongoDb
-        public MongoClient MongoClient { get; set; }
         public IMongoCollection<CommonEntity> Collection { get; }
-        private IMongoDatabase Database { get; set; }
+        private readonly MongoClient _mongoClient;
+        private readonly IMongoDatabase _database;
         #endregion
 
         #region Settings
@@ -27,28 +22,9 @@ namespace Infrastructure.Persistence {
 
         public MongoDbCommonEntityContext (IOptions<MongoDbSettings> options) {
             this._settings = options.Value;
-            MongoClient = new MongoClient (this._settings.ConnectionString);
-            Database = MongoClient.GetDatabase (this._settings.DatabaseName);
-            Collection = Database.GetCollection<CommonEntity> (this._settings.CollectionName);
-
-            _commands = new List<Func<Task>> ();
-        }
-
-        public async Task<int> SaveChangesAsync () {
-            using (Session = await MongoClient.StartSessionAsync ()) {
-                Session.StartTransaction ();
-
-                var commandTasks = _commands.Select (c => c ());
-
-                await Task.WhenAll (commandTasks);
-
-                await Session.CommitTransactionAsync ();
-            }
-
-            return _commands.Count;
-        }
-        public void AddCommand (Func<Task> func) {
-            _commands.Add (func);
+            _mongoClient = new MongoClient (this._settings.ConnectionString);
+            _database = _mongoClient.GetDatabase (this._settings.DatabaseName);
+            Collection = _database.GetCollection<CommonEntity> (this._settings.CollectionName);
         }
     }
 }

@@ -1,12 +1,14 @@
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Contracts.Persistence;
 using AutoMapper;
+using Domain.Common;
 using Domain.Entities;
 using MediatR;
 
 namespace Application.Features.Commands.CreateCommand {
-    public class CreateCommonEntityCommandHandler : IRequestHandler<CreateCommonEntityCommand, bool> {
+    public class CreateCommonEntityCommandHandler : IRequestHandler<CreateCommonEntityCommand, EntityResponse<CommonEntity>> {
 
         private readonly ICommonEntityRepository _commonEntityRepository;
         private readonly IMapper _mapper;
@@ -16,13 +18,20 @@ namespace Application.Features.Commands.CreateCommand {
             _mapper = mapper;
         }
 
-        public async Task<bool> Handle (CreateCommonEntityCommand request, CancellationToken cancellationToken) {
+        public async Task<EntityResponse<CommonEntity>> Handle (CreateCommonEntityCommand request, CancellationToken cancellationToken) {
+            var response = new EntityResponse<CommonEntity> () { ReponseName = nameof (CreateCommonEntityCommand), Content = new List<CommonEntity> () { } };
             var commonEntity = _mapper.Map<CommonEntity> (request);
             var newCommonEntity = await _commonEntityRepository.AddAsync (commonEntity);
-            if (newCommonEntity == null)
-                return false;
-
-            return true;
+            if (newCommonEntity == null) {
+                response.Status = ResponseType.Error;
+                response.Message = "CommonEntity could not be created.";
+                response.Content = null;
+            } else {
+                response.Status = ResponseType.Success;
+                response.Message = "CommonEntity created successfully.";
+                response.Content.Add (newCommonEntity);
+            }
+            return response;
         }
     }
 }
