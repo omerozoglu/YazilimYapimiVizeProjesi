@@ -5,5 +5,6 @@ namespace ExchangeGateway.Services {
     public interface ICommonEntityService {
         Task<CommonEntityModel> GetCommonEntity (string id);
         Task<bool> UpdateCommonEntity (CommonEntityModel model);
+        Task<bool> CreateCommonEntity (CommonEntityModel model);
     }
 }

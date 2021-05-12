@@ -125,5 +125,86 @@ namespace ExchangeGateway.Controllers {
 
             return true;
         }
+
+        [HttpPost]
+        [Route ("ProductLoadOperation")]
+        [ProducesResponseType (StatusCodes.Status204NoContent)]
+        [ProducesResponseType (StatusCodes.Status404NotFound)]
+        [ProducesDefaultResponseType]
+        public async Task<ActionResult<bool>> ProductLoadOperation (LoadProductModel model) {
+            var product = new ProductModel () { Id = null, Name = model.ProductName, Weight = model.ProductWeight, ImgUrl = model.ProductImgUrl, UnitPrice = 0 };
+            var newProduct = await _productService.CreateProduct (product);
+            var commonEntity = new CommonEntityModel () { Id = null, UserId = model.UserId, ProductId = newProduct.Id, Type = "Load Operation", Status = "Pending" };
+            //* Admin onayına gitmesi için istek oluşturuldu
+            await _commonEntityService.CreateCommonEntity (commonEntity);
+            return true;
+        }
+
+        [HttpPost]
+        [Route ("MoneyDepositOperation")]
+        [ProducesResponseType (StatusCodes.Status204NoContent)]
+        [ProducesResponseType (StatusCodes.Status404NotFound)]
+        [ProducesDefaultResponseType]
+        public async Task<ActionResult<bool>> MoneyDepositOperation (MoneyDepositModel model) {
+            var commonEntity = new CommonEntityModel () { Id = null, UserId = model.UserId, Deposite = model.Deposite, ProductId = null, Type = "Deposit Money Operation", Status = "Pending" };
+            //* Admin onayına gitmesi için istek oluşturuldu
+            await _commonEntityService.CreateCommonEntity (commonEntity);
+            return true;
+        }
+
+        [HttpPut]
+        [Route ("ProductLoadOperation")]
+        [ProducesResponseType (StatusCodes.Status204NoContent)]
+        [ProducesResponseType (StatusCodes.Status404NotFound)]
+        [ProducesDefaultResponseType]
+        public async Task<ActionResult<bool>> UpdateProductLoadOperation (CommonEntityModel model) {
+            if (model.Status == "Denied") {
+                //* User Bilgilendirme::: Durum başarısız daha sonra yapacağım
+                //* product sil 
+                return false;
+            }
+            #region Approved 
+            var user = await _userService.GetUser (model.UserId);
+            var product = await _productService.GetProduct (model.ProductId);
+            var IsThereProduct = false;
+            foreach (var item in user.Products) {
+                var _product = await _productService.GetProduct (item);
+                if (_product.Name == product.Name) {
+                    _product.Weight += product.Weight;
+                    await _productService.UpdateProduct (_product);
+                    IsThereProduct = false;
+                    break;
+                } else {
+                    IsThereProduct = true;
+                }
+            }
+            if (IsThereProduct) {
+                user.Products.Add (product.Id);
+            }
+            #endregion
+            model.Status = "Approved";
+            await _commonEntityService.UpdateCommonEntity (model);
+            return true;
+        }
+
+        [HttpPut]
+        [Route ("MoneyDepositOperation")]
+        [ProducesResponseType (StatusCodes.Status204NoContent)]
+        [ProducesResponseType (StatusCodes.Status404NotFound)]
+        [ProducesDefaultResponseType]
+        public async Task<ActionResult<bool>> UpdteMoneyDepositOperation (CommonEntityModel model) {
+            if (model.Status == "Denied") {
+                //* User Bilgilendirme::: Durum başarısız daha sonra yapacağım
+                return false;
+            }
+            var commonEntity = await _commonEntityService.GetCommonEntity (model.Id);
+            var user = await _userService.GetUser (commonEntity.UserId);
+            user.Credit += commonEntity.Deposite;
+            await _userService.UpdateUser (user);
+            commonEntity.Status = "Approved";
+            await _commonEntityService.UpdateCommonEntity (commonEntity);
+            return true;
+        }
+
     }
 }

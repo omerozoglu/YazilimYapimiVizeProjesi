@@ -15,6 +15,10 @@ namespace ExchangeGateway.Services {
             var response = await _client.GetAsync ($"/api/v1/Admin/{id}");
             return await response.ReadContentAs<CommonEntityModel> ();
         }
+        public async Task<bool> CreateCommonEntity (CommonEntityModel model) {
+            var response = await _client.PostAsJsonAsync ("/api/v1/Admin", model);
+            return await response.ReadContentAs<bool> ();
+        }
 
         public async Task<bool> UpdateCommonEntity (CommonEntityModel model) {
             var response = await _client.PutAsJsonAsync<CommonEntityModel> ("/api/v1/Admin", model);
