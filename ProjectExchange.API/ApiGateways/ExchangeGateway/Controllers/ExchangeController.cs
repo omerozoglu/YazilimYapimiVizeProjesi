@@ -38,7 +38,7 @@ namespace ExchangeGateway.Controllers {
 
             var currentProducList = new List<ProductModel> ();
 
-            //*Fiyat hesaplayıcı
+            #region Fiyat hesaplayıcı
             foreach (var item in productList) {
                 currentProducList.Add (item);
                 _price += item.UnitPrice;
@@ -50,10 +50,10 @@ namespace ExchangeGateway.Controllers {
             }
             if (totalprice > credit)
                 return false;
-
+            #endregion
             //*son item e kadar ağırlıkları 0 yap ve sil son item durumua göre azalt yada sil
 
-            //*Ürün ağırlığı güncelleme
+            #region Ürün ağırlığı güncelleme
             double balance = productWeight;
             foreach (var item in currentProducList) {
 
@@ -66,11 +66,13 @@ namespace ExchangeGateway.Controllers {
                     //* 0 olanı sil
                 }
             }
+            #endregion
 
-            //*Kullanıcı bakiye güncelleme
+            #region Kullanıcı bakiye güncelleme
             user.Credit -= totalprice;
+            #endregion
 
-            //*Kullanıcı products güncelleme
+            #region Kullanıcı products güncelleme
             var IsThereProduct = false;
             foreach (var userProductId in user.Products) {
                 var userProduct = await _productService.GetProduct (userProductId);
@@ -89,6 +91,38 @@ namespace ExchangeGateway.Controllers {
             }
 
             await _userService.UpdateUser (user);
+            #endregion
+
+            return true;
+        }
+
+        [HttpPut]
+        [Route ("SellOperation")]
+        [ProducesResponseType (StatusCodes.Status204NoContent)]
+        [ProducesResponseType (StatusCodes.Status404NotFound)]
+        [ProducesDefaultResponseType]
+        public async Task<ActionResult<bool>> SellOperation (SellerModel model) {
+            double totalprice = 0;
+
+            var user = await _userService.GetUser (model.UserId);
+
+            var product = await _productService.GetProduct (model.ProductId);
+            var productWeight = model.Weight;
+            var productUnitPrice = model.UnitPrice;
+            //* Toplam satış değeri hesaplama
+            totalprice = productWeight * productUnitPrice;
+
+            //* Ürün kilo güncelleme
+            product.Weight -= productWeight;
+            if (product.Weight <= 0) { }
+            //* silme işlemi
+
+            await _productService.UpdateProduct (product);
+
+            //* Kullanıcı bakiye güncelleme
+            user.Credit += totalprice;
+            await _userService.UpdateUser (user);
+
             return true;
         }
     }
