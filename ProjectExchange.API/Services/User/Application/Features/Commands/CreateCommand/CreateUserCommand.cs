@@ -1,8 +1,8 @@
 using Application.Models;
+using Domain.Common;
+using Domain.Entities;
 using MediatR;
 
 namespace Application.Features.Commands.CreateCommand {
-    public class CreateUserCommand : UserVm, IRequest<bool> {
-        protected string Id { get; }
-    }
+    public class CreateUserCommand : UserVm, IRequest<EntityResponse<User>> { }
 }

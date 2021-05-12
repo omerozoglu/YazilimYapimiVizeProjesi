@@ -3,11 +3,12 @@ using System.Threading;
 using System.Threading.Tasks;
 using Application.Contracts.Persistence;
 using AutoMapper;
+using Domain.Common;
 using Domain.Entities;
 using MediatR;
 
 namespace Application.Features.Queries.GetList {
-    public class GetUsersListQueryHandler : IRequestHandler<GetUsersListQuery, List<User>> {
+    public class GetUsersListQueryHandler : IRequestHandler<GetUsersListQuery, EntityResponse<User>> {
 
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
@@ -17,9 +18,20 @@ namespace Application.Features.Queries.GetList {
             _mapper = mapper;
         }
 
-        public async Task<List<User>> Handle (GetUsersListQuery request, CancellationToken cancellationToken) {
+        public async Task<EntityResponse<User>> Handle (GetUsersListQuery request, CancellationToken cancellationToken) {
+            var response = new EntityResponse<User> () { ReponseName = nameof (GetUsersListQuery), Content = new List<User> () { } };
             var userList = await _userRepository.GetAllAsync ();
-            return _mapper.Map<List<User>> (userList);
+            _mapper.Map<List<User>> (userList);
+            if (userList == null) {
+                response.Status = ResponseType.Error;
+                response.Message = "No users were found .";
+                response.Content = null;
+            } else {
+                response.Status = ResponseType.Success;
+                response.Message = "Users get successfully.";
+                response.Content.AddRange (userList);
+            }
+            return response;
         }
     }
 }
