@@ -1,0 +1,83 @@
+/* You can add global styles to this file, and also import other style files */
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #707070;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #ffff;
+  margin: 0;
+}
+
+h2 {
+  font-size: 3rem;
+  font-weight: 200;
+}
+
+h3 {
+  font-size: 2.5rem;
+}
+
+h4 {
+  font-size: 1rem;
+}
+
+p {
+  font-weight: 500;
+  color: #707070;
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none !important;
+}
+
+a:hover,
+a:visited {
+  color: unset;
+}
+
+input {
+  font-size: 16px;
+  font-weight: bold;
+  color: #707070;
+}
+
+button {
+  border: none;
+  border-radius: 15px;
+  -webkit-box-shadow: 0px 3px 10px 0px #707070;
+          box-shadow: 0px 3px 10px 0px #707070;
+  text-transform: uppercase;
+  background-color: white;
+  cursor: pointer;
+  color: #707070;
+}
+
+button:hover {
+  background-color: #d6f1f6;
+}
+
+input:focus,
+select:focus,
+option:focus,
+textarea:focus,
+button:focus {
+  outline: none !important;
+  -webkit-box-shadow: none !important;
+          box-shadow: none !important;
+}
+/*# sourceMappingURL=styles.css.map */
