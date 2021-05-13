@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -6,10 +7,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+  public ProjectName = "Project: Exchange v1";
+  public isAuthenticated: boolean;
 
-  constructor() { }
-
+  constructor() {
+    //this.isAuthenticated = this.authenticationService.isAuthenticated();
+    this.isAuthenticated = true;
+  }
   ngOnInit(): void {
   }
 
+  logout() {
+    this.isAuthenticated = false;
+  }
 }

@@ -1,0 +1,43 @@
+header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  background-color: #6dc5ec;
+}
+
+header nav {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 80%;
+  margin: auto;
+  min-height: 8vh;
+}
+
+header nav ul {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  font-size: 1rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+header nav ul li {
+  margin: 0 0.5rem;
+}
+
+header nav ul li:hover {
+  color: #707070;
+}
+/*# sourceMappingURL=header.component.css.map */

@@ -1,25 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300&display=swap");
-
-$themeColor: (
-  "p": #6dc5ec,
-  "ps": #d6f1f6,
-  "s": #d6f1f6,
-  "t": #707070,
-  "gray": #aeaeae,
-  "white": #ffff,
-  "red": #f16b6b,
-  "green": #76d173,
-);
-
-$ThemeFontFamily: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-
-@mixin font($fs: null, $fw: null, $fa: null, $fst: null) {
-  font-size: $fs;
-  font-weight: $fw;
-  text-align: $fa;
-  font-style: $fst;
-}
+@import "./assets/styles/settings/variables";
 
 * {
   margin: 0;
