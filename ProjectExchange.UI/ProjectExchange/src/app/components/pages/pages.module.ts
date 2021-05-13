@@ -1,10 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { PagesRoutingModule } from './pages-routing.module';
 import { HomeComponent } from './home/home.component';
-import { ProductsModule } from './products/products.module';
 import { AccountModule } from './account/account.module';
+import { ProductModule } from './product/products.module';
 
 
 @NgModule({
@@ -14,8 +13,8 @@ import { AccountModule } from './account/account.module';
   imports: [
     CommonModule,
     PagesRoutingModule,
-    ProductsModule,
     AccountModule,
-  ],exports:[ HomeComponent]
+    ProductModule
+  ], exports: [HomeComponent]
 })
 export class PagesModule { }

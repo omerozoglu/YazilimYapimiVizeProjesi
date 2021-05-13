@@ -10,6 +10,7 @@ body {
   font-size: 1rem;
   font-weight: 500;
   color: #707070;
+  background-color: #d6f1f6;
 }
 
 h1 {
@@ -20,12 +21,14 @@ h1 {
 }
 
 h2 {
-  font-size: 3rem;
-  font-weight: 200;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #707070;
 }
 
 h3 {
-  font-size: 2.5rem;
+  font-size: 1.2rem;
+  font-weight: bold;
 }
 
 h4 {
@@ -79,5 +82,30 @@ button:focus {
   outline: none !important;
   -webkit-box-shadow: none !important;
           box-shadow: none !important;
+}
+
+.body {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.body .container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  background-color: #ffff;
+  -webkit-box-shadow: 0px 3px 10px 0px #707070;
+          box-shadow: 0px 3px 10px 0px #707070;
+  border-radius: 20px;
 }
 /*# sourceMappingURL=styles.css.map */

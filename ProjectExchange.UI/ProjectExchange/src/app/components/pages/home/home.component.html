@@ -1,1 +1,62 @@
-<p>home works!</p>
+<div class="body">
+  <div class="container">
+    <h2>Operations</h2>
+    <div class="content">
+      <a href="">
+        <div class="container">
+          <div class="content">
+            <img
+              src="https://i.ibb.co/LzB4fbD/icons8-farmer-100.png"
+              alt="SellOperation"
+            />
+          </div>
+
+          <h3>Sell Product</h3>
+        </div>
+      </a>
+      <a href="">
+        <div class="container">
+          <div class="content">
+            <img
+              src="https://i.ibb.co/7JNSx2R/icons8-farm-100.png"
+              alt="TakeOperation"
+            />
+          </div>
+          <h3>Take Product</h3>
+        </div>
+      </a>
+      <a href="">
+        <div class="container">
+          <div class="content">
+            <img
+              src="https://i.ibb.co/jznJdCP/icons8-sales-performance-100.png"
+              alt="MoneyDepositOperation"
+            />
+          </div>
+          <h3>Deposit Money</h3>
+        </div>
+      </a>
+      <a href="">
+        <div class="container">
+          <div class="content">
+            <img
+              src="https://i.ibb.co/P5R4CPK/icons8-new-product-100.png"
+              alt="LoadOperaiton"
+            />
+          </div>
+          <h3>Load Product</h3>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <div class="container">
+    <h2>Products</h2>
+    <div class="content">
+      <app-product
+        *ngFor="let product of products; index as id"
+        [Product]="product"
+      ></app-product>
+    </div>
+  </div>
+</div>
