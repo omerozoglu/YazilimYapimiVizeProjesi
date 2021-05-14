@@ -1,8 +1,9 @@
 {
     "version": 3,
-    "mappings": "",
+    "mappings": "AAEA,AAAA,KAAK,CAAC;EACJ,OAAO,EAAE,IAAI;EACb,cAAc,EAAE,MAAM;EACtB,WAAW,EAAE,MAAM;EACnB,KAAK,EAAE,GAAG;EACV,MAAM,EAAE,MAAM;CAOf;;AAZD,AAME,KANG,CAMH,UAAU,CAAC;EACT,OAAO,EAAE,IAAI;EACb,gBAAgB,ECJT,KAAK;EDKZ,UAAU,EAAE,GAAG,CAAC,GAAG,CAAC,IAAI,CAAC,GAAG,CCPzB,OAAO;EDQV,aAAa,EAAE,IAAI;CACpB",
     "sources": [
-        "app.component.scss"
+        "app.component.scss",
+        "../assets/styles/settings/_variables.scss"
     ],
     "names": [],
     "file": "app.component.css"

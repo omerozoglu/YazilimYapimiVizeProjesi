@@ -106,6 +106,6 @@ button:focus {
   background-color: #ffff;
   -webkit-box-shadow: 0px 3px 10px 0px #707070;
           box-shadow: 0px 3px 10px 0px #707070;
-  border-radius: 20px;
+  border-radius: 10px;
 }
 /*# sourceMappingURL=styles.css.map */
