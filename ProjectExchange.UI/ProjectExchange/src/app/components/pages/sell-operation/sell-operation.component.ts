@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-sell-operation',
@@ -7,7 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SellOperationComponent implements OnInit {
 
-  constructor() { }
+  @Output() OperationName: string = "Sell";
+  constructor() {
+
+  }
 
   ngOnInit(): void {
   }
