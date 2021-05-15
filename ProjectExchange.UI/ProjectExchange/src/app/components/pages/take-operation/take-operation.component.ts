@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-take-operation',
@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./take-operation.component.scss']
 })
 export class TakeOperationComponent implements OnInit {
-
+  @Output() OperationName: string = "Take";
   constructor() { }
 
   ngOnInit(): void {
