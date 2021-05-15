@@ -1,14 +1,20 @@
 <div class="container">
   <div>
     <p>{{ Product.Name }}</p>
-    <div (click)="isClick = true" *ngIf="!isClick">
+    <div
+      (click)="
+        isClick =
+          OperationName != null && OperationName != 'Load' ? true : false
+      "
+      *ngIf="!isClick"
+    >
       <img src="{{ Product.ImgUrl }}" alt="Productimg" />
-      <div class="row">
+      <div class="row" *ngIf="OperationName != 'Load'">
         <p>{{ Product.Weight }}</p>
         <p>{{ Product.UnitPrice }}</p>
       </div>
     </div>
-    <div *ngIf="isClick">
+    <div *ngIf="OperationName != null && isClick">
       <form action="action" method="post">
         <div class="form-item">
           <input type="" name="weight" autocomplete="off" required />
@@ -16,7 +22,7 @@
             <span class="content-name">Weight (KG)</span>
           </label>
         </div>
-        <div *ngIf="isOperationSell" class="form-item">
+        <div *ngIf="OperationName == 'Sell'" class="form-item">
           <input type="" name="weight" autocomplete="off" required />
           <label for="weight" class="label-name">
             <span class="content-name">Weight (KG)</span>

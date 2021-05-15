@@ -15,10 +15,9 @@ export class ProductComponent implements OnInit {
   @Input() OperationName: string;
 
   isClick: boolean = false;
-  isOperationSell: boolean = true;
 
   constructor() { }
-  displayNone;
   ngOnInit(): void {
+
   }
 }

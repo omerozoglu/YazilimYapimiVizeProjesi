@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+
 
 @Component({
   selector: 'app-products',
@@ -32,8 +33,9 @@ export class ProductsComponent implements OnInit {
     UnitPrice: 1.5,
     ImgUrl: "https://i.ibb.co/wSxnXbT/icons8-corn-100.png"
   }];
-  constructor() { }
 
+  @Input() OperationName: string;
+  constructor() { }
   ngOnInit(): void {
   }
 

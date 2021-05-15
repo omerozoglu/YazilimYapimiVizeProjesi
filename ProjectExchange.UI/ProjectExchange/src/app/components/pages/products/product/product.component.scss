@@ -10,10 +10,6 @@
   height: 200px;
   padding: 0 10px;
   margin: 25px;
-  .row {
-    display: flex;
-    justify-content: space-evenly;
-  }
   p {
     @include font(16px, bold);
     padding: 12px 50px;
