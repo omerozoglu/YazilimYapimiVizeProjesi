@@ -1,0 +1,111 @@
+.flat {
+  background-color: unset;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+
+.container {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  text-align: center;
+}
+
+.container h2 {
+  text-align: left;
+}
+
+.container .content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.container form {
+  width: 20vw;
+}
+
+.container form .form-item {
+  position: relative;
+  margin-top: 10px;
+  width: 100%;
+}
+
+.container form .form-item .content-name {
+  position: absolute;
+  bottom: 10px;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+.container form .form-item input {
+  width: 95%;
+  height: 100%;
+  padding: 20px 0 5px 5%;
+  border: none;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  border-radius: 10px;
+}
+
+.container form .form-item label {
+  position: absolute;
+  text-align: start;
+  bottom: 0;
+  left: 0;
+  width: 95%;
+  padding-left: 5%;
+  height: 100%;
+  pointer-events: none;
+  -webkit-box-shadow: 0px 3px 10px 0px #707070;
+          box-shadow: 0px 3px 10px 0px #707070;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: bold;
+  color: #aeaeae;
+  text-transform: uppercase;
+}
+
+.container form .form-item input:focus + .label-name .content-name,
+.container form .form-item input:valid + .label-name .content-name {
+  -webkit-transform: translateY(-100%);
+          transform: translateY(-100%);
+  font-size: 10px;
+}
+
+.container form button {
+  width: 100%;
+  height: 40px;
+  margin-top: 1rem;
+  border: none;
+  border-radius: 10px;
+  -webkit-box-shadow: 0px 3px 10px 0px #707070;
+          box-shadow: 0px 3px 10px 0px #707070;
+  font-size: 16px;
+  font-weight: bold;
+  text-transform: uppercase;
+  background-color: white;
+  cursor: pointer;
+}
+
+.container form button:hover {
+  background-color: #d6f1f6;
+}
+
+.container .Info {
+  width: 20vw;
+  height: 20vw;
+  margin: 20px;
+}
+/*# sourceMappingURL=money-deposit-operation.component.css.map */
