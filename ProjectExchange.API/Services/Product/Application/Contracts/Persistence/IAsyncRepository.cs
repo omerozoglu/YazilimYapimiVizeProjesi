@@ -9,7 +9,8 @@ namespace Application.Contracts.Persistence {
         //* IAsyncRepository servisde oluşacak olası tüm Repositorylerin sahip olması gereken metodları taşır.
         Task<IReadOnlyList<T>> GetAllAsync ();
         Task<T> GetByIdAsync (string id);
-        Task<IReadOnlyList<T>> GetAsync (Expression<Func<T, bool>> predicate);
+        Task<IReadOnlyList<T>> GetListAsync (Expression<Func<T, bool>> predicate);
+        Task<T> GetAsync (Expression<Func<T, bool>> predicate);
         Task<T> AddAsync (T entity);
         Task<T> UpdateAsync (T entity);
         Task<T> DeleteAsync (T entity);

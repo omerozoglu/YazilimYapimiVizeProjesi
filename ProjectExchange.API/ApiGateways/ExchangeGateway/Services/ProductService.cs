@@ -3,6 +3,8 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using ExchangeGateway.Extensions;
 using ExchangeGateway.Models;
+using ExchangeGateway.Models.EntityModels;
+using ExchangeGateway.Services.Interfaces;
 
 namespace ExchangeGateway.Services {
     public class ProductService : IProductService {
@@ -12,24 +14,21 @@ namespace ExchangeGateway.Services {
         public ProductService (HttpClient client) {
             _client = client;
         }
-
-        public async Task<ProductModel> GetProduct (string id) {
+        public async Task<ResponseModel<Product>> GetProduct (string id) {
             var response = await _client.GetAsync ($"/api/v1/Product/{id}");
-            return await response.ReadContentAs<ProductModel> ();
+            return await response.ReadContentAs<ResponseModel<Product>> ();
         }
-
-        public async Task<IEnumerable<ProductModel>> GetProductsByName (ProductModel model) {
-            var response = await _client.PostAsJsonAsync<ProductModel> ($"/api/v1/Product/GetProductByName", model);
-            return await response.ReadContentListAs<ProductModel> ();
+        public async Task<ResponseModel<Product>> GetProductsByName (Product model) {
+            var response = await _client.PostAsJsonAsync<Product> ($"/api/v1/Product/GetProductByName", model);
+            return await response.ReadContentAs<ResponseModel<Product>> ();
         }
-        public async Task<ProductModel> CreateProduct (ProductModel model) {
-            var response = await _client.PostAsJsonAsync<ProductModel> ($"/api/v1/Product", model);
-            return await response.ReadContentAs<ProductModel> ();;
+        public async Task<ResponseModel<Product>> CreateProduct (Product model) {
+            var response = await _client.PostAsJsonAsync<Product> ($"/api/v1/Product", model);
+            return await response.ReadContentAs<ResponseModel<Product>> ();;
         }
-
-        public async Task<bool> UpdateProduct (ProductModel model) {
-            var response = await _client.PutAsJsonAsync<ProductModel> ("/api/v1/Product", model);
-            return await response.ReadContentAs<bool> ();
+        public async Task<ResponseModel<Product>> UpdateProduct (Product model) {
+            var response = await _client.PutAsJsonAsync<Product> ("/api/v1/Product", model);
+            return await response.ReadContentAs<ResponseModel<Product>> ();
         }
     }
 }

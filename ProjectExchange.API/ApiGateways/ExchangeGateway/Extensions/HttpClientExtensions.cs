@@ -12,17 +12,8 @@ namespace ExchangeGateway.Extensions {
             if (!response.IsSuccessStatusCode)
                 throw new ApplicationException ($"Something went wrong calling the API: {response.ReasonPhrase}");
 
-            string dataAsString = await response.Content.ReadAsStringAsync ().ConfigureAwait (false);
-            return JsonSerializer.Deserialize<T> (dataAsString, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-        }
-        public static async Task<List<T>> ReadContentListAs<T> (this HttpResponseMessage response) {
-            if (!response.IsSuccessStatusCode)
-                throw new ApplicationException ($"Something went wrong calling the API: {response.ReasonPhrase}");
-
-            var dataAsString = await response.Content.ReadAsStringAsync ().ConfigureAwait (false);
-            return JsonConvert.DeserializeObject<List<T>> (dataAsString);
-
-            // return JsonSerializer.Deserialize<List<T>> (dataAsString, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+            string dataAsString = await response.Content.ReadAsStringAsync ();
+            return JsonConvert.DeserializeObject<T> (dataAsString);
         }
 
         public static Task<HttpResponseMessage> PostAsJsonAsync<T> (this HttpClient httpClient, string url, T data) {

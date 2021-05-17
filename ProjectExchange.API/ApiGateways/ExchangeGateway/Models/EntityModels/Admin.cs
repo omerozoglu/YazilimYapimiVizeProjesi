@@ -1,5 +1,5 @@
-namespace ExchangeGateway.Models {
-    public class CommonEntityModel {
+namespace ExchangeGateway.Models.EntityModels {
+    public class Admin {
         public string Id { get; set; }
         public string UserId { get; set; }
         public double Deposite { get; set; }

@@ -7,6 +7,7 @@ using Application.Features.Commands.UpdateCommand;
 using Application.Features.Queries.Get;
 using Application.Features.Queries.GetList;
 using Application.Features.Queries.GetList.GetProductsByName;
+using Application.Features.Queries.GetList.GetProductsUser;
 using Application.Models;
 using Domain.Common;
 using Domain.Entities;
@@ -36,6 +37,36 @@ namespace API.Controllers {
         }
         #endregion
 
+        #region GetProduct ()
+        [HttpGet ("{id:length(24)}", Name = "GetProduct")]
+        [ProducesResponseType (typeof (EntityResponse<Product>), (int) HttpStatusCode.OK)]
+        public async Task<ActionResult<EntityResponse<Product>>> GetProduct (string id) {
+            var query = new GetProductQuery (id);
+            var result = await _mediator.Send (query);
+            return Ok (result);
+        }
+        #endregion
+
+        #region GetGroupedProducts ()
+        [HttpGet ("GetGroupedProducts")]
+        [ProducesResponseType (typeof (EntityResponse<Product>), (int) HttpStatusCode.OK)]
+        public async Task<ActionResult<EntityResponse<Product>>> GetGroupedProducts () {
+            var query = new GetAllGroupedQuery ();
+            var result = await _mediator.Send (query);
+            return Ok (result);
+        }
+        #endregion
+
+        #region GetProductUser ()
+        [HttpPost ("GetProductUser")]
+        [ProducesResponseType (typeof (EntityResponse<Product>), (int) HttpStatusCode.OK)]
+        public async Task<ActionResult<EntityResponse<Product>>> GetProductUser (List<string> ids) {
+            var query = new GetProductsUserQuery (ids);
+            var result = await _mediator.Send (query);
+            return Ok (result);
+        }
+        #endregion
+
         #region GetProductByName ()
         [HttpPost]
         [Route ("GetProductByName")]
@@ -47,17 +78,7 @@ namespace API.Controllers {
         }
         #endregion
 
-        #region GetProduct ()
-        [HttpGet ("{id:length(24)}", Name = "GetProduct")]
-        [ProducesResponseType (typeof (EntityResponse<Product>), (int) HttpStatusCode.OK)]
-        public async Task<ActionResult<EntityResponse<Product>>> GetProduct (string id) {
-            var query = new GetProductQuery (id);
-            var result = await _mediator.Send (query);
-            return Ok (result);
-        }
-        #endregion
-
-        #region CreaterProduct ()
+        #region CreateProduct ()
         [HttpPost]
         [ProducesResponseType (typeof (EntityResponse<Product>), (int) HttpStatusCode.OK)]
         public async Task<ActionResult<EntityResponse<Product>>> CreateProduct (CreateProductCommand command) {

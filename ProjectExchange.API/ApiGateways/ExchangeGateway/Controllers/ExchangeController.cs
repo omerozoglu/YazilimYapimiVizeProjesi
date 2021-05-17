@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using ExchangeGateway.Models;
-using ExchangeGateway.Services;
+using ExchangeGateway.Models.EntityModels;
+using ExchangeGateway.Models.OperationModels;
+using ExchangeGateway.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,6 +11,7 @@ namespace ExchangeGateway.Controllers {
     [ApiController]
     [Route ("api/v1/[controller]")]
     public class ExchangeController : ControllerBase {
+
         private readonly IUserService _userService;
         private readonly IProductService _productService;
         private readonly ICommonEntityService _commonEntityService;
@@ -24,19 +27,24 @@ namespace ExchangeGateway.Controllers {
         [ProducesResponseType (StatusCodes.Status204NoContent)]
         [ProducesResponseType (StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
-        public async Task<ActionResult<bool>> TakeOperation (TakerModel model) {
+        public async Task<ActionResult<ResponseModel<User>>> TakeOperation (TakerModel model) {
+            var response = new ResponseModel<User> () { ReponseName = nameof (SellOperation) };
 
             double _price = 0, _weight = 0, totalprice = 0;
 
-            var user = await _userService.GetUser (model.UserId);
+            var userResponse = await _userService.GetUser (model.UserId);
+            var user = userResponse.Content.Find (p => p.Id == model.UserId);
             var productWeight = model.Weight;
-            var product = await _productService.GetProduct (model.ProductId);
+
+            var productResponse = await _productService.GetProduct (model.ProductId);
+            var product = productResponse.Content.Find (p => true);
+
             var credit = user.Credit;
 
-            var tempProductModel = new ProductModel () { Name = product.Name };
-            var productList = await _productService.GetProductsByName (tempProductModel);
-
-            var currentProducList = new List<ProductModel> ();
+            var tempProductModel = new Product () { Name = product.Name };
+            var productListResponse = await _productService.GetProductsByName (tempProductModel);
+            var productList = productListResponse.Content;
+            var currentProducList = new List<Product> ();
 
             #region Fiyat hesaplayıcı
             foreach (var item in productList) {
@@ -48,8 +56,11 @@ namespace ExchangeGateway.Controllers {
                     break;
                 }
             }
-            if (totalprice > credit)
-                return false;
+            if (totalprice > credit) {
+                response.Message = "Operation Faild";
+                response.Status = ResponseType.Error;
+                return response;
+            }
             #endregion
             //*son item e kadar ağırlıkları 0 yap ve sil son item durumua göre azalt yada sil
 
@@ -75,7 +86,8 @@ namespace ExchangeGateway.Controllers {
             #region Kullanıcı products güncelleme
             var IsThereProduct = false;
             foreach (var userProductId in user.Products) {
-                var userProduct = await _productService.GetProduct (userProductId);
+                var userProductResponse = await _productService.GetProduct (userProductId);
+                var userProduct = userProductResponse.Content.Find (p => true);
                 if (userProduct.Name == product.Name) {
                     userProduct.Weight += productWeight;
                     await _productService.UpdateProduct (userProduct);
@@ -86,27 +98,33 @@ namespace ExchangeGateway.Controllers {
                 }
             }
             if (user.Products.Count == 0 || IsThereProduct) {
-                var userNewProductId = await _productService.CreateProduct (new ProductModel () { Id = null, Name = product.Name, ImgUrl = product.ImgUrl, Weight = productWeight, UnitPrice = 0 });
-                user.Products.Add (userNewProductId.Id);
+                var userNewProductResponse = await _productService.CreateProduct (new Product () { Id = null, Name = product.Name, ImgUrl = product.ImgUrl, Weight = productWeight, UnitPrice = 0 });
+                var userNewProduct = userNewProductResponse.Content.Find (p => true);
+                user.Products.Add (userNewProduct.Id);
             }
 
             await _userService.UpdateUser (user);
             #endregion
-
-            return true;
+            response.Message = "Operation successfully";
+            response.Status = ResponseType.Success;
+            return response;
         }
 
         [HttpPut]
         [Route ("SellOperation")]
         [ProducesResponseType (StatusCodes.Status204NoContent)]
         [ProducesResponseType (StatusCodes.Status404NotFound)]
-        [ProducesDefaultResponseType]
-        public async Task<ActionResult<bool>> SellOperation (SellerModel model) {
+        public async Task<ActionResult<ResponseModel<User>>> SellOperation (SellerModel model) {
+            var response = new ResponseModel<User> () { ReponseName = nameof (SellOperation) };
+
             double totalprice = 0;
 
-            var user = await _userService.GetUser (model.UserId);
+            var userResponse = await _userService.GetUser (model.UserId);
+            var user = userResponse.Content.Find (p => true);
 
-            var product = await _productService.GetProduct (model.ProductId);
+            var productResponse = await _productService.GetProduct (model.ProductId);
+            var product = productResponse.Content.Find (p => true);
+
             var productWeight = model.Weight;
             var productUnitPrice = model.UnitPrice;
             //* Toplam satış değeri hesaplama
@@ -117,13 +135,20 @@ namespace ExchangeGateway.Controllers {
             if (product.Weight <= 0) { }
             //* silme işlemi
 
+            //*kullanıcıya ait productı güncelliyor
             await _productService.UpdateProduct (product);
+            //* Sisteme yeni fiyatlı ürünü ekliyor
+            product.Weight = model.Weight;
+            product.UnitPrice = productUnitPrice;
+            await _productService.CreateProduct (product);
 
             //* Kullanıcı bakiye güncelleme
             user.Credit += totalprice;
             await _userService.UpdateUser (user);
 
-            return true;
+            response.Message = "Operation successfully";
+            response.Status = ResponseType.Success;
+            return response;
         }
 
         [HttpPost]
@@ -131,79 +156,116 @@ namespace ExchangeGateway.Controllers {
         [ProducesResponseType (StatusCodes.Status204NoContent)]
         [ProducesResponseType (StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
-        public async Task<ActionResult<bool>> ProductLoadOperation (LoadProductModel model) {
-            var product = new ProductModel () { Id = null, Name = model.ProductName, Weight = model.ProductWeight, ImgUrl = model.ProductImgUrl, UnitPrice = 0 };
-            var newProduct = await _productService.CreateProduct (product);
-            var commonEntity = new CommonEntityModel () { Id = null, UserId = model.UserId, ProductId = newProduct.Id, Type = "Load Operation", Status = "Pending" };
+        public async Task<ActionResult<ResponseModel<Admin>>> ProductLoadOperation (LoadProductModel model) {
+            var response = new ResponseModel<Admin> () { ReponseName = nameof (MoneyDepositOperation), Content = new List<Admin> () { } };
+            var product = new Product () { Id = null, Name = model.ProductName, Weight = model.ProductWeight, ImgUrl = model.ProductImgUrl, UnitPrice = 0 };
+            var newProductResponse = await _productService.CreateProduct (product);
+            var newProduct = newProductResponse.Content.Find (p => true);
+            var commonEntity = new Admin () { Id = null, UserId = model.UserId, ProductId = newProduct.Id, Type = "LoadProduct", Status = "Pending" };
             //* Admin onayına gitmesi için istek oluşturuldu
-            await _commonEntityService.CreateCommonEntity (commonEntity);
-            return true;
+            var commonEntityResponse = await _commonEntityService.CreateCommonEntity (commonEntity);
+            commonEntity = commonEntityResponse.Content.Find (p => true);
+
+            response.Content.Add (commonEntity);
+            response.Message = "Operation successfully submitted to admin for approval ";
+            response.Status = ResponseType.Success;
+
+            return response;
         }
 
         [HttpPost]
         [Route ("MoneyDepositOperation")]
         [ProducesResponseType (StatusCodes.Status204NoContent)]
         [ProducesResponseType (StatusCodes.Status404NotFound)]
-        [ProducesDefaultResponseType]
-        public async Task<ActionResult<bool>> MoneyDepositOperation (MoneyDepositModel model) {
-            var commonEntity = new CommonEntityModel () { Id = null, UserId = model.UserId, Deposite = model.Deposite, ProductId = null, Type = "Deposit Money Operation", Status = "Pending" };
+        public async Task<ActionResult<ResponseModel<Admin>>> MoneyDepositOperation (MoneyDepositModel model) {
+            var response = new ResponseModel<Admin> () { ReponseName = nameof (MoneyDepositOperation), Content = new List<Admin> () { } };
+
+            var commonEntity = new Admin () { Id = null, UserId = model.UserId, Deposite = model.Deposite, ProductId = null, Type = "MoneyDeposit", Status = "Pending" };
             //* Admin onayına gitmesi için istek oluşturuldu
-            await _commonEntityService.CreateCommonEntity (commonEntity);
-            return true;
+            var commonEntityResponse = await _commonEntityService.CreateCommonEntity (commonEntity);
+
+            commonEntity = commonEntityResponse.Content.Find (p => true);
+
+            response.Content.Add (commonEntity);
+            response.Message = "Operation successfully submitted to admin for approval ";
+            response.Status = ResponseType.Success;
+
+            return response;
         }
 
         [HttpPut]
-        [Route ("ProductLoadOperation")]
+        [Route ("AdminConfirmOperation")]
         [ProducesResponseType (StatusCodes.Status204NoContent)]
         [ProducesResponseType (StatusCodes.Status404NotFound)]
-        [ProducesDefaultResponseType]
-        public async Task<ActionResult<bool>> UpdateProductLoadOperation (CommonEntityModel model) {
-            if (model.Status == "Denied") {
-                //* User Bilgilendirme::: Durum başarısız daha sonra yapacağım
-                //* product sil 
-                return false;
-            }
-            #region Approved 
-            var user = await _userService.GetUser (model.UserId);
-            var product = await _productService.GetProduct (model.ProductId);
-            var IsThereProduct = false;
-            foreach (var item in user.Products) {
-                var _product = await _productService.GetProduct (item);
-                if (_product.Name == product.Name) {
-                    _product.Weight += product.Weight;
-                    await _productService.UpdateProduct (_product);
-                    IsThereProduct = false;
-                    break;
-                } else {
-                    IsThereProduct = true;
+        public async Task<ActionResult<ResponseModel<Admin>>> AdminConfirmOperation (Admin model) {
+            var response = new ResponseModel<Admin> () { ReponseName = nameof (AdminConfirmOperation) + "// " + model.Type, Content = new List<Admin> () { } };
+
+            if (model.Type == "LoadProduct") {
+                #region Denied
+                if (model.Status == "Denied") {
+                    //* User Bilgilendirme::: Durum başarısız daha sonra yapacağım product sil
+                    response.Message = "Operation failed";
+                    response.Status = ResponseType.Error;
+                    return response;
                 }
-            }
-            if (IsThereProduct) {
-                user.Products.Add (product.Id);
-            }
-            #endregion
-            model.Status = "Approved";
-            await _commonEntityService.UpdateCommonEntity (model);
-            return true;
-        }
+                #endregion
 
-        [HttpPut]
-        [Route ("MoneyDepositOperation")]
-        [ProducesResponseType (StatusCodes.Status204NoContent)]
-        [ProducesResponseType (StatusCodes.Status404NotFound)]
-        [ProducesDefaultResponseType]
-        public async Task<ActionResult<bool>> UpdteMoneyDepositOperation (CommonEntityModel model) {
-            if (model.Status == "Denied") {
-                //* User Bilgilendirme::: Durum başarısız daha sonra yapacağım
-                return false;
+                #region Approved 
+
+                var userResponse = await _userService.GetUser (model.UserId);
+                var user = userResponse.Content.Find (p => true);
+                var productResponse = await _productService.GetProduct (model.ProductId);
+                var product = productResponse.Content.Find (p => true);
+                var IsThereProduct = true;
+
+                foreach (var item in user.Products) {
+                    var _productResponse = await _productService.GetProduct (item);
+                    var _product = _productResponse.Content.Find (p => true);
+                    if (_product.Name == product.Name) {
+                        _product.Weight += product.Weight;
+                        await _productService.UpdateProduct (_product);
+                        IsThereProduct = false;
+                        break;
+                    } else {
+                        IsThereProduct = true;
+                    }
+                }
+                if (IsThereProduct) {
+                    user.Products.Add (product.Id);
+                }
+                await _userService.UpdateUser (user);
+
+                model.Status = "Approved";
+                await _commonEntityService.UpdateCommonEntity (model);
+
+                #endregion
+
+            } else if (model.Type == "MoneyDeposit") {
+                #region Denied
+                if (model.Status == "Denied") {
+                    //* User Bilgilendirme::: Durum başarısız daha sonra yapacağım
+                    response.Message = "Operation failed";
+                    response.Status = ResponseType.Error;
+                    return response;
+                }
+                #endregion
+
+                #region Approved 
+                var commonEntityResponse = await _commonEntityService.GetCommonEntity (model.Id);
+                var commonEntity = commonEntityResponse.Content.Find (p => p.UserId == model.UserId);
+                var userResponse = await _userService.GetUser (commonEntity.UserId);
+                var user = userResponse.Content.Find (p => p.Id == model.UserId);
+                user.Credit += commonEntity.Deposite;
+                await _userService.UpdateUser (user);
+                commonEntity.Status = "Approved";
+                await _commonEntityService.UpdateCommonEntity (commonEntity);
+
+                #endregion
+
             }
-            var commonEntity = await _commonEntityService.GetCommonEntity (model.Id);
-            var user = await _userService.GetUser (commonEntity.UserId);
-            user.Credit += commonEntity.Deposite;
-            await _userService.UpdateUser (user);
-            commonEntity.Status = "Approved";
-            await _commonEntityService.UpdateCommonEntity (commonEntity);
-            return true;
+            response.Message = "Operation successfully submitted to admin for approval ";
+            response.Status = ResponseType.Success;
+            return response;
         }
 
     }

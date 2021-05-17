@@ -23,8 +23,11 @@ namespace Infrastructure.Repositories {
         public async Task<T> GetByIdAsync (string id) {
             return await _context.Collection.Find (x => x.Id == id).FirstOrDefaultAsync ();
         }
-        public async Task<IReadOnlyList<T>> GetAsync (Expression<Func<T, bool>> predicate) {
+        public async Task<IReadOnlyList<T>> GetListAsync (Expression<Func<T, bool>> predicate) {
             return await _context.Collection.Find (predicate).ToListAsync ();
+        }
+        public async Task<T> GetAsync (Expression<Func<T, bool>> predicate) {
+            return await _context.Collection.Find (predicate).FirstOrDefaultAsync ();
         }
         public async Task<T> AddAsync (T entity) {
             var options = new InsertOneOptions { BypassDocumentValidation = false };
@@ -45,6 +48,5 @@ namespace Infrastructure.Repositories {
         public async Task<T> DeleteAsync (string id) {
             return await _context.Collection.FindOneAndDeleteAsync (x => x.Id == id);
         }
-
     }
 }

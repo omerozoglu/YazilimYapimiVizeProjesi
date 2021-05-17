@@ -1,5 +1,6 @@
 using System;
 using ExchangeGateway.Services;
+using ExchangeGateway.Services.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -12,11 +13,18 @@ namespace ExchangeGateway {
         public Startup (IConfiguration configuration) {
             Configuration = configuration;
         }
-
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices (IServiceCollection services) {
+
+            services.AddCors (options => {
+                options.AddDefaultPolicy (
+                    builder => {
+                        builder.WithOrigins ("http://localhost:4200").AllowAnyHeader ().AllowAnyMethod ();
+                    });
+            });
+
             services.AddHttpClient<IUserService, UserService> (c =>
                 c.BaseAddress = new Uri (Configuration["ApiSettings:UserUrl"]));
             services.AddHttpClient<IProductService, ProductService> (c =>
@@ -37,11 +45,13 @@ namespace ExchangeGateway {
                 app.UseSwaggerUI (c => c.SwaggerEndpoint ("/swagger/v1/swagger.json", "ExchangeGateway v1"));
             }
 
-        //    app.UseHttpsRedirection ();
-
-            app.UseRouting ();
-
+            //    app.UseHttpsRedirection ();
+            app.UseCors (builder => builder
+                .AllowAnyOrigin ()
+                .AllowAnyMethod ()
+                .AllowAnyHeader ());
             app.UseAuthorization ();
+            app.UseRouting ();
 
             app.UseEndpoints (endpoints => {
                 endpoints.MapControllers ();

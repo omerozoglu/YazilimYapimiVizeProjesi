@@ -2,6 +2,8 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using ExchangeGateway.Extensions;
 using ExchangeGateway.Models;
+using ExchangeGateway.Models.EntityModels;
+using ExchangeGateway.Services.Interfaces;
 
 namespace ExchangeGateway.Services {
     public class UserService : IUserService {
@@ -9,20 +11,13 @@ namespace ExchangeGateway.Services {
         public UserService (HttpClient client) {
             _client = client;
         }
-
-        public async Task<UserModel> GetUser (string id) {
+        public async Task<ResponseModel<User>> GetUser (string id) {
             var response = await _client.GetAsync ($"/api/v1/User/{id}");
-            return await response.ReadContentAs<UserModel> ();
+            return await response.ReadContentAs<ResponseModel<User>> ();
         }
-
-        public async Task<bool> UpdateUser (UpdateOnePropModel model) {
-            var response = await _client.PutAsJsonAsync<UpdateOnePropModel> ("/api/v1/User/UpdateOneProp", model);
-            return await response.ReadContentAs<bool> ();
-        }
-
-        public async Task<bool> UpdateUser (UserModel model) {
-            var response = await _client.PutAsJsonAsync<UserModel> ("/api/v1/User/", model);
-            return await response.ReadContentAs<bool> ();
+        public async Task<ResponseModel<User>> UpdateUser (User model) {
+            var response = await _client.PutAsJsonAsync<User> ("/api/v1/User/", model);
+            return await response.ReadContentAs<ResponseModel<User>> ();
         }
     }
 }

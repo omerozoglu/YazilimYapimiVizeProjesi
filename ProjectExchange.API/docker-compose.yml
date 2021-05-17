@@ -24,3 +24,10 @@ services:
       dockerfile: Services/Admin/API/Dockerfile
     ports:
       - "5004:5004"
+  exchangeapi:
+    image: exchangeapi
+    build:
+      context: .
+      dockerfile: ApiGateways/ExchangeGateway/Dockerfile
+    ports:
+      - "5010:5010"

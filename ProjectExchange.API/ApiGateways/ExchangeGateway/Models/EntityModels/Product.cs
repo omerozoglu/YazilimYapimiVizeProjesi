@@ -1,6 +1,5 @@
-namespace ExchangeGateway.Models {
-    public class ProductModel {
-
+namespace ExchangeGateway.Models.EntityModels {
+    public class Product {
         public string Id { get; set; }
         public string Name { get; set; }
         public string ImgUrl { get; set; }
