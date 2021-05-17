@@ -1,0 +1,27 @@
+@import "../../../assets/styles/settings/variables";
+header {
+  display: flex;
+  flex-direction: row;
+  background-color: map-get($themeColor, "p");
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 80%;
+    margin: auto;
+    min-height: 8vh;
+    .logo {
+    }
+    ul {
+      display: flex;
+      @include font(1rem, 800);
+      text-transform: uppercase;
+      li {
+        margin: 0 0.5rem;
+      }
+      li:hover {
+        color: map-get($themeColor, "t");
+      }
+    }
+  }
+}

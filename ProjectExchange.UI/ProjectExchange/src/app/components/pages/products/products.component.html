@@ -1,0 +1,10 @@
+<div class="container">
+  <h2>Products</h2>
+  <div class="content">
+    <app-product
+      *ngFor="let product of products; index as id"
+      [Product]="product"
+      [OperationName]="OperationName"
+    ></app-product>
+  </div>
+</div>

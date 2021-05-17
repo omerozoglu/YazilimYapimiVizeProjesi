@@ -1,0 +1,15 @@
+.container {
+  flex-wrap: wrap;
+  justify-items: center;
+  margin: 20px;
+  .content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+  }
+  h2 {
+    display: flex;
+    margin-left: 20px;
+  }
+}

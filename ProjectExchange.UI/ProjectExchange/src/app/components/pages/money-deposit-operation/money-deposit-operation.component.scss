@@ -1,0 +1,82 @@
+@import "../../../../assets/styles/settings/variables";
+
+.flat {
+  background-color: unset;
+  box-shadow: none;
+}
+.container {
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  text-align: center;
+  h2 {
+    text-align: left;
+  }
+  .content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  form {
+    width: 20vw;
+    .form-item {
+      position: relative;
+      margin-top: 10px;
+      width: 100%;
+      .content-name {
+        position: absolute;
+        bottom: 10px;
+        transition: all 0.3s ease;
+      }
+      input {
+        width: 95%;
+        height: 100%;
+        padding: 20px 0 5px 5%;
+        border: none;
+        transition: all 0.3s ease;
+        border-radius: 10px;
+      }
+      label {
+        position: absolute;
+        text-align: start;
+        bottom: 0;
+        left: 0;
+        width: 95%;
+        padding-left: 5%;
+        height: 100%;
+        pointer-events: none;
+        box-shadow: 0px 3px 10px 0px map-get($themeColor, "t");
+        border-radius: 10px;
+        font-size: 12px;
+        font-weight: bold;
+        color: map-get($themeColor, "gray");
+        text-transform: uppercase;
+      }
+      input:focus + .label-name .content-name,
+      input:valid + .label-name .content-name {
+        transform: translateY(-100%);
+        font-size: 10px;
+      }
+    }
+    button {
+      width: 100%;
+      height: 40px;
+      margin-top: 1rem;
+      border: none;
+      border-radius: 10px;
+      box-shadow: 0px 3px 10px 0px map-get($themeColor, "t");
+      @include font(16px, bold);
+      text-transform: uppercase;
+      background-color: white;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: map-get($themeColor, "ps");
+    }
+  }
+  .Info {
+    width: 20vw;
+    height: 20vw;
+    margin: 20px;
+  }
+}

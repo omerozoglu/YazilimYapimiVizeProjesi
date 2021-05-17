@@ -1,0 +1,25 @@
+.container {
+  //flex-direction: column;
+  flex-wrap: wrap;
+  justify-items: center;
+  margin: 20px;
+  .content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+  }
+  h2 {
+    display: flex;
+    margin-left: 20px;
+  }
+  .container {
+    width: 180px;
+    padding: 0 10px;
+    margin: 25px;
+    justify-content: center;
+    h3 {
+      padding: 10px;
+    }
+  }
+}

@@ -1,0 +1,23 @@
+import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+
+@Component({
+  selector: 'app-header',
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.scss']
+})
+export class HeaderComponent implements OnInit {
+  public ProjectName = "Project: Exchange v1";
+  public isAuthenticated: boolean;
+
+  constructor() {
+    //this.isAuthenticated = this.authenticationService.isAuthenticated();
+    this.isAuthenticated = true;
+  }
+  ngOnInit(): void {
+  }
+
+  logout() {
+    this.isAuthenticated = false;
+  }
+}

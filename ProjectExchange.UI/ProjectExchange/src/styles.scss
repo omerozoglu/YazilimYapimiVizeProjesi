@@ -1,0 +1,92 @@
+/* You can add global styles to this file, and also import other style files */
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300&display=swap");
+@import "./assets/styles/settings/variables";
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: $ThemeFontFamily;
+}
+html {
+}
+body {
+  //background: white;
+  //background: map-get($themeColor, "hover");
+  @include font(1rem, 500);
+  color: map-get($themeColor, "t");
+  background-color: map-get($themeColor, "ps");
+}
+h1 {
+  @include font(2rem, bold);
+  color: map-get($themeColor, "white");
+  margin: 0;
+}
+h2 {
+  @include font(2rem, bold);
+  color: map-get($themeColor, "t");
+}
+h3 {
+  @include font(1.2rem, bold);
+}
+h4 {
+  font-size: 1rem;
+}
+p {
+  font-weight: 500;
+  color: map-get($themeColor, "t");
+}
+ul {
+  list-style: none;
+}
+a {
+  text-decoration: none !important;
+}
+a:hover,
+a:visited {
+  color: unset;
+}
+
+input {
+  @include font(16px, bold);
+  color: map-get($themeColor, "t");
+}
+
+button {
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0px 3px 10px 0px map-get($themeColor, "t");
+  text-transform: uppercase;
+  background-color: white;
+  cursor: pointer;
+  color: map-get($themeColor, "t");
+}
+button:hover {
+  background-color: map-get($themeColor, "ps");
+}
+
+input:focus,
+select:focus,
+option:focus,
+textarea:focus,
+button:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+  margin: 0 auto;
+  .container {
+    display: flex;
+    background-color: map-get($themeColor, "white");
+    box-shadow: 0px 3px 10px 0px map-get($themeColor, "t");
+    border-radius: 10px;
+  }
+  .row {
+    display: flex;
+    justify-content: space-evenly;
+  }
+}
