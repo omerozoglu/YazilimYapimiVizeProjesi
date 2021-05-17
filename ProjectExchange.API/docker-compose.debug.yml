@@ -1,0 +1,57 @@
+# Please refer https://aka.ms/HTTPSinContainer on how to setup an https developer certificate for your ASP .NET Core service.
+
+version: "3.4"
+
+services:
+  userapi:
+    image: userapi
+    build:
+      context: .
+      dockerfile: Services/User/API/Dockerfile
+    ports:
+      - "5000:5000"
+    networks:
+      - my-network
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    volumes:
+      - ~/.vsdbg:/remote_debugger:rw
+  productapi:
+    image: productapi
+    build:
+      context: .
+      dockerfile: Services/Product/API/Dockerfile
+    ports:
+      - "5002:5002"
+    networks:
+      - my-network
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    volumes:
+      - ~/.vsdbg:/remote_debugger:rw
+  adminapi:
+    image: adminapi
+    build:
+      context: .
+      dockerfile: Services/Admin/API/Dockerfile
+    ports:
+      - "5004:5004"
+    networks:
+      - my-network
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    volumes:
+      - ~/.vsdbg:/remote_debugger:rw
+  exchangeapi:
+    image: exchangeapi
+    build:
+      context: .
+      dockerfile: ApiGateways/ExchangeGateway/Dockerfile
+    ports:
+      - "5010:5010"
+    networks:
+      - my-network
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    volumes:
+      - ~/.vsdbg:/remote_debugger:rw

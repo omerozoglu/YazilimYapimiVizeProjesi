@@ -1,0 +1,29 @@
+FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS base
+WORKDIR /app
+EXPOSE 5002
+
+ENV ASPNETCORE_URLS=http://+:5002
+
+# Creates a non-root user with an explicit UID and adds permission to access the /app folder
+# For more info, please refer to https://aka.ms/vscode-docker-dotnet-configure-containers
+RUN adduser -u 5678 --disabled-password --gecos "" appuser && chown -R appuser /app
+USER appuser
+
+FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
+WORKDIR /src
+COPY ["Services/Product/API/API.csproj", "Services/Product/API/"]
+COPY ["Services/Product/Application/Application.csproj", "Services/Product/Application/"]
+COPY ["Services/Product/Domain/Domain.csproj", "Services/Product/Domain/"]
+COPY ["Services/Product/Infrastructure/Infrastructure.csproj", "Services/Product/Infrastructure/"]
+RUN dotnet restore "Services/Product/API/API.csproj"
+COPY . .
+WORKDIR "/src/Services/Product/API"
+RUN dotnet build "API.csproj" -c Release -o /app/build
+
+FROM build AS publish
+RUN dotnet publish "API.csproj" -c Release -o /app/publish
+
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
+ENTRYPOINT ["dotnet", "API.dll"]
