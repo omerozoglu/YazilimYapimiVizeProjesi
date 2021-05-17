@@ -15,7 +15,7 @@ You will need the following tools:
 
 ### Installing
 #### First,Launch API
-1. Clone the repository
+1. Clone the repository , Go to microservice folders in separate terminals and run the command. 
 2. Install dotnet core and 
 ```csharp
   dotnet run
