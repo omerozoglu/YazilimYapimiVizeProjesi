@@ -12,6 +12,7 @@ You will need the following tools:
 * [Visual Studio 2019](https://visualstudio.microsoft.com/downloads/)
 * [.Net Core 5 or later](https://dotnet.microsoft.com/download/dotnet-core/5)
 * [Docker Desktop](https://www.docker.com/products/docker-desktop)
+* [Angular CLI](https://github.com/angular/angular-cli) version 11.2.12.
 
 ### Installing
 #### First,Launch API
