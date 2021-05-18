@@ -56,8 +56,6 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 ![mainscreen2](https://i.ibb.co/NxHdF4T/Admin-Page.png)
 ![mainscreen2](https://i.ibb.co/JpkC9yN/Taker-Account.png)
 
->Note: If you are running this application in macOS then use `docker.for.mac.localhost` as DNS name in `.env` file and the above URLs instead of `host.docker.internal`.
-
 > Yazılım Yapımı Dersi Vize Projesi
 ## Author
 
