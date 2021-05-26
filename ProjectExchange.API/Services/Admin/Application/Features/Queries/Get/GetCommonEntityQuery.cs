@@ -1,4 +1,3 @@
-using Application.Models;
 using Domain.Common;
 using Domain.Entities;
 using MediatR;

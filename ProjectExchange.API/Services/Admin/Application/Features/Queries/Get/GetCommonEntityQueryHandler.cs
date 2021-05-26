@@ -3,9 +3,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using Application.Contracts.Persistence;
 using Application.Features.Queries.Get;
-using Application.Models;
 using AutoMapper;
 using Domain.Common;
+using Domain.Common.Enums;
 using Domain.Entities;
 using MediatR;
 
@@ -22,16 +22,16 @@ namespace Application.Features.Queries.GetQuery {
 
         public async Task<EntityResponse<CommonEntity>> Handle (GetCommonEntityQuery request, CancellationToken cancellationToken) {
             var response = new EntityResponse<CommonEntity> () { ReponseName = nameof (GetCommonEntityQuery), Content = new List<CommonEntity> () { } };
-            var commonEntity = await _commonEntityRepository.GetByIdAsync (request.Id);
-            commonEntity = _mapper.Map<CommonEntity> (commonEntity);;
-            if (commonEntity == null) {
-                response.Status = ResponseType.Error;
-                response.Message = "CommonEntity not found.";
+            var entity = await _commonEntityRepository.GetOneAsync (p => p.Id == request.Id);
+            entity = _mapper.Map<CommonEntity> (entity);;
+            if (entity == null) {
+                response.Status = ResponseType.Warning;
+                response.Message = $"{nameof(CommonEntity)} not found.";
                 response.Content = null;
             } else {
                 response.Status = ResponseType.Success;
-                response.Message = "CommonEntity get successfully.";
-                response.Content.Add (commonEntity);
+                response.Message = $"{nameof(CommonEntity)} get successfully.";
+                response.Content.Add (entity);
             }
             return response;
         }

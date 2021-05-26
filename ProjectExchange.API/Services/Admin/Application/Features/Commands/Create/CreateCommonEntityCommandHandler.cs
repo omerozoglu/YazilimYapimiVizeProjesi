@@ -4,10 +4,11 @@ using System.Threading.Tasks;
 using Application.Contracts.Persistence;
 using AutoMapper;
 using Domain.Common;
+using Domain.Common.Enums;
 using Domain.Entities;
 using MediatR;
 
-namespace Application.Features.Commands.CreateCommand {
+namespace Application.Features.Commands.Create {
     public class CreateCommonEntityCommandHandler : IRequestHandler<CreateCommonEntityCommand, EntityResponse<CommonEntity>> {
 
         private readonly ICommonEntityRepository _commonEntityRepository;
@@ -20,16 +21,16 @@ namespace Application.Features.Commands.CreateCommand {
 
         public async Task<EntityResponse<CommonEntity>> Handle (CreateCommonEntityCommand request, CancellationToken cancellationToken) {
             var response = new EntityResponse<CommonEntity> () { ReponseName = nameof (CreateCommonEntityCommand), Content = new List<CommonEntity> () { } };
-            var commonEntity = _mapper.Map<CommonEntity> (request);
-            var newCommonEntity = await _commonEntityRepository.AddAsync (commonEntity);
-            if (newCommonEntity == null) {
-                response.Status = ResponseType.Error;
-                response.Message = "CommonEntity could not be created.";
+            var entity = _mapper.Map<CommonEntity> (request);
+            var newentity = await _commonEntityRepository.AddAsync (entity);
+            if (newentity == null) {
+                response.Status = ResponseType.Warning;
+                response.Message = $"{nameof(CommonEntity)} could not be created.";
                 response.Content = null;
             } else {
                 response.Status = ResponseType.Success;
-                response.Message = "CommonEntity created successfully.";
-                response.Content.Add (newCommonEntity);
+                response.Message = $"{nameof(CommonEntity)} created successfully.";
+                response.Content.Add (newentity);
             }
             return response;
         }

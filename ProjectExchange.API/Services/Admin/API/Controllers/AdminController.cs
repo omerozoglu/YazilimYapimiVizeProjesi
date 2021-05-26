@@ -1,11 +1,14 @@
+using System;
 using System.Net;
 using System.Threading.Tasks;
-using Application.Features.Commands.CreateCommand;
-using Application.Features.Commands.DeleteCommand;
-using Application.Features.Commands.UpdateCommand;
+using Application.Exceptions;
+using Application.Features.Commands.Create;
+using Application.Features.Commands.Delete;
+using Application.Features.Commands.Update;
 using Application.Features.Queries.Get;
 using Application.Features.Queries.GetList;
 using Domain.Common;
+using Domain.Common.Enums;
 using Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -36,18 +39,36 @@ namespace API.Controllers {
         [HttpGet ("{id:length(24)}", Name = "GetCommonEntity")]
         [ProducesResponseType (typeof (EntityResponse<CommonEntity>), (int) HttpStatusCode.OK)]
         public async Task<ActionResult<EntityResponse<CommonEntity>>> GetCommonEntity (string id) {
-            var query = new GetCommonEntityQuery (id);
-            var result = await _mediator.Send (query);
-            return Ok (result);
+            try {
+                var query = new GetCommonEntityQuery (id);
+                var result = await _mediator.Send (query);
+                return Ok (result);
+            } catch (Exception ex) {
+                var err = new EntityResponse<CommonEntity> ();
+                err.ReponseName = nameof (GetCommonEntity);
+                err.Status = ResponseType.Error;
+                err.Message = ex.Message;
+                err.Content = null;
+                return Ok (err);
+            }
         }
         #endregion
 
-        #region CreaterCommonEntity ()
+        #region CreateCommonEntity ()
         [HttpPost]
         [ProducesResponseType (typeof (EntityResponse<CommonEntity>), (int) HttpStatusCode.OK)]
         public async Task<ActionResult<EntityResponse<CommonEntity>>> CreateCommonEntity (CreateCommonEntityCommand command) {
-            var result = await _mediator.Send (command);
-            return Ok (result);
+            try {
+                var result = await _mediator.Send (command);
+                return Ok (result);
+            } catch (ValidationException ex) {
+                var err = new EntityResponse<CommonEntity> ();
+                err.ReponseName = nameof (CreateCommonEntity);
+                err.Status = ResponseType.Error;
+                err.Message = ex.Message;
+                err.Content = null;
+                return Ok (err);
+            }
         }
         #endregion
 
@@ -57,8 +78,17 @@ namespace API.Controllers {
         [ProducesResponseType (StatusCodes.Status204NoContent)]
         [ProducesResponseType (StatusCodes.Status404NotFound)]
         public async Task<ActionResult<EntityResponse<CommonEntity>>> UpdateCommonEntity (UpdateCommonEntityCommand command) {
-            var result = await _mediator.Send (command);
-            return Ok (result);
+            try {
+                var result = await _mediator.Send (command);
+                return Ok (result);
+            } catch (ValidationException ex) {
+                var err = new EntityResponse<CommonEntity> ();
+                err.ReponseName = nameof (CreateCommonEntity);
+                err.Status = ResponseType.Error;
+                err.Message = ex.Message;
+                err.Content = null;
+                return Ok (err);
+            }
         }
         #endregion
 
@@ -68,8 +98,17 @@ namespace API.Controllers {
         [ProducesResponseType (StatusCodes.Status204NoContent)]
         [ProducesResponseType (StatusCodes.Status404NotFound)]
         public async Task<ActionResult<EntityResponse<CommonEntity>>> DeleteCommonEntity (DeleteCommonEntityCommand command) {
-            var result = await _mediator.Send (command);
-            return Ok (result);
+            try {
+                var result = await _mediator.Send (command);
+                return Ok (result);
+            } catch (ValidationException ex) {
+                var err = new EntityResponse<CommonEntity> ();
+                err.ReponseName = nameof (CreateCommonEntity);
+                err.Status = ResponseType.Error;
+                err.Message = ex.Message;
+                err.Content = null;
+                return Ok (err);
+            }
         }
         #endregion
     }
