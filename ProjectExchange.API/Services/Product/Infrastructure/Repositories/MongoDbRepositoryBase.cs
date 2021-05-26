@@ -8,13 +8,13 @@ using Infrastructure.Persistence;
 using MongoDB.Driver;
 
 namespace Infrastructure.Repositories {
-    public class MongoDbRepositoryBase<T> : IAsyncRepository<T> where T : EntityBase {
+    public class MongoDBRepositoryBase<T> : IAsyncRepository<T> where T : EntityBase {
 
         //* MongoDbRepositoryBase, mongodb ile iletişimi sağlıyor
 
         protected readonly IMongoContext<T> _context;
 
-        public MongoDbRepositoryBase (IMongoContext<T> context) {
+        public MongoDBRepositoryBase (IMongoContext<T> context) {
             _context = context;
         }
         public async Task<IReadOnlyList<T>> GetAllAsync () {

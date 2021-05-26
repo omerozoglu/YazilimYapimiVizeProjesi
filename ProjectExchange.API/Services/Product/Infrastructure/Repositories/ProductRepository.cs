@@ -8,7 +8,7 @@ using Infrastructure.Persistence;
 using MongoDB.Driver;
 
 namespace Infrastructure.Repositories {
-    public class ProductRepository : MongoDbRepositoryBase<Product>, IProductRepository {
+    public class ProductRepository : MongoDBRepositoryBase<Product>, IProductRepository {
 
         //* İhtiyaca yönelik Product repository
         public ProductRepository (ProductMongoContext context) : base (context) {
