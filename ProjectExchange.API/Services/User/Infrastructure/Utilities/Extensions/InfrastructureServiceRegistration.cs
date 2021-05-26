@@ -10,7 +10,7 @@ namespace Infrastructure.Utilites.Extensions {
             services.AddMongoDbSettings (configuration);
             services.AddScoped<UserMongoContext> ();
             services.AddScoped<IUserRepository, UserRepository> ();
-            services.AddScoped (typeof (IAsyncRepository<>), typeof (MongoDbRepositoryBase<>));
+            services.AddScoped (typeof (IAsyncRepository<>), typeof (MongoDBRepositoryBase<>));
             return services;
         }
     }

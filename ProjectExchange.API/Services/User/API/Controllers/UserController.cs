@@ -55,7 +55,7 @@ namespace API.Controllers {
         }
         #endregion
 
-        #region CreaterUser ()
+        #region CreateUser ()
         [HttpPost]
         [ProducesResponseType (typeof (EntityResponse<User>), (int) HttpStatusCode.OK)]
         public async Task<ActionResult<EntityResponse<User>>> CreateUser (CreateUserCommand command) {
