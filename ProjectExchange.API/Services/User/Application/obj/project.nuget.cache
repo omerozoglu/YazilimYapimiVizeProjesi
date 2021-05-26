@@ -1,12 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "FsaF2Zj5pvt93TpDBgS5DrlsDz/BiTdpKXpb0MZku3Kf2rADjpbZt1IRK8zjTJjwdM5bEUN1VOfbju/qxEZAMw==",
+  "dgSpecHash": "Xqr+yLEKL3rCWvU1+vRG6gd48K/CWLmNr5nfIa82aZiOmImptKebz/QB8HB9lYzGqqro59IKTBaVlO1w00yteg==",
   "success": true,
   "projectFilePath": "C:\\Users\\omero\\OneDrive\\Masaüstü\\Yazılım Yapımı Proje\\Vize\\Vize_branch_1\\ProjectExchange.API\\Services\\User\\Application\\Application.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\omero\\.nuget\\packages\\automapper\\10.1.1\\automapper.10.1.1.nupkg.sha512",
     "C:\\Users\\omero\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\8.1.1\\automapper.extensions.microsoft.dependencyinjection.8.1.1.nupkg.sha512",
     "C:\\Users\\omero\\.nuget\\packages\\dnsclient\\1.4.0\\dnsclient.1.4.0.nupkg.sha512",
+    "C:\\Users\\omero\\.nuget\\packages\\fluentvalidation\\10.1.0\\fluentvalidation.10.1.0.nupkg.sha512",
+    "C:\\Users\\omero\\.nuget\\packages\\fluentvalidation.dependencyinjectionextensions\\10.1.0\\fluentvalidation.dependencyinjectionextensions.10.1.0.nupkg.sha512",
     "C:\\Users\\omero\\.nuget\\packages\\mediatr\\9.0.0\\mediatr.9.0.0.nupkg.sha512",
     "C:\\Users\\omero\\.nuget\\packages\\mediatr.extensions.microsoft.dependencyinjection\\9.0.0\\mediatr.extensions.microsoft.dependencyinjection.9.0.0.nupkg.sha512",
     "C:\\Users\\omero\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",

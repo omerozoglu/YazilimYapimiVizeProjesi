@@ -4,10 +4,11 @@ using System.Threading.Tasks;
 using Application.Contracts.Persistence;
 using AutoMapper;
 using Domain.Common;
+using Domain.Common.Enums;
 using Domain.Entities;
 using MediatR;
 
-namespace Application.Features.Commands.CreateCommand {
+namespace Application.Features.Commands.Create {
     public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, EntityResponse<User>> {
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
@@ -19,16 +20,16 @@ namespace Application.Features.Commands.CreateCommand {
 
         public async Task<EntityResponse<User>> Handle (CreateUserCommand request, CancellationToken cancellationToken) {
             var response = new EntityResponse<User> () { ReponseName = nameof (CreateUserCommand), Content = new List<User> () { } };
-            var userEntity = _mapper.Map<User> (request);
-            var newUser = await _userRepository.AddAsync (userEntity);
-            if (newUser == null) {
-                response.Status = ResponseType.Error;
-                response.Message = "User could not be created.";
+            var entity = _mapper.Map<User> (request);
+            var newentity = await _userRepository.AddAsync (entity);
+            if (newentity == null) {
+                response.Status = ResponseType.Warning;
+                response.Message = $"{nameof(User)} could not be created.";
                 response.Content = null;
             } else {
                 response.Status = ResponseType.Success;
-                response.Message = "User created successfully.";
-                response.Content.Add (newUser);
+                response.Message = $"{nameof(User)} created successfully.";
+                response.Content.Add (newentity);
             }
             return response;
         }

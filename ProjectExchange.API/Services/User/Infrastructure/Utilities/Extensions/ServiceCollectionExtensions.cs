@@ -1,7 +1,8 @@
 using Infrastructure.Utilities.AppSettings;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-namespace Infrastructure.Utilites.Extensions.StartupExtensions {
+
+namespace Infrastructure.Utilites.Extensions {
     public static class ServiceCollectionExtensions {
         public static IServiceCollection AddMongoDbSettings (this IServiceCollection services,
             IConfiguration configuration) {

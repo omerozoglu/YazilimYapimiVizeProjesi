@@ -4,12 +4,12 @@ using System.Threading.Tasks;
 using Application.Contracts.Persistence;
 using AutoMapper;
 using Domain.Common;
+using Domain.Common.Enums;
 using Domain.Entities;
 using MediatR;
 
 namespace Application.Features.Queries.GetList {
     public class GetUsersListQueryHandler : IRequestHandler<GetUsersListQuery, EntityResponse<User>> {
-
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
 

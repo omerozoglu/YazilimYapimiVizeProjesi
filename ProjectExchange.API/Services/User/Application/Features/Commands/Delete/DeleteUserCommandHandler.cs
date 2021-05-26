@@ -4,10 +4,11 @@ using System.Threading.Tasks;
 using Application.Contracts.Persistence;
 using AutoMapper;
 using Domain.Common;
+using Domain.Common.Enums;
 using Domain.Entities;
 using MediatR;
 
-namespace Application.Features.Commands.DeleteCommand {
+namespace Application.Features.Commands.Delete {
     public class DeleteUserCommandHandler : IRequestHandler<DeleteUserCommand, EntityResponse<User>> {
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
@@ -19,16 +20,16 @@ namespace Application.Features.Commands.DeleteCommand {
 
         public async Task<EntityResponse<User>> Handle (DeleteUserCommand request, CancellationToken cancellationToken) {
             var response = new EntityResponse<User> () { ReponseName = nameof (DeleteUserCommand), Content = new List<User> () { } };
-            var userToDelete = await _userRepository.GetByIdAsync (request.Id);
-            if (userToDelete == null) {
-                response.Status = ResponseType.Error;
-                response.Message = "User not found.";
+            var entity = await _userRepository.GetOneAsync (p => p.Id == request.Id);
+            if (entity == null) {
+                response.Status = ResponseType.Warning;
+                response.Message = $"{nameof(User)} not found.";
                 response.Content = null;
             } else {
-                await _userRepository.DeleteAsync (userToDelete);
+                await _userRepository.DeleteAsync (entity);
                 response.Status = ResponseType.Success;
-                response.Message = "User deleted successfully.";
-                response.Content.Add (userToDelete);
+                response.Message = $"{nameof(User)} deleted successfully.";
+                response.Content.Add (entity);
             }
             return response;
         }

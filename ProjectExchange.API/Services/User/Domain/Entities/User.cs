@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using Domain.Common;
-using Domain.Enums;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
