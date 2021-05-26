@@ -24,11 +24,11 @@ namespace Application.Features.Queries.Get {
             user = _mapper.Map<User> (user);
             if (user == null) {
                 response.Status = ResponseType.Error;
-                response.Message = "User not found.";
+                response.Message = $"{nameof(User)} not found.";
                 response.Content = null;
             } else {
                 response.Status = ResponseType.Success;
-                response.Message = "User get successfully.";
+                response.Message = $"{nameof(User)} get successfully.";
                 response.Content.Add (user);
             }
             return response;
