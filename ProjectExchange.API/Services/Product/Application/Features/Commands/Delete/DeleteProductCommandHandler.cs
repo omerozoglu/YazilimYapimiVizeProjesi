@@ -4,10 +4,11 @@ using System.Threading.Tasks;
 using Application.Contracts.Persistence;
 using AutoMapper;
 using Domain.Common;
+using Domain.Common.Enums;
 using Domain.Entities;
 using MediatR;
 
-namespace Application.Features.Commands.DeleteCommand {
+namespace Application.Features.Commands.Delete {
     public class DeleteProductCommandHandler : IRequestHandler<DeleteProductCommand, EntityResponse<Product>> {
         private readonly IProductRepository _productRepository;
         private readonly IMapper _mapper;
@@ -19,16 +20,16 @@ namespace Application.Features.Commands.DeleteCommand {
 
         public async Task<EntityResponse<Product>> Handle (DeleteProductCommand request, CancellationToken cancellationToken) {
             var response = new EntityResponse<Product> () { ReponseName = nameof (DeleteProductCommand), Content = new List<Product> () { } };
-            var productToDelete = await _productRepository.GetByIdAsync (request.Id);
-            if (productToDelete == null) {
-                response.Status = ResponseType.Error;
-                response.Message = "Product not found.";
+            var entity = await _productRepository.GetOneAsync (p => p.Id == request.Id);
+            if (entity == null) {
+                response.Status = ResponseType.Warning;
+                response.Message = $"{nameof(Product)} not found.";
                 response.Content = null;
             } else {
-                await _productRepository.DeleteAsync (productToDelete);
+                await _productRepository.DeleteAsync (entity);
                 response.Status = ResponseType.Success;
-                response.Message = "Product deleted successfully.";
-                response.Content.Add (productToDelete);
+                response.Message = $"{nameof(Product)} deleted successfully.";
+                response.Content.Add (entity);
             }
             return response;
         }

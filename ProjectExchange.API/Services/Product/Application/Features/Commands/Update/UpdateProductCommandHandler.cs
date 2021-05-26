@@ -4,10 +4,11 @@ using System.Threading.Tasks;
 using Application.Contracts.Persistence;
 using AutoMapper;
 using Domain.Common;
+using Domain.Common.Enums;
 using Domain.Entities;
 using MediatR;
 
-namespace Application.Features.Commands.UpdateCommand {
+namespace Application.Features.Commands.Update {
     public class UpdateProductCommandHandler : IRequestHandler<UpdateProductCommand, EntityResponse<Product>> {
 
         private readonly IProductRepository _productRepository;
@@ -19,18 +20,18 @@ namespace Application.Features.Commands.UpdateCommand {
         }
 
         public async Task<EntityResponse<Product>> Handle (UpdateProductCommand request, CancellationToken cancellationToken) {
-            var productToUpdate = await _productRepository.GetByIdAsync (request.Id);
             var response = new EntityResponse<Product> () { ReponseName = nameof (UpdateProductCommand), Content = new List<Product> () { } };
-            if (productToUpdate == null) {
-                response.Status = ResponseType.Error;
-                response.Message = "Product not found.";
+            var entity = await _productRepository.GetOneAsync (p => p.Id == request.Id);
+            if (entity == null) {
+                response.Status = ResponseType.Warning;
+                response.Message = $"{nameof(Product)} not found.";
                 response.Content = null;
             } else {
-                _mapper.Map (request, productToUpdate, typeof (UpdateProductCommand), typeof (Product));
-                await _productRepository.UpdateAsync (productToUpdate);
+                _mapper.Map (request, entity, typeof (UpdateProductCommand), typeof (Product));
+                await _productRepository.UpdateAsync (entity);
                 response.Status = ResponseType.Success;
-                response.Message = "Product updated successfully.";
-                response.Content.Add (productToUpdate);
+                response.Message = $"{nameof(Product)} updated successfully.";
+                response.Content.Add (entity);
             }
             return response;
         }

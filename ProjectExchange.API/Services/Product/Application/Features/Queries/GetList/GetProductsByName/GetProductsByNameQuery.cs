@@ -1,15 +1,14 @@
-using Application.Models;
 using Domain.Common;
 using Domain.Entities;
 using MediatR;
 
 namespace Application.Features.Queries.GetList.GetProductsByName {
     public class GetProductsByNameQuery : IRequest<EntityResponse<Product>> {
-        public GetProductsByNameQuery (ProductVm model) {
+        public GetProductsByNameQuery (Product model) {
             this.model = model;
         }
 
-        public ProductVm model { get; set; }
+        public Product model { get; set; }
 
     }
 }

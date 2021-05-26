@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Application.Contracts.Persistence;
 using AutoMapper;
 using Domain.Common;
+using Domain.Common.Enums;
 using Domain.Entities;
 using MediatR;
 
@@ -20,16 +21,16 @@ namespace Application.Features.Queries.GetList {
 
         public async Task<EntityResponse<Product>> Handle (GetProductsListQuery request, CancellationToken cancellationToken) {
             var response = new EntityResponse<Product> () { ReponseName = nameof (GetProductsListQuery), Content = new List<Product> () { } };
-            var productList = await _productRepository.GetAllAsync ();
-            _mapper.Map<List<Product>> (productList);
-            if (productList == null) {
-                response.Status = ResponseType.Error;
-                response.Message = "No products were found.";
+            var entities = await _productRepository.GetAllAsync ();
+            _mapper.Map<List<Product>> (entities);
+            if (entities == null) {
+                response.Status = ResponseType.Warning;
+                response.Message = $"No {nameof(Product)}s were found.";
                 response.Content = null;
             } else {
                 response.Status = ResponseType.Success;
-                response.Message = "Products get successfully.";
-                response.Content.AddRange (productList);
+                response.Message = $"{nameof(Product)}s get successfully.";
+                response.Content.AddRange (entities);
             }
             return response;
         }

@@ -11,7 +11,7 @@ namespace Infrastructure.Repositories {
     public class ProductRepository : MongoDbRepositoryBase<Product>, IProductRepository {
 
         //* İhtiyaca yönelik Product repository
-        public ProductRepository (MongoDbProductContext context) : base (context) {
+        public ProductRepository (ProductMongoContext context) : base (context) {
 
         }
 

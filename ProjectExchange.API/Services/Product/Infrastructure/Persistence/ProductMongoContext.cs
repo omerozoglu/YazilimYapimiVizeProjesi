@@ -5,7 +5,7 @@ using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 
 namespace Infrastructure.Persistence {
-    public class MongoDbProductContext : IMongoContext<Product> {
+    public class ProductMongoContext : IMongoContext<Product> {
 
         //* MongoDbUserContext, MongoDb için gerekli ayarlamaları yapması ve asenkron bir şekilde komutları yürüttmesi için tasarlanmıştır
 
@@ -17,10 +17,9 @@ namespace Infrastructure.Persistence {
 
         #region Settings
         private readonly MongoDbSettings _settings;
-        private readonly IConfiguration _configuration;
         #endregion
 
-        public MongoDbProductContext (IOptions<MongoDbSettings> options) {
+        public ProductMongoContext (IOptions<MongoDbSettings> options) {
             this._settings = options.Value;
             _mongoClient = new MongoClient (this._settings.ConnectionString);
             _database = _mongoClient.GetDatabase (this._settings.DatabaseName);
