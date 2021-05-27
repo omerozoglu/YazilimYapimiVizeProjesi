@@ -21,7 +21,7 @@ namespace Application.Features.Queries.GetList.GetProductsByName {
         public async Task<EntityResponse<Product>> Handle (GetProductsByNameQuery request, CancellationToken cancellationToken) {
             var response = new EntityResponse<Product> () { ReponseName = nameof (GetProductsByNameQuery), Content = new List<Product> () { } };
             var entities = await _productRepository.GetListAsync (
-                p => (p.Name == request.model.Name) && (p.UnitPrice != 0));
+                p => (p.Name == request.productName) && (p.UnitPrice != 0));
             _mapper.Map<List<Product>> (entities);
             if (entities == null) {
                 response.Status = ResponseType.Warning;

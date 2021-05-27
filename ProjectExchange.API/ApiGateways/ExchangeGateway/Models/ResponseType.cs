@@ -10,7 +10,10 @@ namespace ExchangeGateway.Models {
         [JsonConstructor]
         public ResponseType (string value) { Value = value; }
         public string Value { get; set; }
+
         public static ResponseType Success { get { return new ResponseType (nameof (Success)); } }
+        public static ResponseType Info { get { return new ResponseType (nameof (Info)); } }
+        public static ResponseType Warning { get { return new ResponseType (nameof (Warning)); } }
         public static ResponseType Error { get { return new ResponseType (nameof (Error)); } }
     }
 }

@@ -4,11 +4,11 @@ using MediatR;
 
 namespace Application.Features.Queries.GetList.GetProductsByName {
     public class GetProductsByNameQuery : IRequest<EntityResponse<Product>> {
-        public GetProductsByNameQuery (Product model) {
-            this.model = model;
+        public GetProductsByNameQuery (string productName) {
+            this.productName = productName;
         }
 
-        public Product model { get; set; }
+        public string productName { get; set; }
 
     }
 }

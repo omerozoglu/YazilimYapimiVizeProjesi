@@ -97,12 +97,12 @@ namespace API.Controllers {
         #endregion
 
         #region GetProductByName ()
-        [HttpPost]
-        [Route ("GetProductByName")]
+        [HttpGet ("{productName}")]
+       // [Route ("GetProductByName")]
         [ProducesResponseType (typeof (EntityResponse<Product>), (int) HttpStatusCode.OK)]
-        public async Task<ActionResult<EntityResponse<Product>>> GetProductByName (Product model) {
+        public async Task<ActionResult<EntityResponse<Product>>> GetProductByName (string productName) {
             try {
-                var query = new GetProductsByNameQuery (model);
+                var query = new GetProductsByNameQuery (productName);
                 var result = await _mediator.Send (query);
                 return Ok (result);
             } catch (Exception ex) {
@@ -155,12 +155,13 @@ namespace API.Controllers {
         #endregion
 
         #region DeleteProduct ()
-        [HttpDelete]
+        [HttpDelete ("{id:length(24)}")]
         [ProducesResponseType (typeof (EntityResponse<Product>), (int) HttpStatusCode.OK)]
         [ProducesResponseType (StatusCodes.Status204NoContent)]
         [ProducesResponseType (StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<EntityResponse<Product>>> DeleteProduct (DeleteProductCommand command) {
+        public async Task<ActionResult<EntityResponse<Product>>> DeleteProduct (string id) {
             try {
+                DeleteProductCommand command = new DeleteProductCommand (id);
                 var result = await _mediator.Send (command);
                 return Ok (result);
             } catch (ValidationException ex) {
