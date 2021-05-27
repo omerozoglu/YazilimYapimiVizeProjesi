@@ -3,7 +3,7 @@ using Domain.Entities;
 using MediatR;
 
 namespace Application.Features.Queries.Get {
-    public class GetCommonEntityQuery : IRequest<EntityResponse<CommonEntity>> {
+    public class GetCommonEntityQuery<T> : IRequest<EntityResponse<CommonEntity<T>>> where T : ApprovalEntityBase {
         public GetCommonEntityQuery (string id) {
             Id = id;
         }

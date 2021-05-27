@@ -1,15 +1,16 @@
+using Domain.Common;
 using Domain.Entities;
 using Infrastructure.Utilities.AppSettings;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 
 namespace Infrastructure.Persistence {
-    public class CommonEntityMongoContext : IMongoContext<CommonEntity> {
+    public class CommonEntityMongoContext<T> : IMongoContext<CommonEntity<T>> where T : ApprovalEntityBase {
 
         //* MongoDbUserContext, MongoDb için gerekli ayarlamaları yapması ve asenkron bir şekilde komutları yürüttmesi için tasarlanmıştır
 
         #region MongoDb
-        public IMongoCollection<CommonEntity> Collection { get; }
+        public IMongoCollection<CommonEntity<T>> Collection { get; }
         private readonly MongoClient _mongoClient;
         private readonly IMongoDatabase _database;
         #endregion
@@ -22,7 +23,7 @@ namespace Infrastructure.Persistence {
             this._settings = options.Value;
             _mongoClient = new MongoClient (this._settings.ConnectionString);
             _database = _mongoClient.GetDatabase (this._settings.DatabaseName);
-            Collection = _database.GetCollection<CommonEntity> (this._settings.CollectionName);
+            Collection = _database.GetCollection<CommonEntity<T>> (this._settings.CollectionName);
         }
     }
 }

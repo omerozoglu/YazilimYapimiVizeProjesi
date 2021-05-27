@@ -3,6 +3,7 @@ using Domain.Entities;
 using MediatR;
 
 namespace Application.Features.Commands.Create {
-    public class CreateCommonEntityCommand : CommonEntity, IRequest<EntityResponse<CommonEntity>> {
+    public class CreateCommonEntityCommand<T> : CommonEntity<T>, IRequest<EntityResponse<CommonEntity<T>>> where T : ApprovalEntityBase {
+
     }
 }

@@ -2,13 +2,8 @@ using Domain.Common;
 using MongoDB.Bson.Serialization.Attributes;
 
 namespace Domain.Entities {
-    public class CommonEntity : EntityBase {
+    public class CommonEntity<T> : EntityBase where T : ApprovalEntityBase {
 
-        [BsonElement ("UserId")]
-        public string UserId { get; set; }
-        public double Deposite { get; set; }
-        public string ProductId { get; set; }
-        public string Type { get; set; }
-        public string Status { get; set; }
+        public T ApprovalEntity { get; set; }
     }
 }

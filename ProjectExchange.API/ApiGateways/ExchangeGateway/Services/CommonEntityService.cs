@@ -14,12 +14,12 @@ namespace ExchangeGateway.Services {
             _client = client;
         }
 
-        public async Task<ResponseModel<Admin>> GetCommonEntity (string id) {
+        public async Task<ResponseModel<CommonEntity>> GetCommonEntity (string id) {
             try {
                 var response = await _client.GetAsync ($"/api/v1/Admin/{id}");
-                return await response.ReadContentAs<ResponseModel<Admin>> ();
+                return await response.ReadContentAs<ResponseModel<CommonEntity>> ();
             } catch (Exception ex) {
-                var response = new ResponseModel<Admin> () {
+                var response = new ResponseModel<CommonEntity> () {
                     ReponseName = nameof (GetCommonEntity) + "in" + nameof (ExchangeGateway),
                     Message = ex.Message,
                     Status = ResponseType.Error,
@@ -29,12 +29,12 @@ namespace ExchangeGateway.Services {
             }
 
         }
-        public async Task<ResponseModel<Admin>> CreateCommonEntity (Admin model) {
+        public async Task<ResponseModel<CommonEntity>> CreateCommonEntity (CommonEntity model) {
             try {
-                var response = await _client.PostAsJsonAsync<Admin> ("/api/v1/Admin", model);
-                return await response.ReadContentAs<ResponseModel<Admin>> ();
+                var response = await _client.PostAsJsonAsync<CommonEntity> ("/api/v1/Admin", model);
+                return await response.ReadContentAs<ResponseModel<CommonEntity>> ();
             } catch (Exception ex) {
-                var response = new ResponseModel<Admin> () {
+                var response = new ResponseModel<CommonEntity> () {
                     ReponseName = nameof (CreateCommonEntity) + "in" + nameof (ExchangeGateway),
                     Message = ex.Message,
                     Status = ResponseType.Error,
@@ -44,12 +44,12 @@ namespace ExchangeGateway.Services {
             }
         }
 
-        public async Task<ResponseModel<Admin>> UpdateCommonEntity (Admin model) {
+        public async Task<ResponseModel<CommonEntity>> UpdateCommonEntity (CommonEntity model) {
             try {
-                var response = await _client.PutAsJsonAsync<Admin> ("/api/v1/Admin", model);
-                return await response.ReadContentAs<ResponseModel<Admin>> ();
+                var response = await _client.PutAsJsonAsync<CommonEntity> ("/api/v1/Admin", model);
+                return await response.ReadContentAs<ResponseModel<CommonEntity>> ();
             } catch (Exception ex) {
-                var response = new ResponseModel<Admin> () {
+                var response = new ResponseModel<CommonEntity> () {
                     ReponseName = nameof (UpdateCommonEntity) + "in" + nameof (ExchangeGateway),
                     Message = ex.Message,
                     Status = ResponseType.Error,

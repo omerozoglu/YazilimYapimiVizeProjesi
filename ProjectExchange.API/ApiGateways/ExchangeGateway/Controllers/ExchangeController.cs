@@ -171,8 +171,8 @@ namespace ExchangeGateway.Controllers {
         [Route ("SellOperation")]
         [ProducesResponseType (StatusCodes.Status204NoContent)]
         [ProducesResponseType (StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<ResponseModel<User>>> SellOperation (SellerModel model) {
-            var response = new ResponseModel<User> () { ReponseName = nameof (SellOperation) };
+        public async Task<ActionResult<ResponseModel<string>>> SellOperation (SellerModel model) {
+            var response = new ResponseModel<string> () { ReponseName = nameof (SellOperation) };
             double _modelProdcutWeight = model.Weight, _modelProductUnitPrice = model.UnitPrice;
             string _modelUserId = model.UserId, _modelProductId = model.ProductId;
 
@@ -248,20 +248,14 @@ namespace ExchangeGateway.Controllers {
         [ProducesResponseType (StatusCodes.Status204NoContent)]
         [ProducesResponseType (StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
-        public async Task<ActionResult<ResponseModel<Admin>>> ProductLoadOperation (LoadProductModel model) {
-            var response = new ResponseModel<Admin> () { ReponseName = nameof (MoneyDepositOperation), Content = new List<Admin> () { } };
-            var product = new Product () { Id = null, Name = model.ProductName, Weight = model.ProductWeight, ImgUrl = model.ProductImgUrl, UnitPrice = 0 };
-            var newProductResponse = await _productService.CreateProduct (product);
-            var newProduct = newProductResponse.Content.Find (p => true);
-            var commonEntity = new Admin () { Id = null, UserId = model.UserId, ProductId = newProduct.Id, Type = "LoadProduct", Status = "Pending" };
-            //* Admin onayına gitmesi için istek oluşturuldu
-            var commonEntityResponse = await _commonEntityService.CreateCommonEntity (commonEntity);
-            commonEntity = commonEntityResponse.Content.Find (p => true);
+        public async Task<ActionResult<ResponseModel<string>>> ProductLoadOperation (LoadProductModel model) {
+            var response = new ResponseModel<string> () { ReponseName = nameof (ProductLoadOperation) };
 
-            response.Content.Add (commonEntity);
+            //*Create commonEntity
+            // var createCommonEntityRespoonse = await _commonEntityService.CreateCommonEntity ();
+
             response.Message = "Operation successfully submitted to admin for approval ";
             response.Status = ResponseType.Success;
-
             return response;
         }
 
@@ -269,10 +263,10 @@ namespace ExchangeGateway.Controllers {
         [Route ("MoneyDepositOperation")]
         [ProducesResponseType (StatusCodes.Status204NoContent)]
         [ProducesResponseType (StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<ResponseModel<Admin>>> MoneyDepositOperation (MoneyDepositModel model) {
-            var response = new ResponseModel<Admin> () { ReponseName = nameof (MoneyDepositOperation), Content = new List<Admin> () { } };
+        public async Task<ActionResult<ResponseModel<CommonEntity>>> MoneyDepositOperation (MoneyDepositModel model) {
+            var response = new ResponseModel<CommonEntity> () { ReponseName = nameof (MoneyDepositOperation), Content = new List<CommonEntity> () { } };
 
-            var commonEntity = new Admin () { Id = null, UserId = model.UserId, Deposite = model.Deposite, ProductId = null, Type = "MoneyDeposit", Status = "Pending" };
+            var commonEntity = new CommonEntity () { Id = null, UserId = model.UserId, Deposite = model.Deposite, ProductId = null, Type = "MoneyDeposit", Status = "Pending" };
             //* Admin onayına gitmesi için istek oluşturuldu
             var commonEntityResponse = await _commonEntityService.CreateCommonEntity (commonEntity);
 
@@ -289,8 +283,8 @@ namespace ExchangeGateway.Controllers {
         [Route ("AdminConfirmOperation")]
         [ProducesResponseType (StatusCodes.Status204NoContent)]
         [ProducesResponseType (StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<ResponseModel<Admin>>> AdminConfirmOperation (Admin model) {
-            var response = new ResponseModel<Admin> () { ReponseName = nameof (AdminConfirmOperation) + "// " + model.Type, Content = new List<Admin> () { } };
+        public async Task<ActionResult<ResponseModel<CommonEntity>>> AdminConfirmOperation (CommonEntity model) {
+            var response = new ResponseModel<CommonEntity> () { ReponseName = nameof (AdminConfirmOperation) + "// " + model.Type, Content = new List<CommonEntity> () { } };
             /*
             if (model.Type == "LoadProduct") {
                 #region Denied

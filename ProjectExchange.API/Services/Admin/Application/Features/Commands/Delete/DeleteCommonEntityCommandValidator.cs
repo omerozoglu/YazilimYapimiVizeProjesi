@@ -1,7 +1,8 @@
+using Domain.Common;
 using FluentValidation;
 
 namespace Application.Features.Commands.Delete {
-    public class DeleteCommonEntityCommandValidator : AbstractValidator<DeleteCommonEntityCommand> {
+    public class DeleteCommonEntityCommandValidator<T> : AbstractValidator<DeleteCommonEntityCommand<T>> where T : ApprovalEntityBase {
         public DeleteCommonEntityCommandValidator () {
 
             RuleFor (p => p.Id)

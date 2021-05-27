@@ -1,21 +1,28 @@
+using Domain.Common;
 using FluentValidation;
 
 namespace Application.Features.Commands.Update {
-    public class UpdateCommonEntityCommandValidator : AbstractValidator<UpdateCommonEntityCommand> {
+    public class UpdateCommonEntityCommandValidator<T> : AbstractValidator<UpdateCommonEntityCommand<T>> where T : ApprovalEntityBase {
         public UpdateCommonEntityCommandValidator () {
-            RuleFor (p => p.UserId)
+            RuleFor (p => p.Id)
                 .NotEmpty ()
-                .WithMessage ("{UserId} is required.")
+                .WithMessage ("{Id} is required.")
+                .NotNull ()
+                .Length (24)
+                .WithMessage ("{Id} must be 24 characters.");
+            RuleFor (p => p.ApprovalEntity.UserId)
+                .NotEmpty ()
+                .WithMessage ("{ApprovalEntity.UserId} is required.")
                 .NotNull ()
                 .Length (24)
                 .WithMessage ("{UserId} must be 24 characters.");
-            RuleFor (p => p.Type)
+            RuleFor (p => p.ApprovalEntity.Type)
                 .NotEmpty ()
-                .WithMessage ("{Type} is required.")
+                .WithMessage ("{ApprovalEntity.Type} is required.")
                 .NotNull ();
-            RuleFor (p => p.Status)
+            RuleFor (p => p.ApprovalEntity.Status)
                 .NotEmpty ()
-                .WithMessage ("{Status} is required.")
+                .WithMessage ("{ApprovalEntity.Status} is required.")
                 .NotNull ();
         }
     }

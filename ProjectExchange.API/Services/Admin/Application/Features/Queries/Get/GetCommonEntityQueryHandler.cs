@@ -10,27 +10,27 @@ using Domain.Entities;
 using MediatR;
 
 namespace Application.Features.Queries.GetQuery {
-    public class GetCommonEntityQueryHandler : IRequestHandler<GetCommonEntityQuery, EntityResponse<CommonEntity>> {
+    public class GetCommonEntityQueryHandler<T> : IRequestHandler<GetCommonEntityQuery<T>, EntityResponse<CommonEntity<T>>> where T : ApprovalEntityBase {
 
-        private readonly ICommonEntityRepository _commonEntityRepository;
+        private readonly ICommonEntityRepository<T> _commonEntityRepository;
         private readonly IMapper _mapper;
 
-        public GetCommonEntityQueryHandler (ICommonEntityRepository commonEntityRepository, IMapper mapper) {
+        public GetCommonEntityQueryHandler (ICommonEntityRepository<T> commonEntityRepository, IMapper mapper) {
             _commonEntityRepository = commonEntityRepository;
             _mapper = mapper;
         }
 
-        public async Task<EntityResponse<CommonEntity>> Handle (GetCommonEntityQuery request, CancellationToken cancellationToken) {
-            var response = new EntityResponse<CommonEntity> () { ReponseName = nameof (GetCommonEntityQuery), Content = new List<CommonEntity> () { } };
+        public async Task<EntityResponse<CommonEntity<T>>> Handle (GetCommonEntityQuery<T> request, CancellationToken cancellationToken) {
+            var response = new EntityResponse<CommonEntity<T>> () { ReponseName = nameof (GetCommonEntityQuery<T>), Content = new List<CommonEntity<T>> () { } };
             var entity = await _commonEntityRepository.GetOneAsync (p => p.Id == request.Id);
-            entity = _mapper.Map<CommonEntity> (entity);;
+            entity = _mapper.Map<CommonEntity<T>> (entity);;
             if (entity == null) {
                 response.Status = ResponseType.Warning;
-                response.Message = $"{nameof(CommonEntity)} not found.";
+                response.Message = $"{nameof(CommonEntity<T>)} not found.";
                 response.Content = null;
             } else {
                 response.Status = ResponseType.Success;
-                response.Message = $"{nameof(CommonEntity)} get successfully.";
+                response.Message = $"{nameof(CommonEntity<T>)} get successfully.";
                 response.Content.Add (entity);
             }
             return response;

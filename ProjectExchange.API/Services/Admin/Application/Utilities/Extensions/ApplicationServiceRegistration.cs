@@ -1,5 +1,7 @@
 ﻿using System.Reflection;
 using Application.Behaviours;
+using Domain.Common;
+using Domain.Entities;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,6 +15,7 @@ namespace Application.Utilities.Extensions {
             services.AddMediatR (Assembly.GetExecutingAssembly ());
 
             services.AddTransient (typeof (IPipelineBehavior<,>), typeof (ValidationBehaviour<,>));
+
             return services;
         }
     }

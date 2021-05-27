@@ -4,8 +4,8 @@ using ExchangeGateway.Models.EntityModels;
 
 namespace ExchangeGateway.Services.Interfaces {
     public interface ICommonEntityService {
-        Task<ResponseModel<Admin>> GetCommonEntity (string id);
-        Task<ResponseModel<Admin>> UpdateCommonEntity (Admin model);
-        Task<ResponseModel<Admin>> CreateCommonEntity (Admin model);
+        Task<ResponseModel<CommonEntity>> GetCommonEntity (string id);
+        Task<ResponseModel<CommonEntity>> UpdateCommonEntity (CommonEntity model);
+        Task<ResponseModel<CommonEntity>> CreateCommonEntity (CommonEntity model);
     }
 }
