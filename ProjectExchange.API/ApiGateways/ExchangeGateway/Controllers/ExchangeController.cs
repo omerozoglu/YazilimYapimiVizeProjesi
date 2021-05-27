@@ -173,35 +173,70 @@ namespace ExchangeGateway.Controllers {
         [ProducesResponseType (StatusCodes.Status404NotFound)]
         public async Task<ActionResult<ResponseModel<User>>> SellOperation (SellerModel model) {
             var response = new ResponseModel<User> () { ReponseName = nameof (SellOperation) };
+            double _modelProdcutWeight = model.Weight, _modelProductUnitPrice = model.UnitPrice;
+            string _modelUserId = model.UserId, _modelProductId = model.ProductId;
 
-            double totalprice = 0;
+            //* Get Seller User
+            var sellerUserReponse = await _userService.GetUser (_modelUserId);
+            if (sellerUserReponse.Status.Value != ResponseType.Success.Value) {
+                response.Status = sellerUserReponse.Status;
+                response.Message = $"{nameof (TakeOperation)} was interrupted due to \"{sellerUserReponse.Message}\"";
+                return response;
+            }
+            var sellerUser = sellerUserReponse.Content[0];
 
-            var userResponse = await _userService.GetUser (model.UserId);
-            var user = userResponse.Content.Find (p => true);
+            //*Get Seller's Product
+            var sellerProductResponse = await _productService.GetProduct (_modelProductId);
+            if (sellerProductResponse.Status.Value != ResponseType.Success.Value) {
+                response.Status = sellerProductResponse.Status;
+                response.Message = $"{nameof (TakeOperation)} was interrupted due to \"{sellerProductResponse.Message}\"";
+                return response;
+            }
+            var sellerProduct = sellerProductResponse.Content[0];
 
-            var productResponse = await _productService.GetProduct (model.ProductId);
-            var product = productResponse.Content.Find (p => true);
+            //* Sell Operation
+            //* The total weight of the seller's product  minus the weight of the product the seller wants to sell 
 
-            var productWeight = model.Weight;
-            var productUnitPrice = model.UnitPrice;
-            //* Toplam satış değeri hesaplama
-            totalprice = productWeight * productUnitPrice;
+            sellerProduct.Weight = (sellerProduct.Weight - _modelProdcutWeight) > 0 ? (sellerProduct.Weight - _modelProdcutWeight) : 0;
 
-            //* Ürün kilo güncelleme
-            product.Weight -= productWeight;
-            if (product.Weight <= 0) { }
-            //* silme işlemi
+            if (sellerProduct.Weight == 0) {
+                //*delete seller product
+                var deleteSellerProductResponse = await _productService.DeleteProduct (sellerProduct.Id);
+                if (deleteSellerProductResponse.Status.Value != ResponseType.Success.Value) {
+                    response.Status = deleteSellerProductResponse.Status;
+                    response.Message = $"{nameof (TakeOperation)} was interrupted due to \"{deleteSellerProductResponse.Message}\"";
+                    return response;
+                }
+                sellerUser.Products.Remove (sellerProduct.Id);
+                var updateSellerUserResponse = await _userService.UpdateUser (sellerUser);
+                if (updateSellerUserResponse.Status.Value != ResponseType.Success.Value) {
+                    response.Status = updateSellerUserResponse.Status;
+                    response.Message = $"{nameof (TakeOperation)} was interrupted due to \"{updateSellerUserResponse.Message}\"";
+                    return response;
+                }
 
-            //*kullanıcıya ait productı güncelliyor
-            await _productService.UpdateProduct (product);
-            //* Sisteme yeni fiyatlı ürünü ekliyor
-            product.Weight = model.Weight;
-            product.UnitPrice = productUnitPrice;
-            await _productService.CreateProduct (product);
+            } else {
+                //* update seller product
+                var updateSellerProductResponse = await _productService.UpdateProduct (sellerProduct);
+                if (updateSellerProductResponse.Status.Value != ResponseType.Success.Value) {
+                    response.Status = updateSellerProductResponse.Status;
+                    response.Message = $"{nameof (TakeOperation)} was interrupted due to \"{updateSellerProductResponse.Message}\"";
+                    return response;
+                }
+            }
+            sellerProduct.UnitPrice = _modelProductUnitPrice;
+            //* Create new product item
+            Product newProduct = new Product ();
+            newProduct = sellerProduct;
+            newProduct.Weight = _modelProdcutWeight;
+            newProduct.Id = null;
 
-            //* Kullanıcı bakiye güncelleme
-            user.Credit += totalprice;
-            await _userService.UpdateUser (user);
+            var createSellerProductResponse = await _productService.CreateProduct (newProduct);
+            if (createSellerProductResponse.Status.Value != ResponseType.Success.Value) {
+                response.Status = createSellerProductResponse.Status;
+                response.Message = $"{nameof (TakeOperation)} was interrupted due to \"{createSellerProductResponse.Message}\"";
+                return response;
+            }
 
             response.Message = "Operation successfully";
             response.Status = ResponseType.Success;
