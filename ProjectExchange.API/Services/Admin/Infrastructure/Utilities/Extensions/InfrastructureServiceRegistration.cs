@@ -9,10 +9,10 @@ namespace Infrastructure.Utilites.Extensions {
     public static class InfrastructureServiceRegistration {
         public static IServiceCollection AddInfrastructureServices (this IServiceCollection services, IConfiguration configuration) {
             services.AddMongoDbSettings (configuration);
-            services.AddScoped<CommonEntityMongoContext<MoneyApproval>> ();
-            services.AddScoped<CommonEntityMongoContext<ProductApproval>> ();
-            services.AddScoped<ICommonEntityRepository<MoneyApproval>, CommonEntityRepository<MoneyApproval>> ();
-            services.AddScoped<ICommonEntityRepository<ProductApproval>, CommonEntityRepository<ProductApproval>> ();
+            services.AddScoped<ApprovalEntityBaseMongoContext<MoneyApproval>> ();
+            services.AddScoped<ApprovalEntityBaseMongoContext<ProductApproval>> ();
+            services.AddScoped<IApprovalEntityRepository<MoneyApproval>, ApprovalEntityRepository<MoneyApproval>> ();
+            services.AddScoped<IApprovalEntityRepository<ProductApproval>, ApprovalEntityRepository<ProductApproval>> ();
             services.AddScoped (typeof (IAsyncRepository<>), typeof (MongoDBRepositoryBase<>));
             return services;
         }
