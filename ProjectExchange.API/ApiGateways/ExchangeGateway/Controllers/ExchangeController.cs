@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Domain.Entities;
 using ExchangeGateway.CommonAlgorithms.Sorting;
 using ExchangeGateway.Models;
 using ExchangeGateway.Models.EntityModels;
+using ExchangeGateway.Models.EntityModels.Enums;
 using ExchangeGateway.Models.OperationModels;
 using ExchangeGateway.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
@@ -15,12 +17,13 @@ namespace ExchangeGateway.Controllers {
 
         private readonly IUserService _userService;
         private readonly IProductService _productService;
-        private readonly ICommonEntityService _commonEntityService;
-
-        public ExchangeController (IUserService userService, IProductService productService, ICommonEntityService commonEntityService) {
+        private readonly IAprpovalEntityService<MoneyApproval> _moneyApprovalService;
+        private readonly IAprpovalEntityService<ProductApproval> _productApprovalService;
+        public ExchangeController (IUserService userService, IProductService productService, IAprpovalEntityService<MoneyApproval> moneyApprovalService, IAprpovalEntityService<ProductApproval> productApprovalService) {
             _userService = userService;
             _productService = productService;
-            _commonEntityService = commonEntityService;
+            _moneyApprovalService = moneyApprovalService;
+            _productApprovalService = productApprovalService;
         }
 
         [HttpPut]
@@ -189,7 +192,7 @@ namespace ExchangeGateway.Controllers {
             var sellerProductResponse = await _productService.GetProduct (_modelProductId);
             if (sellerProductResponse.Status.Value != ResponseType.Success.Value) {
                 response.Status = sellerProductResponse.Status;
-                response.Message = $"{nameof (TakeOperation)} was interrupted due to \"{sellerProductResponse.Message}\"";
+                response.Message = $"{nameof (SellOperation)} was interrupted due to \"{sellerProductResponse.Message}\"";
                 return response;
             }
             var sellerProduct = sellerProductResponse.Content[0];
@@ -204,14 +207,14 @@ namespace ExchangeGateway.Controllers {
                 var deleteSellerProductResponse = await _productService.DeleteProduct (sellerProduct.Id);
                 if (deleteSellerProductResponse.Status.Value != ResponseType.Success.Value) {
                     response.Status = deleteSellerProductResponse.Status;
-                    response.Message = $"{nameof (TakeOperation)} was interrupted due to \"{deleteSellerProductResponse.Message}\"";
+                    response.Message = $"{nameof (SellOperation)} was interrupted due to \"{deleteSellerProductResponse.Message}\"";
                     return response;
                 }
                 sellerUser.Products.Remove (sellerProduct.Id);
                 var updateSellerUserResponse = await _userService.UpdateUser (sellerUser);
                 if (updateSellerUserResponse.Status.Value != ResponseType.Success.Value) {
                     response.Status = updateSellerUserResponse.Status;
-                    response.Message = $"{nameof (TakeOperation)} was interrupted due to \"{updateSellerUserResponse.Message}\"";
+                    response.Message = $"{nameof (SellOperation)} was interrupted due to \"{updateSellerUserResponse.Message}\"";
                     return response;
                 }
 
@@ -220,7 +223,7 @@ namespace ExchangeGateway.Controllers {
                 var updateSellerProductResponse = await _productService.UpdateProduct (sellerProduct);
                 if (updateSellerProductResponse.Status.Value != ResponseType.Success.Value) {
                     response.Status = updateSellerProductResponse.Status;
-                    response.Message = $"{nameof (TakeOperation)} was interrupted due to \"{updateSellerProductResponse.Message}\"";
+                    response.Message = $"{nameof (SellOperation)} was interrupted due to \"{updateSellerProductResponse.Message}\"";
                     return response;
                 }
             }
@@ -234,7 +237,7 @@ namespace ExchangeGateway.Controllers {
             var createSellerProductResponse = await _productService.CreateProduct (newProduct);
             if (createSellerProductResponse.Status.Value != ResponseType.Success.Value) {
                 response.Status = createSellerProductResponse.Status;
-                response.Message = $"{nameof (TakeOperation)} was interrupted due to \"{createSellerProductResponse.Message}\"";
+                response.Message = $"{nameof (SellOperation)} was interrupted due to \"{createSellerProductResponse.Message}\"";
                 return response;
             }
 
@@ -248,11 +251,24 @@ namespace ExchangeGateway.Controllers {
         [ProducesResponseType (StatusCodes.Status204NoContent)]
         [ProducesResponseType (StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
-        public async Task<ActionResult<ResponseModel<string>>> ProductLoadOperation (LoadProductModel model) {
+        public async Task<ActionResult<ResponseModel<string>>> ProductLoadOperation (ProductApproval model) {
             var response = new ResponseModel<string> () { ReponseName = nameof (ProductLoadOperation) };
 
-            //*Create commonEntity
-            // var createCommonEntityRespoonse = await _commonEntityService.CreateCommonEntity ();
+            //*Create ProductApprovalEntity
+            var ProductApproval = new ProductApproval () {
+                UserId = model.UserId,
+                Type = ApprovalType.Load,
+                Status = ApprovalStatus.Pending,
+                ProductName = model.ProductName,
+                ProductImgUrl = model.ProductImgUrl,
+                ProductWeight = model.ProductWeight
+            };
+            var productApprovalResponse = await _productApprovalService.CreateApprovalEntity (ProductApproval);
+            if (productApprovalResponse.Status.Value != ResponseType.Success.Value) {
+                response.Status = productApprovalResponse.Status;
+                response.Message = $"{nameof (ProductLoadOperation)} was interrupted due to \"{productApprovalResponse.Message}\"";
+                return response;
+            }
 
             response.Message = "Operation successfully submitted to admin for approval ";
             response.Status = ResponseType.Success;
@@ -263,19 +279,25 @@ namespace ExchangeGateway.Controllers {
         [Route ("MoneyDepositOperation")]
         [ProducesResponseType (StatusCodes.Status204NoContent)]
         [ProducesResponseType (StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<ResponseModel<CommonEntity>>> MoneyDepositOperation (MoneyDepositModel model) {
-            var response = new ResponseModel<CommonEntity> () { ReponseName = nameof (MoneyDepositOperation), Content = new List<CommonEntity> () { } };
+        public async Task<ActionResult<ResponseModel<string>>> MoneyDepositOperation (MoneyApproval model) {
+            var response = new ResponseModel<string> () { ReponseName = nameof (MoneyDepositOperation) };
 
-            var commonEntity = new CommonEntity () { Id = null, UserId = model.UserId, Deposite = model.Deposite, ProductId = null, Type = "MoneyDeposit", Status = "Pending" };
-            //* Admin onayına gitmesi için istek oluşturuldu
-            var commonEntityResponse = await _commonEntityService.CreateCommonEntity (commonEntity);
+            //*Create MoneyApprovalEntity
+            var MoneyApproval = new MoneyApproval () {
+                UserId = model.UserId,
+                Type = ApprovalType.Deposit,
+                Status = ApprovalStatus.Pending,
+                Deposit = model.Deposit
+            };
+            var moneyApprovalResponse = await _moneyApprovalService.CreateApprovalEntity (MoneyApproval);
+            if (moneyApprovalResponse.Status.Value != ResponseType.Success.Value) {
+                response.Status = moneyApprovalResponse.Status;
+                response.Message = $"{nameof (MoneyDepositOperation)} was interrupted due to \"{moneyApprovalResponse.Message}\"";
+                return response;
+            }
 
-            commonEntity = commonEntityResponse.Content.Find (p => true);
-
-            response.Content.Add (commonEntity);
             response.Message = "Operation successfully submitted to admin for approval ";
             response.Status = ResponseType.Success;
-
             return response;
         }
 
@@ -283,73 +305,44 @@ namespace ExchangeGateway.Controllers {
         [Route ("AdminConfirmOperation")]
         [ProducesResponseType (StatusCodes.Status204NoContent)]
         [ProducesResponseType (StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<ResponseModel<CommonEntity>>> AdminConfirmOperation (CommonEntity model) {
-            var response = new ResponseModel<CommonEntity> () { ReponseName = nameof (AdminConfirmOperation) + "// " + model.Type, Content = new List<CommonEntity> () { } };
-            /*
-            if (model.Type == "LoadProduct") {
-                #region Denied
-                if (model.Status == "Denied") {
-                    //* User Bilgilendirme::: Durum başarısız daha sonra yapacağım product sil
-                    response.Message = "Operation failed";
-                    response.Status = ResponseType.Error;
+        public async Task<ActionResult<ResponseModel<string>>> LoadConfirmOperation (ProductApproval model) {
+            var response = new ResponseModel<string> () { ReponseName = nameof (LoadConfirmOperation), Content = new List<string> () { } };
+
+            //* If admin approved, System'll be create product in related user
+            if (model.Status.Value == ApprovalStatus.Approved.Value) {
+                Product newProduct = new Product () { UserId = model.UserId, Name = model.ProductName, ImgUrl = model.ProductImgUrl, Weight = model.ProductWeight, UnitPrice = 0 };
+                var userProductResponse = await _productService.CreateProduct (newProduct);
+                if (userProductResponse.Status.Value != ResponseType.Success.Value) {
+                    response.Status = userProductResponse.Status;
+                    response.Message = $"{nameof (LoadConfirmOperation)} was interrupted due to \"{userProductResponse.Message}\"";
                     return response;
                 }
-                #endregion
-
-                #region Approved 
-
-                var userResponse = await _userService.GetUser (model.UserId);
-                var user = userResponse.Content.Find (p => true);
-                var productResponse = await _productService.GetProduct (model.ProductId);
-                var product = productResponse.Content.Find (p => true);
-                var IsThereProduct = true;
-
-                foreach (var item in user.Products) {
-                    var _productResponse = await _productService.GetProduct (item);
-                    var _product = _productResponse.Content.Find (p => true);
-                    if (_product.Name == product.Name) {
-                        _product.Weight += product.Weight;
-                        await _productService.UpdateProduct (_product);
-                        IsThereProduct = false;
-                        break;
-                    } else {
-                        IsThereProduct = true;
-                    }
-                }
-                if (IsThereProduct) {
-                    user.Products.Add (product.Id);
-                }
-                await _userService.UpdateUser (user);
-
-                model.Status = "Approved";
-                await _commonEntityService.UpdateCommonEntity (model);
-
-                #endregion
-
-            } else if (model.Type == "MoneyDeposit") {
-                #region Denied
-                if (model.Status == "Denied") {
-                    //* User Bilgilendirme::: Durum başarısız daha sonra yapacağım
-                    response.Message = "Operation failed";
-                    response.Status = ResponseType.Error;
+                var userGetResponse = await _userService.GetUser (model.UserId);
+                if (userGetResponse.Status.Value != ResponseType.Success.Value) {
+                    response.Status = userGetResponse.Status;
+                    response.Message = $"{nameof (LoadConfirmOperation)} was interrupted due to \"{userGetResponse.Message}\"";
                     return response;
                 }
-                #endregion
+                User user = userGetResponse.Content[0];
+                user.Products.Add (userProductResponse.Content[0].Id);
+                var userResponse = await _userService.UpdateUser (user);
+                if (userResponse.Status.Value != ResponseType.Success.Value) {
+                    response.Status = userResponse.Status;
+                    response.Message = $"{nameof (LoadConfirmOperation)} was interrupted due to \"{userResponse.Message}\"";
+                    return response;
+                }
+            }
 
-                #region Approved 
-                var commonEntityResponse = await _commonEntityService.GetCommonEntity (model.Id);
-                var commonEntity = commonEntityResponse.Content.Find (p => p.UserId == model.UserId);
-                var userResponse = await _userService.GetUser (commonEntity.UserId);
-                var user = userResponse.Content.Find (p => p.Id == model.UserId);
-                user.Credit += commonEntity.Deposite;
-                await _userService.UpdateUser (user);
-                commonEntity.Status = "Approved";
-                await _commonEntityService.UpdateCommonEntity (commonEntity);
+            //* Updating ApprovalEntity 
+            var ProductApproval = model;
+            var productApprovalResponse = await _productApprovalService.UpdateApprovalEntity (ProductApproval);
+            if (productApprovalResponse.Status.Value != ResponseType.Success.Value) {
+                response.Status = productApprovalResponse.Status;
+                response.Message = $"{nameof (LoadConfirmOperation)} was interrupted due to \"{productApprovalResponse.Message}\"";
+                return response;
+            }
 
-                #endregion
-
-            }*/
-            response.Message = "Operation successfully submitted to admin for approval ";
+            response.Message = "Operation successfully submitted";
             response.Status = ResponseType.Success;
             return response;
         }

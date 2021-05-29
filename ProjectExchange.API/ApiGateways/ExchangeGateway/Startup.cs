@@ -1,4 +1,5 @@
 using System;
+using Domain.Entities;
 using ExchangeGateway.Services;
 using ExchangeGateway.Services.Interfaces;
 using Microsoft.AspNetCore.Builder;
@@ -29,7 +30,9 @@ namespace ExchangeGateway {
                 c.BaseAddress = new Uri (Configuration["ApiSettings:UserUrl"]));
             services.AddHttpClient<IProductService, ProductService> (c =>
                 c.BaseAddress = new Uri (Configuration["ApiSettings:ProductUrl"]));
-            services.AddHttpClient<ICommonEntityService, CommonEntityService> (c =>
+            services.AddHttpClient<IAprpovalEntityService<MoneyApproval>, ApprovalEntityService<MoneyApproval>> (c =>
+                c.BaseAddress = new Uri (Configuration["ApiSettings:AdminUrl"]));
+            services.AddHttpClient<IAprpovalEntityService<ProductApproval>, ApprovalEntityService<ProductApproval>> (c =>
                 c.BaseAddress = new Uri (Configuration["ApiSettings:AdminUrl"]));
             services.AddControllers ();
             services.AddSwaggerGen (c => {

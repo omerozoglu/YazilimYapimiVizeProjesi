@@ -26,7 +26,7 @@ namespace API.Controllers {
         }
         #region GetAllMoneyApprovalEntity ()
         [HttpGet]
-        [Route ("GetAllMoneyApprovalEntity")]
+        //  [Route ("GetAllMoneyApprovalEntity")]
         [ProducesResponseType (typeof (EntityResponse<MoneyApproval>), (int) HttpStatusCode.OK)]
         public async Task<ActionResult<EntityResponse<MoneyApproval>>> GetAllMoneyApprovalEntity () {
             var query = new GetListMoneyApprovalQuery ();
@@ -36,8 +36,8 @@ namespace API.Controllers {
         #endregion
 
         #region GetMoneyApprovalEntity ()
-        [HttpGet]
-        [Route ("GetMoneyApprovalEntity/{id:length(24)}")]
+        [HttpGet ("{id:length(24)}")]
+        //  [Route ("GetMoneyApprovalEntity/{id:length(24)}")]
         [ProducesResponseType (typeof (EntityResponse<MoneyApproval>), (int) HttpStatusCode.OK)]
         public async Task<ActionResult<EntityResponse<MoneyApproval>>> GetMoneyApprovalEntity (string id) {
             try {
@@ -57,7 +57,7 @@ namespace API.Controllers {
 
         #region CreateMoneyApprovalEntity ()
         [HttpPost]
-        [Route ("CreateMoneyApprovalEntity")]
+        //   [Route ("CreateMoneyApprovalEntity")]
         [ProducesResponseType (typeof (EntityResponse<MoneyApproval>), (int) HttpStatusCode.OK)]
         public async Task<ActionResult<EntityResponse<MoneyApproval>>> CreateMoneyApprovalEntity (CreateMoneyApprovalCommand command) {
             try {
@@ -76,7 +76,7 @@ namespace API.Controllers {
 
         #region UpdateMoneyApprovalEntity ()
         [HttpPut]
-        [Route ("UpdateMoneyApprovalEntity")]
+        //   [Route ("UpdateMoneyApprovalEntity")]
         [ProducesResponseType (typeof (EntityResponse<MoneyApproval>), (int) HttpStatusCode.OK)]
         [ProducesResponseType (StatusCodes.Status204NoContent)]
         [ProducesResponseType (StatusCodes.Status404NotFound)]
@@ -96,8 +96,8 @@ namespace API.Controllers {
         #endregion
 
         #region DeleteMoneyApprovalEntity ()
-        [HttpDelete]
-        [Route ("DeleteMoneyApprovalEntity/{id:length(24)}")]
+        [HttpDelete ("{id:length(24)}")]
+        //  [Route ("DeleteMoneyApprovalEntity/{id:length(24)}")]
         [ProducesResponseType (typeof (EntityResponse<MoneyApproval>), (int) HttpStatusCode.OK)]
         [ProducesResponseType (StatusCodes.Status204NoContent)]
         [ProducesResponseType (StatusCodes.Status404NotFound)]

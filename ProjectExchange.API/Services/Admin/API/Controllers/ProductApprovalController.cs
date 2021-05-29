@@ -26,7 +26,7 @@ namespace API.Controllers {
         }
         #region GetAllProductApprovalEntity ()
         [HttpGet]
-        [Route ("GetAllProductApprovalEntity")]
+        //  [Route ("GetAllProductApprovalEntity")]
         [ProducesResponseType (typeof (EntityResponse<ProductApproval>), (int) HttpStatusCode.OK)]
         public async Task<ActionResult<EntityResponse<ProductApproval>>> GetAllProductApprovalEntity () {
             var query = new GetListProductApprovalQuery ();
@@ -36,8 +36,8 @@ namespace API.Controllers {
         #endregion
 
         #region GetProductApprovalEntity ()
-        [HttpGet]
-        [Route ("GetProductApprovalEntity/{id:length(24)}")]
+        [HttpGet ("{id:length(24)}")]
+        // [Route ("GetProductApprovalEntity/{id:length(24)}")]
         [ProducesResponseType (typeof (EntityResponse<ProductApproval>), (int) HttpStatusCode.OK)]
         public async Task<ActionResult<EntityResponse<ProductApproval>>> GetProductApprovalEntity (string id) {
             try {
@@ -57,7 +57,7 @@ namespace API.Controllers {
 
         #region CreateProductApprovalEntity ()
         [HttpPost]
-        [Route ("CreateProductApprovalEntity")]
+        // [Route ("CreateProductApprovalEntity")]
         [ProducesResponseType (typeof (EntityResponse<ProductApproval>), (int) HttpStatusCode.OK)]
         public async Task<ActionResult<EntityResponse<ProductApproval>>> CreateProductApprovalEntity (CreateProductApprovalCommand command) {
             try {
@@ -76,7 +76,7 @@ namespace API.Controllers {
 
         #region UpdateProductApprovalEntity ()
         [HttpPut]
-        [Route ("UpdateProductApprovalEntity")]
+        // [Route ("UpdateProductApprovalEntity")]
         [ProducesResponseType (typeof (EntityResponse<ProductApproval>), (int) HttpStatusCode.OK)]
         [ProducesResponseType (StatusCodes.Status204NoContent)]
         [ProducesResponseType (StatusCodes.Status404NotFound)]
@@ -96,8 +96,8 @@ namespace API.Controllers {
         #endregion
 
         #region DeleteProductApprovalEntity ()
-        [HttpDelete]
-        [Route ("DeleteProductApprovalEntity/{id:length(24)}")]
+        [HttpDelete ("{id:length(24)}")]
+        // [Route ("DeleteProductApprovalEntity/{id:length(24)}")]
         [ProducesResponseType (typeof (EntityResponse<ProductApproval>), (int) HttpStatusCode.OK)]
         [ProducesResponseType (StatusCodes.Status204NoContent)]
         [ProducesResponseType (StatusCodes.Status404NotFound)]
