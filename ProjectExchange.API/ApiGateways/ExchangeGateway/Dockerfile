@@ -11,10 +11,10 @@ USER appuser
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
-COPY ["ApiGateways/ExchangeGateway/ExchangeGateway.csproj", "ApiGateways/ExchangeGateway/"]
-RUN dotnet restore "ApiGateways/ExchangeGateway/ExchangeGateway.csproj"
+COPY ["ProjectExchange.API/ApiGateways/ExchangeGateway/ExchangeGateway.csproj", "ProjectExchange.API/ApiGateways/ExchangeGateway/"]
+RUN dotnet restore "ProjectExchange.API/ApiGateways/ExchangeGateway/ExchangeGateway.csproj"
 COPY . .
-WORKDIR "/src/ApiGateways/ExchangeGateway"
+WORKDIR "/src/ProjectExchange.API/ApiGateways/ExchangeGateway"
 RUN dotnet build "ExchangeGateway.csproj" -c Release -o /app/build
 
 FROM build AS publish

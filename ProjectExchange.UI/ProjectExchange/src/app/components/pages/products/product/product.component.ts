@@ -22,12 +22,12 @@ export class ProductComponent implements OnInit {
   ngOnInit(): void {
     console.log(this.Product);
   }
-  public TakeOperaiton(weight, productId) {
-    var mockUserId: string = "60af7e0417369373599f3a8d";
-    this.TakerModel.productId = productId;
+  public TakeOperaiton(weight) {
+    var mockUserId = "60af7e0417369373599f3a8d";
+    this.TakerModel.productName = this.Product.name;
     this.TakerModel.userId = mockUserId;
     this.TakerModel.weight = weight;
-    console.log(this.Product.id);
+    console.log(this.TakerModel);
     this.takeService.TakeOperation(this.TakerModel).subscribe(operation => {
       console.log(operation);
     });

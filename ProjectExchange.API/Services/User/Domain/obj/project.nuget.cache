@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "3XYyN89PWpfEnhvHbuHi5T7+yTcqjA36r2BGTpvQjz81lC4lkzaOih/jMULeSJUuLnrR6e1mYyvCo24YNmLn2A==",
+  "dgSpecHash": "VVE4CKrtYNwtVjpYHwnN6qpjDF0KqURmkmxiOwfU18ggRjln39KhuDWx4D9Xf3+ksMboeyh7Pd4YEgdVsDEWZw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\omero\\OneDrive\\Masaüstü\\Yazılım Yapımı Proje\\Vize\\Vize_branch_1\\ProjectExchange.API\\Services\\User\\Domain\\Domain.csproj",
+  "projectFilePath": "C:\\Users\\omero\\OneDrive\\Masaüstü\\Yazılım Yapımı Proje\\Final\\YazilimYapimiVizeProjesi\\ProjectExchange.API\\Services\\User\\Domain\\Domain.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\omero\\.nuget\\packages\\dnsclient\\1.4.0\\dnsclient.1.4.0.nupkg.sha512",
     "C:\\Users\\omero\\.nuget\\packages\\microsoft.netcore.platforms\\2.1.2\\microsoft.netcore.platforms.2.1.2.nupkg.sha512",

@@ -10,9 +10,11 @@
             "request": "launch",
             "preLaunchTask": "build",
             // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/API/ProjectExchange/bin/Debug/net5.0/ProjectExchange.dll",
+            //"program": "${workspaceFolder}/API/ProjectExchange/bin/Debug/net5.0/ProjectExchange.dll",
+            "program": "ProjectExchange.API/Services/Product/API/bin/Debug/net5.0/API.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/API/ProjectExchange",
+            //"cwd": "${workspaceFolder}/API/ProjectExchange",
+            "cwd": "ProjectExchange.API/Services/Product/API",
             "stopAtEntry": false,
             // Enable launching a web browser when ASP.NET Core starts. For more information: https://aka.ms/VSCode-CS-LaunchJson-WebBrowser
             "serverReadyAction": {

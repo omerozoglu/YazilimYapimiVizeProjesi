@@ -22,3 +22,15 @@ C:\Users\omero\OneDrive\Masaüstü\Yazılım Yapımı Proje\Vize\Vize_branch_1\P
 C:\Users\omero\OneDrive\Masaüstü\Yazılım Yapımı Proje\Vize\Vize_branch_1\ProjectExchange.API\Services\User\Domain\obj\Debug\net5.0\Domain.dll
 C:\Users\omero\OneDrive\Masaüstü\Yazılım Yapımı Proje\Vize\Vize_branch_1\ProjectExchange.API\Services\User\Domain\obj\Debug\net5.0\ref\Domain.dll
 C:\Users\omero\OneDrive\Masaüstü\Yazılım Yapımı Proje\Vize\Vize_branch_1\ProjectExchange.API\Services\User\Domain\obj\Debug\net5.0\Domain.pdb
+C:\Users\omero\OneDrive\Masaüstü\Yazılım Yapımı Proje\Final\YazilimYapimiVizeProjesi\ProjectExchange.API\Services\User\Domain\bin\Debug\net5.0\Domain.deps.json
+C:\Users\omero\OneDrive\Masaüstü\Yazılım Yapımı Proje\Final\YazilimYapimiVizeProjesi\ProjectExchange.API\Services\User\Domain\bin\Debug\net5.0\Domain.dll
+C:\Users\omero\OneDrive\Masaüstü\Yazılım Yapımı Proje\Final\YazilimYapimiVizeProjesi\ProjectExchange.API\Services\User\Domain\bin\Debug\net5.0\ref\Domain.dll
+C:\Users\omero\OneDrive\Masaüstü\Yazılım Yapımı Proje\Final\YazilimYapimiVizeProjesi\ProjectExchange.API\Services\User\Domain\bin\Debug\net5.0\Domain.pdb
+C:\Users\omero\OneDrive\Masaüstü\Yazılım Yapımı Proje\Final\YazilimYapimiVizeProjesi\ProjectExchange.API\Services\User\Domain\obj\Debug\net5.0\Domain.csprojAssemblyReference.cache
+C:\Users\omero\OneDrive\Masaüstü\Yazılım Yapımı Proje\Final\YazilimYapimiVizeProjesi\ProjectExchange.API\Services\User\Domain\obj\Debug\net5.0\Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\omero\OneDrive\Masaüstü\Yazılım Yapımı Proje\Final\YazilimYapimiVizeProjesi\ProjectExchange.API\Services\User\Domain\obj\Debug\net5.0\Domain.AssemblyInfoInputs.cache
+C:\Users\omero\OneDrive\Masaüstü\Yazılım Yapımı Proje\Final\YazilimYapimiVizeProjesi\ProjectExchange.API\Services\User\Domain\obj\Debug\net5.0\Domain.AssemblyInfo.cs
+C:\Users\omero\OneDrive\Masaüstü\Yazılım Yapımı Proje\Final\YazilimYapimiVizeProjesi\ProjectExchange.API\Services\User\Domain\obj\Debug\net5.0\Domain.csproj.CoreCompileInputs.cache
+C:\Users\omero\OneDrive\Masaüstü\Yazılım Yapımı Proje\Final\YazilimYapimiVizeProjesi\ProjectExchange.API\Services\User\Domain\obj\Debug\net5.0\Domain.dll
+C:\Users\omero\OneDrive\Masaüstü\Yazılım Yapımı Proje\Final\YazilimYapimiVizeProjesi\ProjectExchange.API\Services\User\Domain\obj\Debug\net5.0\ref\Domain.dll
+C:\Users\omero\OneDrive\Masaüstü\Yazılım Yapımı Proje\Final\YazilimYapimiVizeProjesi\ProjectExchange.API\Services\User\Domain\obj\Debug\net5.0\Domain.pdb

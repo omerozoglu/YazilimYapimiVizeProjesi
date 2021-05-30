@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Domain.Entities;
@@ -57,19 +58,22 @@ namespace ExchangeGateway.Controllers {
             #region Taker product check
             bool isThereProduct = false;
             Product _tmpTakerProduct = new Product ();
-            foreach (var product in _takerUser.Products) {
-                var takerProductResponse = await _productService.GetProduct (product);
-                _tmpTakerProduct = takerProductResponse.Content.Find (product => product.Name == product.Name);
+            foreach (var p in _takerUser.Products) {
+                var takerProductResponse = await _productService.GetProduct (p);
+                _tmpTakerProduct = takerProductResponse.Content[0];
                 if (_tmpTakerProduct.Name == _modelProductName) {
                     isThereProduct = true;
                     break;
                 }
             }
+            _tmpTakerProduct = new Product ();
             //* If there is product named by taker wants, Update this product
             if (!isThereProduct) {
+                _tmpTakerProduct.Id = null;
                 _tmpTakerProduct.Name = products[0].Name;
                 _tmpTakerProduct.ImgUrl = products[0].ImgUrl;
                 _tmpTakerProduct.UserId = _modelUserId;
+                _tmpTakerProduct.Weight = 0;
                 //* else, create a new one
                 var _createTakerProductResponse = await _productService.CreateProduct (_tmpTakerProduct);
                 //* If operation has interrupted on updating
@@ -95,8 +99,9 @@ namespace ExchangeGateway.Controllers {
             foreach (var _tmpSellerProdcut in products) {
                 var _sellerUserResponse = await _userService.GetUser (_tmpSellerProdcut.UserId);
                 var _sellerUser = _sellerUserResponse.Content[0];
-
-                if (_tmpTakerProdcutWeight > _tmpSellerProdcut.Weight) {
+                Console.WriteLine ("Taker:: " + _tmpTakerProdcutWeight);
+                Console.WriteLine ("Seller:: " + _tmpSellerProdcut.Weight);
+                if (_tmpTakerProdcutWeight >= _tmpSellerProdcut.Weight) {
                     //* this operation was make seller's product weight was zero,so this product must be delete
                     _tmpTakerProdcutWeight -= _tmpSellerProdcut.Weight;
                     var _deleteSellerProductResponse = await _productService.DeleteProduct (_tmpSellerProdcut.Id);
@@ -129,7 +134,6 @@ namespace ExchangeGateway.Controllers {
 
                     //* Taker's credit -= As much as the weight of the product that the taker wants * Seller's unit price of the product 
                     _takerUser.Credit -= _tmpTakerProdcutWeight * _tmpSellerProdcut.UnitPrice;
-
                     _tmpTakerProduct.Weight += _tmpTakerProdcutWeight;
                     _tmpTakerProdcutWeight = 0;
                 }

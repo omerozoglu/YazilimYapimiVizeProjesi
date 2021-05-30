@@ -7,7 +7,7 @@ services:
     image: userapi
     build:
       context: .
-      dockerfile: Services/User/API/Dockerfile
+      dockerfile: ProjectExchange.API/Services/User/API/Dockerfile
     ports:
       - "5000:5000"
     networks:
@@ -20,7 +20,7 @@ services:
     image: productapi
     build:
       context: .
-      dockerfile: Services/Product/API/Dockerfile
+      dockerfile: ProjectExchange.API/Services/Product/API/Dockerfile
     ports:
       - "5002:5002"
     networks:
@@ -33,7 +33,7 @@ services:
     image: adminapi
     build:
       context: .
-      dockerfile: Services/Admin/API/Dockerfile
+      dockerfile: ProjectExchange.API/Services/Admin/API/Dockerfile
     ports:
       - "5004:5004"
     networks:
@@ -46,7 +46,7 @@ services:
     image: exchangeapi
     build:
       context: .
-      dockerfile: ApiGateways/ExchangeGateway/Dockerfile
+      dockerfile: ProjectExchange.API/ApiGateways/ExchangeGateway/Dockerfile
     ports:
       - "5010:5010"
     networks:
@@ -55,3 +55,4 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
     volumes:
       - ~/.vsdbg:/remote_debugger:rw
+

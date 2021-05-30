@@ -11,13 +11,13 @@ USER appuser
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
-COPY ["Services/User/API/API.csproj", "Services/User/API/"]
-COPY ["Services/User/Application/Application.csproj", "Services/User/Application/"]
-COPY ["Services/User/Domain/Domain.csproj", "Services/User/Domain/"]
-COPY ["Services/User/Infrastructure/Infrastructure.csproj", "Services/User/Infrastructure/"]
-RUN dotnet restore "Services/User/API/API.csproj"
+COPY ["ProjectExchange.API/Services/User/API/API.csproj", "ProjectExchange.API/Services/User/API/"]
+COPY ["ProjectExchange.API/Services/User/Application/Application.csproj", "ProjectExchange.API/Services/User/Application/"]
+COPY ["ProjectExchange.API/Services/User/Domain/Domain.csproj", "ProjectExchange.API/Services/User/Domain/"]
+COPY ["ProjectExchange.API/Services/User/Infrastructure/Infrastructure.csproj", "ProjectExchange.API/Services/User/Infrastructure/"]
+RUN dotnet restore "ProjectExchange.API/Services/User/API/API.csproj"
 COPY . .
-WORKDIR "/src/Services/User/API"
+WORKDIR "/src/ProjectExchange.API/Services/User/API"
 RUN dotnet build "API.csproj" -c Release -o /app/build
 
 FROM build AS publish

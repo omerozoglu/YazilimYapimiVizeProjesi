@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Xqr+yLEKL3rCWvU1+vRG6gd48K/CWLmNr5nfIa82aZiOmImptKebz/QB8HB9lYzGqqro59IKTBaVlO1w00yteg==",
+  "dgSpecHash": "4YRTnbs4hiAfRw7n9yE/7XuSoSPq/iUmS5k2+bEaTwPIL8QA+OlMh4WrJErKA6k0yUssgHbOm377glfvI9VX4A==",
   "success": true,
-  "projectFilePath": "C:\\Users\\omero\\OneDrive\\Masaüstü\\Yazılım Yapımı Proje\\Vize\\Vize_branch_1\\ProjectExchange.API\\Services\\User\\Application\\Application.csproj",
+  "projectFilePath": "C:\\Users\\omero\\OneDrive\\Masaüstü\\Yazılım Yapımı Proje\\Final\\YazilimYapimiVizeProjesi\\ProjectExchange.API\\Services\\User\\Application\\Application.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\omero\\.nuget\\packages\\automapper\\10.1.1\\automapper.10.1.1.nupkg.sha512",
     "C:\\Users\\omero\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\8.1.1\\automapper.extensions.microsoft.dependencyinjection.8.1.1.nupkg.sha512",

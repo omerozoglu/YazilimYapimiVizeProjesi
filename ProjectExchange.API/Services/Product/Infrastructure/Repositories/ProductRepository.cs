@@ -16,38 +16,23 @@ namespace Infrastructure.Repositories {
         }
 
         public async Task<IReadOnlyList<Product>> GetAllGroupedAsync () {
-            var counter = 0;
-            var products = new List<Product> ();
+            double tmpweight = 0;
             var result = new List<Product> ();
             try {
-                var groupedProductList = await _context.Collection.Aggregate ().Group (i => i.Name, g => new Product () { Name = g.First ().Name, ImgUrl = g.First ().ImgUrl, Weight = g.First ().Weight, UnitPrice = g.First ().UnitPrice }).ToListAsync ();
+                var productList = await _context.Collection.Find (p => p.UnitPrice != 0).ToListAsync ();
+                var groupedProductList = productList.GroupBy (p => p.Name, (Key, g) => new Product () { UserId = g.First ().UserId, Name = g.First ().Name, ImgUrl = g.First ().ImgUrl, Weight = g.First ().Weight, UnitPrice = g.First ().UnitPrice });
                 foreach (var item in groupedProductList) {
-                    if (item.UnitPrice != 0)
-                        result.Add (item);
-                    else { continue; }
+                    var products = productList.FindAll (p => p.Name == item.Name);
+                    products.ForEach (p => tmpweight += p.Weight);
+                    item.Weight = tmpweight;
+                    result.Add (item);
+                    tmpweight = 0;
                 }
-                foreach (var groupedProduct in result) {
-                    products = await _context.Collection.Find (x => (x.Name == groupedProduct.Name) && (x.UnitPrice != 0)).ToListAsync ();
-                    if (products.Count < 1) {
-                        continue;
-                    }
-                    result.Find (x => x.Name == groupedProduct.Name).Weight = 0;
-                    result.Find (x => x.Name == groupedProduct.Name).UnitPrice = 0;
-                    var tempUnitPrice = 0.0;
-                    foreach (Product namedProduct in products) {
-                        result.Find (x => x.Name == namedProduct.Name).Weight += namedProduct.Weight;
-                        result.Find (x => x.Name == groupedProduct.Name).Id = products.First ().Id;
-                        tempUnitPrice = namedProduct.UnitPrice;
-                        counter++;
-                    }
-                    result.Find (x => x.Name == groupedProduct.Name).UnitPrice = Math.Round (tempUnitPrice, 2);
-                    counter = 0;
-                    tempUnitPrice = 0;
-                }
-                return result;
-            } catch (System.Exception) {
 
-                throw;
+                return result;
+            } catch (Exception) {
+
+                return result;
             }
 
         }

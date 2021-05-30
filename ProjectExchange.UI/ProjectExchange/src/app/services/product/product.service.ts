@@ -37,7 +37,7 @@ export class ProductService {
   }
   ///api/v1/
   public getGroupedProducts(): Observable<Product[]> {
-    return this.http.get<ApiResponse>(`${environment.productApiUrl}/Product/GetGroupedProducts`, {}).pipe(
+    return this.http.get<ApiResponse>(`${environment.productApiUrl}/Product/GetGroupedProducts`).pipe(
       map(
         (response: ApiResponse) => {
           console.log(response);

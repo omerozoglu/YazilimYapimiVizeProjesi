@@ -1,5 +1,5 @@
 export class Taker {
   userId: string;
-  productId: string;
+  productName: string;
   weight: number;
 }

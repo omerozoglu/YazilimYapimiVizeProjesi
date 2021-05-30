@@ -7,27 +7,28 @@ services:
     image: userapi
     build:
       context: .
-      dockerfile: Services/User/API/Dockerfile
+      dockerfile: ProjectExchange.API/Services/User/API/Dockerfile
     ports:
       - "5000:5000"
   productapi:
     image: productapi
     build:
       context: .
-      dockerfile: Services/Product/API/Dockerfile
+      dockerfile: ProjectExchange.API/Services/Product/API/Dockerfile
     ports:
       - "5002:5002"
   adminapi:
     image: adminapi
     build:
       context: .
-      dockerfile: Services/Admin/API/Dockerfile
+      dockerfile: ProjectExchange.API/Services/Admin/API/Dockerfile
     ports:
       - "5004:5004"
   exchangeapi:
     image: exchangeapi
     build:
       context: .
-      dockerfile: ApiGateways/ExchangeGateway/Dockerfile
+      dockerfile: ProjectExchange.API/ApiGateways/ExchangeGateway/Dockerfile
     ports:
       - "5010:5010"
+
