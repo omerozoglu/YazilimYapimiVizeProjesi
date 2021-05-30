@@ -98,7 +98,7 @@ namespace API.Controllers {
 
         #region GetProductByName ()
         [HttpGet ("{productName}")]
-       // [Route ("GetProductByName")]
+        // [Route ("GetProductByName")]
         [ProducesResponseType (typeof (EntityResponse<Product>), (int) HttpStatusCode.OK)]
         public async Task<ActionResult<EntityResponse<Product>>> GetProductByName (string productName) {
             try {

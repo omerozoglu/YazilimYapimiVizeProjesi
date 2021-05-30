@@ -41,7 +41,7 @@ namespace API {
                 .AllowAnyOrigin ()
                 .AllowAnyMethod ()
                 .AllowAnyHeader ());
-            app.UseHttpsRedirection ();
+            // app.UseHttpsRedirection ();
             app.UseRouting ();
             app.UseAuthorization ();
             app.UseEndpoints (endpoints => {

@@ -19,7 +19,7 @@ namespace API {
             services.AddCors (options => {
                 options.AddDefaultPolicy (
                     builder => {
-                        builder.WithOrigins ("http://localhost:4200").AllowAnyHeader ().AllowAnyMethod ();;
+                        builder.WithOrigins ("http://localhost:4200").AllowAnyHeader ().AllowAnyMethod ();
                     });
             });
             services.AddControllers ();
@@ -38,7 +38,7 @@ namespace API {
                 app.UseSwaggerUI (c => c.SwaggerEndpoint ("/swagger/v1/swagger.json", "API v1"));
             }
 
-            app.UseHttpsRedirection ();
+            //   app.UseHttpsRedirection ();
             app.UseCors (builder => builder
                 .AllowAnyOrigin ()
                 .AllowAnyMethod ()

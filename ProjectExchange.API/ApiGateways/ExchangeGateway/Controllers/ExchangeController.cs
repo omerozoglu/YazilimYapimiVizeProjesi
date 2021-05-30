@@ -183,7 +183,7 @@ namespace ExchangeGateway.Controllers {
             var sellerUserReponse = await _userService.GetUser (_modelUserId);
             if (sellerUserReponse.Status.Value != ResponseType.Success.Value) {
                 response.Status = sellerUserReponse.Status;
-                response.Message = $"{nameof (TakeOperation)} was interrupted due to \"{sellerUserReponse.Message}\"";
+                response.Message = $"{nameof (SellOperation)} was interrupted due to \"{sellerUserReponse.Message}\"";
                 return response;
             }
             var sellerUser = sellerUserReponse.Content[0];
@@ -302,7 +302,7 @@ namespace ExchangeGateway.Controllers {
         }
 
         [HttpPut]
-        [Route ("AdminConfirmOperation")]
+        [Route ("LoadConfirmOperation")]
         [ProducesResponseType (StatusCodes.Status204NoContent)]
         [ProducesResponseType (StatusCodes.Status404NotFound)]
         public async Task<ActionResult<ResponseModel<string>>> LoadConfirmOperation (ProductApproval model) {
@@ -334,8 +334,8 @@ namespace ExchangeGateway.Controllers {
             }
 
             //* Updating ApprovalEntity 
-            var ProductApproval = model;
-            var productApprovalResponse = await _productApprovalService.UpdateApprovalEntity (ProductApproval);
+            var productApproval = model;
+            var productApprovalResponse = await _productApprovalService.UpdateApprovalEntity (productApproval);
             if (productApprovalResponse.Status.Value != ResponseType.Success.Value) {
                 response.Status = productApprovalResponse.Status;
                 response.Message = $"{nameof (LoadConfirmOperation)} was interrupted due to \"{productApprovalResponse.Message}\"";
@@ -347,5 +347,41 @@ namespace ExchangeGateway.Controllers {
             return response;
         }
 
+        [HttpPut]
+        [Route ("DepositConfirmOperation")]
+        [ProducesResponseType (StatusCodes.Status204NoContent)]
+        [ProducesResponseType (StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<ResponseModel<string>>> DepositConfirmOperation (MoneyApproval model) {
+            var response = new ResponseModel<string> () { ReponseName = nameof (LoadConfirmOperation), Content = new List<string> () { } };
+            //* If admin approved, System'll be create product in related user
+            if (model.Status.Value == ApprovalStatus.Approved.Value) {
+
+                var userGetResponse = await _userService.GetUser (model.UserId);
+                if (userGetResponse.Status.Value != ResponseType.Success.Value) {
+                    response.Status = userGetResponse.Status;
+                    response.Message = $"{nameof (DepositConfirmOperation)} was interrupted due to \"{userGetResponse.Message}\"";
+                    return response;
+                }
+                User user = userGetResponse.Content[0];
+                user.Credit += model.Deposit;
+                var userResponse = await _userService.UpdateUser (user);
+                if (userResponse.Status.Value != ResponseType.Success.Value) {
+                    response.Status = userResponse.Status;
+                    response.Message = $"{nameof (DepositConfirmOperation)} was interrupted due to \"{userResponse.Message}\"";
+                    return response;
+                }
+            }
+            //* Updating ApprovalEntity 
+            var moneyApproval = model;
+            var moneyApprovalResponse = await _moneyApprovalService.UpdateApprovalEntity (moneyApproval);
+            if (moneyApprovalResponse.Status.Value != ResponseType.Success.Value) {
+                response.Status = moneyApprovalResponse.Status;
+                response.Message = $"{nameof (DepositConfirmOperation)} was interrupted due to \"{moneyApprovalResponse.Message}\"";
+                return response;
+            }
+            response.Message = "Operation successfully submitted";
+            response.Status = ResponseType.Success;
+            return response;
+        }
     }
 }
