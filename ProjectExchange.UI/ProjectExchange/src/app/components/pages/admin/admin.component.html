@@ -25,12 +25,20 @@
           <div class="row">
             <button
               mat-button
-              (click)="submitLoadResponse(this.element)"
+              type="reset"
+              (click)="submitLoadResponse(this.element, 1)"
               class="approve"
             >
               Approve
             </button>
-            <button mat-button class="reject">Reject</button>
+            <button
+              mat-button
+              type="reset"
+              (click)="submitLoadResponse(this.element, 0)"
+              class="reject"
+            >
+              Reject
+            </button>
           </div>
         </td>
       </ng-container>
@@ -57,12 +65,20 @@
           <div class="row">
             <button
               mat-button
-              (click)="submitDepositResponse(this.element)"
+              type="reset"
+              (click)="submitDepositResponse(this.element, 1)"
               class="approve"
             >
               Approve
             </button>
-            <button mat-button class="reject">Reject</button>
+            <button
+              mat-button
+              type="reset"
+              (click)="submitDepositResponse(this.element, 0)"
+              class="reject"
+            >
+              Reject
+            </button>
           </div>
         </td>
       </ng-container>

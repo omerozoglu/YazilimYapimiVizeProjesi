@@ -48,15 +48,25 @@ export class AdminComponent implements OnInit {
     });
   }
 
-  public submitLoadResponse(item) {
+  public submitLoadResponse(item, status: number) {
     let productApproval: ProductApproval = item;
-    productApproval.status = ApprovalStatus.Approved;
+    if (status == 1) {
+      productApproval.status = ApprovalStatus.Approved;
+    } else {
+      productApproval.status = ApprovalStatus.Denied;
+    }
+
     this.adminConfirmService.LoadConfirmOperation(productApproval).subscribe(p => console.log(p));
   }
 
-  public submitDepositResponse(item) {
+  public submitDepositResponse(item, status: number) {
     let moneyApproval: MoneyApproval = item;
-    moneyApproval.status = ApprovalStatus.Approved;
+    if (status == 1) {
+      moneyApproval.status = ApprovalStatus.Approved;
+    } else {
+      moneyApproval.status = ApprovalStatus.Denied;
+    }
+
     this.adminConfirmService.DepositConfirmOperation(moneyApproval).subscribe(p => console.log(p));
   }
 }
