@@ -1,0 +1,59 @@
+@import "../../../../assets/styles/settings/variables";
+.container {
+  //flex-direction: column;
+  flex-wrap: wrap;
+  justify-items: center;
+  margin: 20px;
+  .content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+  }
+  h2 {
+    display: flex;
+    margin-left: 20px;
+  }
+  .container {
+    width: 180px;
+    padding: 0 10px;
+    margin: 25px;
+    justify-content: center;
+    h3 {
+      padding: 10px;
+    }
+  }
+}
+table {
+  width: 100%;
+  text-align: center;
+  td {
+    width: 10vw;
+  }
+  th {
+    text-align: center;
+  }
+  button {
+    width: 150px;
+    height: 40px;
+    margin: 1rem 0;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0px 3px 10px 0px map-get($themeColor, "t");
+    @include font(14px, bold);
+    text-transform: uppercase;
+    background-color: white;
+    cursor: pointer;
+  }
+  button[class="approve"] {
+    background-color: map-get($themeColor, "green");
+    color: map-get($themeColor, "white");
+  }
+  button[class="reject"] {
+    background-color: map-get($themeColor, "red");
+    color: map-get($themeColor, "white");
+  }
+  button:hover {
+    background-color: map-get($themeColor, "gray");
+  }
+}

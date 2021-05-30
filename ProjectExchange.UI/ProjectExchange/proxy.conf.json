@@ -1,0 +1,18 @@
+{
+  "/api/v1/Product": {
+    "target": "http://localhost:5002",
+    "secure": false
+  },
+  "/api/v1/User": {
+    "target": "http://localhost:5000",
+    "secure": false
+  },
+  "/api/v1/Admin": {
+    "target": "http://localhost:5004",
+    "secure": false
+  },
+  "/api/v1/Exchange": {
+    "target": "http://localhost:5010",
+    "secure": false
+  }
+}

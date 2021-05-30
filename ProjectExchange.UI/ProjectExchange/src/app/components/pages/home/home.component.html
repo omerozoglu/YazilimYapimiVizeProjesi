@@ -9,7 +9,6 @@
             alt="SellOperation"
           />
         </div>
-
         <h3>Sell Product</h3>
       </div>
     </a>
@@ -49,12 +48,4 @@
   </div>
 </div>
 
-<div class="container">
-  <h2>Products</h2>
-  <div class="content">
-    <app-product
-      *ngFor="let product of products; index as id"
-      [Product]="product"
-    ></app-product>
-  </div>
-</div>
+<app-products [Products]="Products"></app-products>

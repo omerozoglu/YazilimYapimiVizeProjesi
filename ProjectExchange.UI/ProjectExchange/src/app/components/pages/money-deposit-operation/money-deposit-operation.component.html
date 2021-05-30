@@ -10,9 +10,10 @@
       </div>
     </div>
     <div class="container flat">
-      <form action="action" method="post">
+      <form>
         <div class="form-item">
           <input
+            #moneyinput
             type="number"
             step="0.5"
             name="money"
@@ -23,7 +24,9 @@
             <span class="content-name">Money (₺)</span>
           </label>
         </div>
-        <button type="submit">Deposit</button>
+        <button type="button" (click)="DepositOperaiton(moneyinput.value)">
+          Deposit
+        </button>
       </form>
     </div>
   </div>
