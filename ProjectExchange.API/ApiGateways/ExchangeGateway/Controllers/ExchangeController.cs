@@ -314,13 +314,7 @@ namespace ExchangeGateway.Controllers {
 
             //* If admin approved, System'll be create product in related user
             if (model.Status.Value == ApprovalStatus.Approved.Value) {
-                Product newProduct = new Product () { UserId = model.UserId, Name = model.ProductName, ImgUrl = model.ProductImgUrl, Weight = model.ProductWeight, UnitPrice = 0 };
-                var userProductResponse = await _productService.CreateProduct (newProduct);
-                if (userProductResponse.Status.Value != ResponseType.Success.Value) {
-                    response.Status = userProductResponse.Status;
-                    response.Message = $"{nameof (LoadConfirmOperation)} was interrupted due to \"{userProductResponse.Message}\"";
-                    return response;
-                }
+
                 var userGetResponse = await _userService.GetUser (model.UserId);
                 if (userGetResponse.Status.Value != ResponseType.Success.Value) {
                     response.Status = userGetResponse.Status;
@@ -328,12 +322,40 @@ namespace ExchangeGateway.Controllers {
                     return response;
                 }
                 User user = userGetResponse.Content[0];
-                user.Products.Add (userProductResponse.Content[0].Id);
-                var userResponse = await _userService.UpdateUser (user);
-                if (userResponse.Status.Value != ResponseType.Success.Value) {
-                    response.Status = userResponse.Status;
-                    response.Message = $"{nameof (LoadConfirmOperation)} was interrupted due to \"{userResponse.Message}\"";
-                    return response;
+                bool isThereProduct = false;
+
+                Product _tmpProduct = new Product ();
+                foreach (var p in user.Products) {
+                    var productResponse = await _productService.GetProduct (p);
+                    _tmpProduct = productResponse.Content[0];
+                    if (_tmpProduct.Name == model.ProductName) {
+                        isThereProduct = true;
+                        break;
+                    }
+                }
+                if (!isThereProduct) {
+                    Product newProduct = new Product () { UserId = model.UserId, Name = model.ProductName, ImgUrl = model.ProductImgUrl, Weight = model.ProductWeight, UnitPrice = 0 };
+                    var userProductResponse = await _productService.CreateProduct (newProduct);
+                    if (userProductResponse.Status.Value != ResponseType.Success.Value) {
+                        response.Status = userProductResponse.Status;
+                        response.Message = $"{nameof (LoadConfirmOperation)} was interrupted due to \"{userProductResponse.Message}\"";
+                        return response;
+                    }
+                    user.Products.Add (userProductResponse.Content[0].Id);
+                    var userResponse = await _userService.UpdateUser (user);
+                    if (userResponse.Status.Value != ResponseType.Success.Value) {
+                        response.Status = userResponse.Status;
+                        response.Message = $"{nameof (LoadConfirmOperation)} was interrupted due to \"{userResponse.Message}\"";
+                        return response;
+                    }
+                } else {
+                    _tmpProduct.Weight += model.ProductWeight;
+                    var userProductResponse = await _productService.UpdateProduct (_tmpProduct);
+                    if (userProductResponse.Status.Value != ResponseType.Success.Value) {
+                        response.Status = userProductResponse.Status;
+                        response.Message = $"{nameof (LoadConfirmOperation)} was interrupted due to \"{userProductResponse.Message}\"";
+                        return response;
+                    }
                 }
             }
 

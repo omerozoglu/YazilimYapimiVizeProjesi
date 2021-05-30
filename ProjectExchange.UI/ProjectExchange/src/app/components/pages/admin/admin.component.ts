@@ -16,20 +16,19 @@ export class AdminComponent implements OnInit {
   public products: Observable<Product[]> | any;
 
   public loadOperations: Observable<ProductApproval[]>;
-  public depositOperations: Observable<MoneyApproval[]> | any;
+  public depositOperations: Observable<MoneyApproval[]>;
 
-  public ProductApprovalModel: ProductApproval = new ProductApproval();
-
-  public response;
   constructor(private productService: ProductService, private adminConfirmService: AdminConfirmService) { }
 
-  displayedProductColumns: string[] = ['Name', "Weight"];
-  public loadtablemodels: LoadTableModel[] = [];
-  dataSource: MatTableDataSource<LoadTableModel>;
-  ngOnInit(): void {
-    //this.getAllProducts();
-    this.getAllLoadOperations();
+  displayedProductColumns: string[] = ['UserId', 'Product', "Weight", "Actions"];
+  displayedMoneyColumns: string[] = ['UserId', 'Deposit', "Actions"];
+  loadDataSource: MatTableDataSource<ProductApproval> = new MatTableDataSource<ProductApproval>();
+  depositDataSource: MatTableDataSource<MoneyApproval> = new MatTableDataSource<MoneyApproval>();
 
+  ngOnInit(): void {
+    this.getAllProducts();
+    this.getAllLoadOperations();
+    this.getAllDepositOperations();
   }
   public getAllProducts() {
     this.productService.getAllProducts().subscribe(products => {
@@ -37,32 +36,27 @@ export class AdminComponent implements OnInit {
     });
   }
   public getAllLoadOperations() {
-    var loadTableModel = new LoadTableModel();
-    this.adminConfirmService.getAllProductApproval().subscribe(operation => {
-      operation.filter(p => p.status.Value != ApprovalStatus.Approved.Value).forEach(p => {
-        loadTableModel.Name = p.productName;
-        loadTableModel.Weight = p.productWeight;
-        this.loadtablemodels.push(loadTableModel);
-        this.dataSource = new MatTableDataSource<LoadTableModel>(this.loadtablemodels);
-        console.log(p);
-      });
+    this.loadOperations = this.adminConfirmService.getAllProductApproval();
+    this.loadOperations.subscribe(p => {
+      this.loadDataSource.data = p.filter(p => p.status.value == ApprovalStatus.Pending.value);
     });
   }
   public getAllDepositOperations() {
-
+    this.depositOperations = this.adminConfirmService.getAllMoneyApproval();
+    this.depositOperations.subscribe(p => {
+      this.depositDataSource.data = p.filter(p => p.status.value == ApprovalStatus.Pending.value);
+    });
   }
 
-  public submitDepositResponse(deposite) {
-    var mockUserId: string = "60af7e0417369373599f3a8d";
-    //var productId: string = this.Product.id;
-    //  this.AdminModel.UserId = mockUserId;
-    // this.AdminModel.Deposite =
-    //  this.AdminModel.ProductId = productId;
-
-    //   this.adminConfirmService.AdminConfirmOperation(this.AdminModel).subscribe();
+  public submitLoadResponse(item) {
+    let productApproval: ProductApproval = item;
+    productApproval.status = ApprovalStatus.Approved;
+    this.adminConfirmService.LoadConfirmOperation(productApproval).subscribe(p => console.log(p));
   }
-}
-class LoadTableModel {
-  Name: string;
-  Weight: number;
+
+  public submitDepositResponse(item) {
+    let moneyApproval: MoneyApproval = item;
+    moneyApproval.status = ApprovalStatus.Approved;
+    this.adminConfirmService.DepositConfirmOperation(moneyApproval).subscribe(p => console.log(p));
+  }
 }

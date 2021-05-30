@@ -58,6 +58,7 @@ export class ProductService {
       )
     );
   }
+
   public getProductUser(idlist: string[]): Observable<Product> {
 
     return this.http.post<ApiResponse>(`${environment.productApiUrl}/Product/GetProductUser`, idlist).pipe(

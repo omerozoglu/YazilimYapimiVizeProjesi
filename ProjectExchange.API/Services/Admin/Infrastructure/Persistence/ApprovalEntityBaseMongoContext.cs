@@ -1,4 +1,5 @@
 using Domain.Common;
+using Domain.Entities;
 using Infrastructure.Utilities.AppSettings;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
@@ -12,6 +13,7 @@ namespace Infrastructure.Persistence {
         public IMongoCollection<T> Collection { get; }
         private readonly MongoClient _mongoClient;
         private readonly IMongoDatabase _database;
+        private readonly string CollectionName;
         #endregion
 
         #region Settings
@@ -22,7 +24,13 @@ namespace Infrastructure.Persistence {
             this._settings = options.Value;
             _mongoClient = new MongoClient (this._settings.ConnectionString);
             _database = _mongoClient.GetDatabase (this._settings.DatabaseName);
-            Collection = _database.GetCollection<T> (this._settings.CollectionName);
+            if (typeof (T) == typeof (ProductApproval)) {
+                this.CollectionName = "ProductApproval";
+            } else {
+                this.CollectionName = "MoneyApproval";
+            }
+            Collection = _database.GetCollection<T> (this.CollectionName);
+
         }
     }
 }
