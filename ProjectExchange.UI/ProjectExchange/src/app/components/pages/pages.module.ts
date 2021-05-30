@@ -8,20 +8,23 @@ import { SellOperationComponent } from './sell-operation/sell-operation.componen
 import { TakeOperationComponent } from './take-operation/take-operation.component';
 import { LoadOperationComponent } from './load-operation/load-operation.component';
 import { MoneyDepositOperationComponent } from './money-deposit-operation/money-deposit-operation.component';
-
+import { AdminComponent } from './admin/admin.component';
+import { MatTableModule } from '@angular/material/table'
 @NgModule({
   declarations: [
     HomeComponent,
     SellOperationComponent,
     TakeOperationComponent,
     LoadOperationComponent,
-    MoneyDepositOperationComponent
+    MoneyDepositOperationComponent,
+    AdminComponent
   ],
   imports: [
     CommonModule,
     ProductsModule,
     PagesRoutingModule,
-    AccountModule
+    AccountModule,
+    MatTableModule
   ],
   exports: [HomeComponent]
 })

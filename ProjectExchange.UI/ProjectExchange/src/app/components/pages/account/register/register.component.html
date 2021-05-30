@@ -1,0 +1,95 @@
+<div *ngIf="isClick == 0" class="container">
+  <h2>Sign Up</h2>
+  <div class="row">
+    <p>Welcome!</p>
+    <button routerLink="login" class="small_button">Sign In</button>
+  </div>
+  <form action="action" method="post">
+    <div class="form-item">
+      <input type="text" name="name" autocomplete="off" required />
+      <label for="name" class="label-name">
+        <span class="content-name">Name</span>
+      </label>
+    </div>
+    <div class="form-item">
+      <input type="text" name="username" autocomplete="off" required />
+      <label for="username" class="label-name">
+        <span class="content-name">Username</span>
+      </label>
+    </div>
+    <div class="form-item">
+      <input type="email" name="email" required />
+      <label for="email" class="label-name">
+        <span class="content-name">Email</span>
+      </label>
+    </div>
+    <div class="form-item">
+      <input type="password" name="password" autocomplete="off" required />
+      <label for="password" class="label-name">
+        <span class="content-name">password</span>
+      </label>
+    </div>
+    <div class="form-item">
+      <input type="password" name="passwordtwo" autocomplete="off" required />
+      <label for="passwordtwo" class="label-name">
+        <span class="content-name">Re Password</span>
+      </label>
+    </div>
+    <button type="button" (click)="isClick = 1">Next</button>
+  </form>
+</div>
+<div *ngIf="isClick == 1" class="container">
+  <h2>Welcome</h2>
+  <br />
+  <p>There are 2 types of account types in our system</p>
+  <br />
+  <p>You must choose at least one</p>
+  <br />
+  <p>If you want to sell products</p>
+  <br />
+  <div routerLink="sell" class="container item">
+    <img
+      src="https://i.ibb.co/LzB4fbD/icons8-farmer-100.png"
+      alt="SellOperation"
+    />
+    <h3>Sell Product</h3>
+  </div>
+
+  <p>If you want to buy products</p>
+  <div routerLink="take" class="container item">
+    <img
+      src="https://i.ibb.co/7JNSx2R/icons8-farm-100.png"
+      alt="TakeOperation"
+    />
+    <h3>Take Product</h3>
+  </div>
+  <br />
+  <p>Note: You can choose both at the same time</p>
+  <button type="button" (click)="isClick = 2">Next</button>
+</div>
+<div *ngIf="isClick == 2" class="container">
+  <h2>Last Step!</h2>
+  <br />
+  <p>You have to fill in the information to be able to trade</p>
+  <form action="action" method="post">
+    <div class="form-item">
+      <input type="numer" name="tcnum" autocomplete="off" required />
+      <label for="tcnum" class="label-name">
+        <span class="content-name">T.C. Number</span>
+      </label>
+    </div>
+    <div class="form-item">
+      <input type="number" name="phone" autocomplete="off" required />
+      <label for="phone" class="label-name">
+        <span class="content-name">phone</span>
+      </label>
+    </div>
+    <div class="form-item">
+      <input type="strig" name="address" autocomplete="off" required />
+      <label for="address" class="label-name">
+        <span class="content-name">address</span>
+      </label>
+    </div>
+    <button type="button">Register</button>
+  </form>
+</div>

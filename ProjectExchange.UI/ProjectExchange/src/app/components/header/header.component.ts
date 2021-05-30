@@ -1,6 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-
+import { Component, Input, OnInit } from '@angular/core';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -12,6 +10,7 @@ export class HeaderComponent implements OnInit {
 
   constructor() {
     //this.isAuthenticated = this.authenticationService.isAuthenticated();
+
     this.isAuthenticated = true;
   }
   ngOnInit(): void {
