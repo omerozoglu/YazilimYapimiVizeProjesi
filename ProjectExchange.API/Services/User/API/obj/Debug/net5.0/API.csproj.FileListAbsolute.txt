@@ -100,3 +100,5 @@ C:\Users\omero\OneDrive\Masaüstü\Yazılım Yapımı Proje\Vize\Vize_branch_1\P
 C:\Users\omero\OneDrive\Masaüstü\Yazılım Yapımı Proje\Vize\Vize_branch_1\ProjectExchange.API\Services\User\API\obj\Debug\net5.0\ref\API.dll
 C:\Users\omero\OneDrive\Masaüstü\Yazılım Yapımı Proje\Vize\Vize_branch_1\ProjectExchange.API\Services\User\API\obj\Debug\net5.0\API.pdb
 C:\Users\omero\OneDrive\Masaüstü\Yazılım Yapımı Proje\Vize\Vize_branch_1\ProjectExchange.API\Services\User\API\obj\Debug\net5.0\API.genruntimeconfig.cache
+C:\Users\omero\OneDrive\Masaüstü\Yazılım Yapımı Proje\Vize\Vize_branch_1\ProjectExchange.API\Services\User\API\bin\Debug\net5.0\FluentValidation.dll
+C:\Users\omero\OneDrive\Masaüstü\Yazılım Yapımı Proje\Vize\Vize_branch_1\ProjectExchange.API\Services\User\API\bin\Debug\net5.0\FluentValidation.DependencyInjectionExtensions.dll

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Domain.Common.Enums;
 
 namespace Domain.Common {
     public class EntityResponse<T> where T : EntityBase {

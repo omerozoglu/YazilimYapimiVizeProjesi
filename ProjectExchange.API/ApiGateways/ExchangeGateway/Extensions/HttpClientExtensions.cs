@@ -31,5 +31,9 @@ namespace ExchangeGateway.Extensions {
 
             return httpClient.PutAsync (url, content);
         }
+
+        public static Task<HttpResponseMessage> DeleteAsJsonAsync (this HttpClient httpClient, string url) {
+            return httpClient.DeleteAsync (url);
+        }
     }
 }

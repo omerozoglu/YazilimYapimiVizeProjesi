@@ -8,10 +8,10 @@ using Infrastructure.Persistence;
 using MongoDB.Driver;
 
 namespace Infrastructure.Repositories {
-    public class ProductRepository : MongoDbRepositoryBase<Product>, IProductRepository {
+    public class ProductRepository : MongoDBRepositoryBase<Product>, IProductRepository {
 
         //* İhtiyaca yönelik Product repository
-        public ProductRepository (MongoDbProductContext context) : base (context) {
+        public ProductRepository (ProductMongoContext context) : base (context) {
 
         }
 
@@ -37,10 +37,10 @@ namespace Infrastructure.Repositories {
                     foreach (Product namedProduct in products) {
                         result.Find (x => x.Name == namedProduct.Name).Weight += namedProduct.Weight;
                         result.Find (x => x.Name == groupedProduct.Name).Id = products.First ().Id;
-                        tempUnitPrice += namedProduct.UnitPrice;
+                        tempUnitPrice = namedProduct.UnitPrice;
                         counter++;
                     }
-                    result.Find (x => x.Name == groupedProduct.Name).UnitPrice = Math.Round (tempUnitPrice, 2) / counter;
+                    result.Find (x => x.Name == groupedProduct.Name).UnitPrice = Math.Round (tempUnitPrice, 2);
                     counter = 0;
                     tempUnitPrice = 0;
                 }

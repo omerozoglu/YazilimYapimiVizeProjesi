@@ -1,5 +1,5 @@
-using Application;
-using Infrastructure;
+using Application.Utilities.Extensions;
+using Infrastructure.Utilites.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -41,7 +41,7 @@ namespace API {
                 .AllowAnyOrigin ()
                 .AllowAnyMethod ()
                 .AllowAnyHeader ());
-            app.UseHttpsRedirection ();
+            // app.UseHttpsRedirection ();
             app.UseRouting ();
             app.UseAuthorization ();
             app.UseEndpoints (endpoints => {

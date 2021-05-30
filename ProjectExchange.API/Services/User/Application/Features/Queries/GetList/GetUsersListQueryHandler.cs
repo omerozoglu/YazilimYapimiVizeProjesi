@@ -4,12 +4,12 @@ using System.Threading.Tasks;
 using Application.Contracts.Persistence;
 using AutoMapper;
 using Domain.Common;
+using Domain.Common.Enums;
 using Domain.Entities;
 using MediatR;
 
 namespace Application.Features.Queries.GetList {
     public class GetUsersListQueryHandler : IRequestHandler<GetUsersListQuery, EntityResponse<User>> {
-
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
 
@@ -24,11 +24,11 @@ namespace Application.Features.Queries.GetList {
             _mapper.Map<List<User>> (userList);
             if (userList == null) {
                 response.Status = ResponseType.Error;
-                response.Message = "No users were found .";
+                response.Message = $"No {nameof(User)}s were found .";
                 response.Content = null;
             } else {
                 response.Status = ResponseType.Success;
-                response.Message = "Users get successfully.";
+                response.Message = $"{nameof(User)}s get successfully.";
                 response.Content.AddRange (userList);
             }
             return response;

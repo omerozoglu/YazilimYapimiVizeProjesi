@@ -1,11 +1,14 @@
+using System;
 using System.Net;
 using System.Threading.Tasks;
-using Application.Features.Commands.CreateCommand;
-using Application.Features.Commands.DeleteCommand;
-using Application.Features.Commands.UpdateCommand;
+using Application.Exceptions;
+using Application.Features.Commands.Create;
+using Application.Features.Commands.Delete;
+using Application.Features.Commands.Update;
 using Application.Features.Queries.Get;
 using Application.Features.Queries.GetList;
 using Domain.Common;
+using Domain.Common.Enums;
 using Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -34,21 +37,39 @@ namespace API.Controllers {
         #endregion
 
         #region GetUser ()
-        [HttpGet ("{id:length(24)}", Name = "GetUser")]
+        [HttpGet ("{id}", Name = "GetUser")]
         [ProducesResponseType (typeof (EntityResponse<User>), (int) HttpStatusCode.OK)]
         public async Task<ActionResult<EntityResponse<User>>> GetUser (string id) {
-            var query = new GetUserQuery (id);
-            var result = await _mediator.Send (query);
-            return Ok (result);
+            try {
+                var query = new GetUserQuery (id);
+                var result = await _mediator.Send (query);
+                return Ok (result);
+            } catch (Exception ex) {
+                var err = new EntityResponse<User> ();
+                err.ReponseName = nameof (GetUser);
+                err.Status = ResponseType.Error;
+                err.Message = ex.Message;
+                err.Content = null;
+                return Ok (err);
+            }
         }
         #endregion
 
-        #region CreaterUser ()
+        #region CreateUser ()
         [HttpPost]
         [ProducesResponseType (typeof (EntityResponse<User>), (int) HttpStatusCode.OK)]
         public async Task<ActionResult<EntityResponse<User>>> CreateUser (CreateUserCommand command) {
-            var result = await _mediator.Send (command);
-            return Ok (result);
+            try {
+                var result = await _mediator.Send (command);
+                return Ok (result);
+            } catch (ValidationException ex) {
+                var err = new EntityResponse<User> ();
+                err.ReponseName = nameof (CreateUser);
+                err.Status = ResponseType.Error;
+                err.Message = ex.Message;
+                err.Content = null;
+                return Ok (err);
+            }
         }
         #endregion
 
@@ -58,8 +79,17 @@ namespace API.Controllers {
         [ProducesResponseType (StatusCodes.Status204NoContent)]
         [ProducesResponseType (StatusCodes.Status404NotFound)]
         public async Task<ActionResult<EntityResponse<User>>> UpdateUser (UpdateUserCommand command) {
-            var result = await _mediator.Send (command);
-            return Ok (result);
+            try {
+                var result = await _mediator.Send (command);
+                return Ok (result);
+            } catch (ValidationException ex) {
+                var err = new EntityResponse<User> ();
+                err.ReponseName = nameof (UpdateUser);
+                err.Status = ResponseType.Error;
+                err.Message = ex.Message;
+                err.Content = null;
+                return Ok (err);
+            }
         }
         #endregion
 
@@ -69,8 +99,17 @@ namespace API.Controllers {
         [ProducesResponseType (StatusCodes.Status204NoContent)]
         [ProducesResponseType (StatusCodes.Status404NotFound)]
         public async Task<ActionResult<EntityResponse<User>>> DeleteUser (DeleteUserCommand command) {
-            var result = await _mediator.Send (command);
-            return Ok (result);
+            try {
+                var result = await _mediator.Send (command);
+                return Ok (result);
+            } catch (ValidationException ex) {
+                var err = new EntityResponse<User> ();
+                err.ReponseName = nameof (DeleteUser);
+                err.Status = ResponseType.Error;
+                err.Message = ex.Message;
+                err.Content = null;
+                return Ok (err);
+            }
         }
         #endregion
     }

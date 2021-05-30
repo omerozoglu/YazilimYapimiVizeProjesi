@@ -1,15 +1,17 @@
+using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
-using Application.Features.Commands.CreateCommand;
-using Application.Features.Commands.DeleteCommand;
-using Application.Features.Commands.UpdateCommand;
+using Application.Exceptions;
+using Application.Features.Commands.Create;
+using Application.Features.Commands.Delete;
+using Application.Features.Commands.Update;
 using Application.Features.Queries.Get;
 using Application.Features.Queries.GetList;
 using Application.Features.Queries.GetList.GetProductsByName;
 using Application.Features.Queries.GetList.GetProductsUser;
-using Application.Models;
 using Domain.Common;
+using Domain.Common.Enums;
 using Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -41,9 +43,18 @@ namespace API.Controllers {
         [HttpGet ("{id:length(24)}", Name = "GetProduct")]
         [ProducesResponseType (typeof (EntityResponse<Product>), (int) HttpStatusCode.OK)]
         public async Task<ActionResult<EntityResponse<Product>>> GetProduct (string id) {
-            var query = new GetProductQuery (id);
-            var result = await _mediator.Send (query);
-            return Ok (result);
+            try {
+                var query = new GetProductQuery (id);
+                var result = await _mediator.Send (query);
+                return Ok (result);
+            } catch (Exception ex) {
+                var err = new EntityResponse<Product> ();
+                err.ReponseName = nameof (GetProduct);
+                err.Status = ResponseType.Error;
+                err.Message = ex.Message;
+                err.Content = null;
+                return Ok (err);
+            }
         }
         #endregion
 
@@ -51,9 +62,18 @@ namespace API.Controllers {
         [HttpGet ("GetGroupedProducts")]
         [ProducesResponseType (typeof (EntityResponse<Product>), (int) HttpStatusCode.OK)]
         public async Task<ActionResult<EntityResponse<Product>>> GetGroupedProducts () {
-            var query = new GetAllGroupedQuery ();
-            var result = await _mediator.Send (query);
-            return Ok (result);
+            try {
+                var query = new GetAllGroupedQuery ();
+                var result = await _mediator.Send (query);
+                return Ok (result);
+            } catch (Exception ex) {
+                var err = new EntityResponse<Product> ();
+                err.ReponseName = nameof (GetGroupedProducts);
+                err.Status = ResponseType.Error;
+                err.Message = ex.Message;
+                err.Content = null;
+                return Ok (err);
+            }
         }
         #endregion
 
@@ -61,20 +81,38 @@ namespace API.Controllers {
         [HttpPost ("GetProductUser")]
         [ProducesResponseType (typeof (EntityResponse<Product>), (int) HttpStatusCode.OK)]
         public async Task<ActionResult<EntityResponse<Product>>> GetProductUser (List<string> ids) {
-            var query = new GetProductsUserQuery (ids);
-            var result = await _mediator.Send (query);
-            return Ok (result);
+            try {
+                var query = new GetProductsUserQuery (ids);
+                var result = await _mediator.Send (query);
+                return Ok (result);
+            } catch (Exception ex) {
+                var err = new EntityResponse<Product> ();
+                err.ReponseName = nameof (GetProductUser);
+                err.Status = ResponseType.Error;
+                err.Message = ex.Message;
+                err.Content = null;
+                return Ok (err);
+            }
         }
         #endregion
 
         #region GetProductByName ()
-        [HttpPost]
-        [Route ("GetProductByName")]
+        [HttpGet ("{productName}")]
+        // [Route ("GetProductByName")]
         [ProducesResponseType (typeof (EntityResponse<Product>), (int) HttpStatusCode.OK)]
-        public async Task<ActionResult<EntityResponse<Product>>> GetProductByName (ProductVm model) {
-            var query = new GetProductsByNameQuery (model);
-            var result = await _mediator.Send (query);
-            return Ok (result);
+        public async Task<ActionResult<EntityResponse<Product>>> GetProductByName (string productName) {
+            try {
+                var query = new GetProductsByNameQuery (productName);
+                var result = await _mediator.Send (query);
+                return Ok (result);
+            } catch (Exception ex) {
+                var err = new EntityResponse<Product> ();
+                err.ReponseName = nameof (GetProductByName);
+                err.Status = ResponseType.Error;
+                err.Message = ex.Message;
+                err.Content = null;
+                return Ok (err);
+            }
         }
         #endregion
 
@@ -82,8 +120,17 @@ namespace API.Controllers {
         [HttpPost]
         [ProducesResponseType (typeof (EntityResponse<Product>), (int) HttpStatusCode.OK)]
         public async Task<ActionResult<EntityResponse<Product>>> CreateProduct (CreateProductCommand command) {
-            var result = await _mediator.Send (command);
-            return Ok (result);
+            try {
+                var result = await _mediator.Send (command);
+                return Ok (result);
+            } catch (ValidationException ex) {
+                var err = new EntityResponse<Product> ();
+                err.ReponseName = nameof (CreateProduct);
+                err.Status = ResponseType.Error;
+                err.Message = ex.Message;
+                err.Content = null;
+                return Ok (err);
+            }
         }
         #endregion
 
@@ -93,19 +140,38 @@ namespace API.Controllers {
         [ProducesResponseType (StatusCodes.Status204NoContent)]
         [ProducesResponseType (StatusCodes.Status404NotFound)]
         public async Task<ActionResult<EntityResponse<Product>>> UpdateProduct (UpdateProductCommand command) {
-            var result = await _mediator.Send (command);
-            return Ok (result);
+            try {
+                var result = await _mediator.Send (command);
+                return Ok (result);
+            } catch (ValidationException ex) {
+                var err = new EntityResponse<Product> ();
+                err.ReponseName = nameof (CreateProduct);
+                err.Status = ResponseType.Error;
+                err.Message = ex.Message;
+                err.Content = null;
+                return Ok (err);
+            }
         }
         #endregion
 
         #region DeleteProduct ()
-        [HttpDelete]
+        [HttpDelete ("{id:length(24)}")]
         [ProducesResponseType (typeof (EntityResponse<Product>), (int) HttpStatusCode.OK)]
         [ProducesResponseType (StatusCodes.Status204NoContent)]
         [ProducesResponseType (StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<EntityResponse<Product>>> DeleteProduct (DeleteProductCommand command) {
-            var result = await _mediator.Send (command);
-            return Ok (result);
+        public async Task<ActionResult<EntityResponse<Product>>> DeleteProduct (string id) {
+            try {
+                DeleteProductCommand command = new DeleteProductCommand (id);
+                var result = await _mediator.Send (command);
+                return Ok (result);
+            } catch (ValidationException ex) {
+                var err = new EntityResponse<Product> ();
+                err.ReponseName = nameof (CreateProduct);
+                err.Status = ResponseType.Error;
+                err.Message = ex.Message;
+                err.Content = null;
+                return Ok (err);
+            }
         }
         #endregion
     }
