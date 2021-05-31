@@ -1,0 +1,17 @@
+C:\Users\omero\OneDrive\Masaüstü\Yazılım Yapımı Proje\Final\YazilimYapimiVizeProjesi\ProjectExchange.API\Services\Product\Infrastructure\bin\Debug\net5.0\Infrastructure.deps.json
+C:\Users\omero\OneDrive\Masaüstü\Yazılım Yapımı Proje\Final\YazilimYapimiVizeProjesi\ProjectExchange.API\Services\Product\Infrastructure\bin\Debug\net5.0\Infrastructure.dll
+C:\Users\omero\OneDrive\Masaüstü\Yazılım Yapımı Proje\Final\YazilimYapimiVizeProjesi\ProjectExchange.API\Services\Product\Infrastructure\bin\Debug\net5.0\ref\Infrastructure.dll
+C:\Users\omero\OneDrive\Masaüstü\Yazılım Yapımı Proje\Final\YazilimYapimiVizeProjesi\ProjectExchange.API\Services\Product\Infrastructure\bin\Debug\net5.0\Infrastructure.pdb
+C:\Users\omero\OneDrive\Masaüstü\Yazılım Yapımı Proje\Final\YazilimYapimiVizeProjesi\ProjectExchange.API\Services\Product\Infrastructure\bin\Debug\net5.0\Application.dll
+C:\Users\omero\OneDrive\Masaüstü\Yazılım Yapımı Proje\Final\YazilimYapimiVizeProjesi\ProjectExchange.API\Services\Product\Infrastructure\bin\Debug\net5.0\Domain.dll
+C:\Users\omero\OneDrive\Masaüstü\Yazılım Yapımı Proje\Final\YazilimYapimiVizeProjesi\ProjectExchange.API\Services\Product\Infrastructure\bin\Debug\net5.0\Application.pdb
+C:\Users\omero\OneDrive\Masaüstü\Yazılım Yapımı Proje\Final\YazilimYapimiVizeProjesi\ProjectExchange.API\Services\Product\Infrastructure\bin\Debug\net5.0\Domain.pdb
+C:\Users\omero\OneDrive\Masaüstü\Yazılım Yapımı Proje\Final\YazilimYapimiVizeProjesi\ProjectExchange.API\Services\Product\Infrastructure\obj\Debug\net5.0\Infrastructure.csprojAssemblyReference.cache
+C:\Users\omero\OneDrive\Masaüstü\Yazılım Yapımı Proje\Final\YazilimYapimiVizeProjesi\ProjectExchange.API\Services\Product\Infrastructure\obj\Debug\net5.0\Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\omero\OneDrive\Masaüstü\Yazılım Yapımı Proje\Final\YazilimYapimiVizeProjesi\ProjectExchange.API\Services\Product\Infrastructure\obj\Debug\net5.0\Infrastructure.AssemblyInfoInputs.cache
+C:\Users\omero\OneDrive\Masaüstü\Yazılım Yapımı Proje\Final\YazilimYapimiVizeProjesi\ProjectExchange.API\Services\Product\Infrastructure\obj\Debug\net5.0\Infrastructure.AssemblyInfo.cs
+C:\Users\omero\OneDrive\Masaüstü\Yazılım Yapımı Proje\Final\YazilimYapimiVizeProjesi\ProjectExchange.API\Services\Product\Infrastructure\obj\Debug\net5.0\Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\omero\OneDrive\Masaüstü\Yazılım Yapımı Proje\Final\YazilimYapimiVizeProjesi\ProjectExchange.API\Services\Product\Infrastructure\obj\Debug\net5.0\Infrastructure.csproj.CopyComplete
+C:\Users\omero\OneDrive\Masaüstü\Yazılım Yapımı Proje\Final\YazilimYapimiVizeProjesi\ProjectExchange.API\Services\Product\Infrastructure\obj\Debug\net5.0\Infrastructure.dll
+C:\Users\omero\OneDrive\Masaüstü\Yazılım Yapımı Proje\Final\YazilimYapimiVizeProjesi\ProjectExchange.API\Services\Product\Infrastructure\obj\Debug\net5.0\ref\Infrastructure.dll
+C:\Users\omero\OneDrive\Masaüstü\Yazılım Yapımı Proje\Final\YazilimYapimiVizeProjesi\ProjectExchange.API\Services\Product\Infrastructure\obj\Debug\net5.0\Infrastructure.pdb

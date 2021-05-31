@@ -17,17 +17,3 @@ node_modules/
 *.user
 *.userosscache
 *.sln.docstates
-
-# Build results
-DebugPublic/
-Release/
-Releases/
-x64/
-x86/
-build/
-bld/
-obj/
-out/
-msbuild.log
-msbuild.err
-msbuild.wrn
