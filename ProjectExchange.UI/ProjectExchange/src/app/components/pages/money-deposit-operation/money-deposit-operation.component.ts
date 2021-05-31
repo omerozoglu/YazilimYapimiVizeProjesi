@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MoneyApproval } from 'src/app/models/operations/money-approval.model';
+import { User } from 'src/app/models/user.model';
 import { DepositService } from 'src/app/services/operations/deposit/deposit.service';
 
 @Component({
@@ -9,14 +10,17 @@ import { DepositService } from 'src/app/services/operations/deposit/deposit.serv
 })
 export class MoneyDepositOperationComponent implements OnInit {
 
+  public user: User = new User();
   MoneyApprovalModel = new MoneyApproval();
   constructor(private depositService?: DepositService) { }
 
   ngOnInit(): void {
+    if (localStorage.getItem('id')) {
+      this.user.id = localStorage.getItem('id');
+    }
   }
   public DepositOperaiton(money) {
-    var mockUserId: string = "60af7e0417369373599f3a8d";
-    this.MoneyApprovalModel.userId = mockUserId;
+    this.MoneyApprovalModel.userId = this.user.id;
     this.MoneyApprovalModel.deposit = money;
 
     this.depositService.DepositOperation(this.MoneyApprovalModel).subscribe(operation => {

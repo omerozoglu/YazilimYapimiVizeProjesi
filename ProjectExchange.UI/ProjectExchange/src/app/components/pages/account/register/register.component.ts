@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AccountType } from 'src/app/models/Enums/account-type';
 import { User } from 'src/app/models/user.model';
 import { UserService } from 'src/app/services/user/user.service';
@@ -11,13 +12,13 @@ import { UserService } from 'src/app/services/user/user.service';
 export class RegisterComponent implements OnInit {
   user: User = new User();
   isClick: number = 0;
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private router: Router) { }
 
   ngOnInit(): void {
 
   }
 
-  private addFirstInfo(name, username, email, pass, pass2) {
+  public addFirstInfo(name, username, email, pass, pass2) {
     this.user.name = name;
     this.user.username = username;
     this.user.email = email;
@@ -29,7 +30,7 @@ export class RegisterComponent implements OnInit {
       this.isClick = 0;
     }
   }
-  private addSecondInfo(taker?, seller?) {
+  public addSecondInfo(taker?, seller?) {
     this.user.accountType = [];
     if (taker) {
       this.user.accountType.push(AccountType.Taker.value);
@@ -44,10 +45,12 @@ export class RegisterComponent implements OnInit {
       this.isClick = 1;
     }
   }
-  private addThirtInfo(tcnu, phone, address) {
+  public addThirtInfo(tcnu, phone, address) {
     this.user.tcNumber = tcnu;
     this.user.phone = phone;
     this.user.address = address;
-    this.userService.createUser(this.user).subscribe(p => console.log(p));
+    this.userService.createUser(this.user).subscribe(p => {
+      this.router.navigate(['/']);
+    });
   }
 }

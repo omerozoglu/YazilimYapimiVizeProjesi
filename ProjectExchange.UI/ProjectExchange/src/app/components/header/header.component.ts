@@ -9,14 +9,24 @@ export class HeaderComponent implements OnInit {
   public isAuthenticated: boolean;
 
   constructor() {
-    //this.isAuthenticated = this.authenticationService.isAuthenticated();
-
-    this.isAuthenticated = true;
   }
   ngOnInit(): void {
+    if (localStorage.getItem('id')) {
+      this.isAuthenticated = true;
+    } else {
+      this.isAuthenticated = false;
+    }
   }
 
   logout() {
+    localStorage.removeItem("id");
+    localStorage.removeItem("name");
+    localStorage.removeItem("email");
+    localStorage.removeItem("address");
+    localStorage.removeItem("tcnumber");
+    localStorage.removeItem("phone");
+    localStorage.removeItem("credit");
+    localStorage.removeItem("accounttype");
     this.isAuthenticated = false;
   }
 }

@@ -4,6 +4,7 @@ import { Seller } from 'src/app/models/operations/seller.model';
 import { Taker } from 'src/app/models/operations/taker.model';
 import { SellService } from 'src/app/services/operations/sell/sell.service';
 import { TakeService } from 'src/app/services/operations/take/take.service';
+import { User } from 'src/app/models/user.model';
 
 @Component({
   selector: 'app-product',
@@ -13,6 +14,8 @@ import { TakeService } from 'src/app/services/operations/take/take.service';
 export class ProductComponent implements OnInit {
   @Input() Product: Product;
   @Input() OperationName: string;
+
+  public user: User = new User();
   TakerModel = new Taker();
   SellerModel = new Seller();
   isClick: boolean = false;
@@ -21,11 +24,13 @@ export class ProductComponent implements OnInit {
 
   ngOnInit(): void {
     console.log(this.Product);
+    if (localStorage.getItem('id')) {
+      this.user.id = localStorage.getItem('id');
+    }
   }
   public TakeOperaiton(weight) {
-    var mockUserId = "60af7e0417369373599f3a8d";
     this.TakerModel.productName = this.Product.name;
-    this.TakerModel.userId = mockUserId;
+    this.TakerModel.userId = this.user.id;
     this.TakerModel.weight = weight;
     console.log(this.TakerModel);
     this.takeService.TakeOperation(this.TakerModel).subscribe(operation => {

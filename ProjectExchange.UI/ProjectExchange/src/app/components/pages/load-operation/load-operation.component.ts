@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ProductApproval } from 'src/app/models/operations/product-approval.model';
 import { Product } from 'src/app/models/product.model';
+import { User } from 'src/app/models/user.model';
 import { LoadService } from 'src/app/services/operations/load/load.service';
 import { ProductService } from 'src/app/services/product/product.service';
 
@@ -27,6 +28,7 @@ export class LoadOperationComponent implements OnInit {
   isClick: boolean = false;
   Product = new Product();
   ProductApprovalModel = new ProductApproval();
+  public user: User = new User();
 
   constructor(private productService?: ProductService, private loadService?: LoadService) { }
 
@@ -34,12 +36,14 @@ export class LoadOperationComponent implements OnInit {
   ngOnInit(): void {
     //  this.getAllProducts();
     //  console.log(this.Product);
+    if (localStorage.getItem('id')) {
+      this.user.id = localStorage.getItem('id');
+    }
   }
   public getAllProducts() {
   }
   public loadOperation(weight, productName, productImgUrl) {
-    var mockUserId: string = "60af7e0417369373599f3a8d";
-    this.ProductApprovalModel.userId = mockUserId;
+    this.ProductApprovalModel.userId = this.user.id;
     this.ProductApprovalModel.productName = productName;
     this.ProductApprovalModel.productImgUrl = productImgUrl;
     this.ProductApprovalModel.productWeight = weight;

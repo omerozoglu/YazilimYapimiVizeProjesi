@@ -36,4 +36,11 @@
 .container .container h3 {
   padding: 10px;
 }
+
+.container .row {
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  width: 95%;
+}
 /*# sourceMappingURL=home.component.css.map */

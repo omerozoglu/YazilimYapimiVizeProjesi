@@ -13,7 +13,7 @@
         <a routerLink="/myprofile">My Profile</a>
       </li>
       <li *ngIf="isAuthenticated">
-        <a href="">Logout</a>
+        <a href="" (click)="logout()">Logout</a>
       </li>
       <li *ngIf="!isAuthenticated">
         <a routerLink="/aboutme" title="About Me">About Me</a>
