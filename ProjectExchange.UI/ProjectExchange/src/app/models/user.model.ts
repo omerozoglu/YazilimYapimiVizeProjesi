@@ -6,7 +6,7 @@ export class User {
   email: string;
   password: string;
   accountType: number[];
-  tCNumber: string;
+  tcNumber: string;
   phone: string;
   address: string;
   credit: number;

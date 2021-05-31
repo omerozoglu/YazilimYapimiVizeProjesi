@@ -6,6 +6,8 @@ import { LayoutComponent } from './layout/layout.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { RegisterComponent } from './register/register.component';
 import { AccountRoutingModule } from './account-routing.module';
+import { UserService } from 'src/app/services/user/user.service';
+import { AuthGuard } from './auth-gurad/auth-guard';
 
 
 
@@ -15,11 +17,15 @@ import { AccountRoutingModule } from './account-routing.module';
     LogoutComponent,
     LayoutComponent,
     ForgotPasswordComponent,
-    RegisterComponent
+    RegisterComponent,
   ],
   imports: [
     CommonModule,
     AccountRoutingModule
+  ],
+  providers: [
+    UserService,
+    AuthGuard
   ]
 })
 export class AccountModule { }

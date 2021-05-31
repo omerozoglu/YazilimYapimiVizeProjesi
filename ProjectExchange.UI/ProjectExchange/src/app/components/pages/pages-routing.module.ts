@@ -8,9 +8,10 @@ import { LoadOperationComponent } from './load-operation/load-operation.componen
 import { MoneyDepositOperationComponent } from './money-deposit-operation/money-deposit-operation.component';
 import { SellOperationComponent } from './sell-operation/sell-operation.component';
 import { TakeOperationComponent } from './take-operation/take-operation.component';
+import { AuthGuard } from './account/auth-gurad/auth-guard';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
+  { path: '', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'sell', component: SellOperationComponent },
   { path: 'take', component: TakeOperationComponent },
   { path: 'load', component: LoadOperationComponent },

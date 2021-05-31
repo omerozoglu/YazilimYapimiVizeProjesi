@@ -45,6 +45,17 @@ export class UserService {
     );
   }
 
+  public login(params: User): Observable<User> {
+
+    return this.http.post<ApiResponse>(`${environment.userApiUrl}/User/login`, params).pipe(
+      map(
+        (response: ApiResponse) => {
+
+          return response.content[0];
+        }
+      )
+    );
+  }
   public updateUser(params: any): Observable<User> {
     return this.http.put<ApiResponse>(`${environment.userApiUrl}/User/`, params).pipe(
       map(

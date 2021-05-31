@@ -45,7 +45,7 @@ export class RegisterComponent implements OnInit {
     }
   }
   private addThirtInfo(tcnu, phone, address) {
-    this.user.tCNumber = tcnu;
+    this.user.tcNumber = tcnu;
     this.user.phone = phone;
     this.user.address = address;
     this.userService.createUser(this.user).subscribe(p => console.log(p));

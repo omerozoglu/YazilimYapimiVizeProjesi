@@ -7,6 +7,7 @@ using Application.Features.Commands.Delete;
 using Application.Features.Commands.Update;
 using Application.Features.Queries.Get;
 using Application.Features.Queries.GetList;
+using Application.Features.Queries.Login;
 using Domain.Common;
 using Domain.Common.Enums;
 using Domain.Entities;
@@ -47,6 +48,25 @@ namespace API.Controllers {
             } catch (Exception ex) {
                 var err = new EntityResponse<User> ();
                 err.ReponseName = nameof (GetUser);
+                err.Status = ResponseType.Error;
+                err.Message = ex.Message;
+                err.Content = null;
+                return Ok (err);
+            }
+        }
+        #endregion
+
+        #region Login ()
+        [HttpPost ("login")]
+        [ProducesResponseType (typeof (EntityResponse<User>), (int) HttpStatusCode.OK)]
+        public async Task<ActionResult<EntityResponse<User>>> Login (User user) {
+            try {
+                var query = new loginQuery (user.Username, user.Password);
+                var result = await _mediator.Send (query);
+                return Ok (result);
+            } catch (Exception ex) {
+                var err = new EntityResponse<User> ();
+                err.ReponseName = nameof (Login);
                 err.Status = ResponseType.Error;
                 err.Message = ex.Message;
                 err.Content = null;
