@@ -11,24 +11,23 @@ You will need the following tools:
 
 * [Visual Studio 2019](https://visualstudio.microsoft.com/downloads/)
 * [.Net Core 5 or later](https://dotnet.microsoft.com/download/dotnet-core/5)
-* [Docker Desktop](https://www.docker.com/products/docker-desktop)
 * [Angular CLI](https://github.com/angular/angular-cli) version 11.2.12.
+* [npm](npmjs.com/get-npm) version 6.14.13.
 
 ### Installing
 #### First,Launch API
-1. Clone the repository , Go to microservice folders in separate terminals and run the command. 
-2. Install dotnet core and 
+1. Clone the repository , Go to the knowledgeable microservices and follow the commands below in order.  
+2.
 ```csharp
+  dotnet build
   dotnet run
 ```
-3. Wait for dotnet core. That’s it!
+3. You can **launch microservices** as below urls:
 
-4. You can **launch microservices** as below urls:
-
-* **User API -> http://localhost:5000**
-* **Product API -> http://localhost:5002**
-* **Admin API -> http://localhost:5004**
-* **API Gateway -> http://localhost:5010**
+* **User API -> http://localhost:5000/swagger/index.html**
+* **Product API -> http://localhost:5002/swagger/index.html**
+* **Admin API -> http://localhost:5004/swagger/index.html**
+* **API Gateway -> http://localhost:5010/swagger/index.html**
 
 #### Launch Angular
 
