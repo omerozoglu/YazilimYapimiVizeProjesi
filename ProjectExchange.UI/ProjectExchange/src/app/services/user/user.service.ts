@@ -34,7 +34,7 @@ export class UserService {
     );
   }
 
-  public createUser(params: any): Observable<User> {
+  public createUser(params: User): Observable<User> {
 
     return this.http.post<ApiResponse>(`${environment.userApiUrl}/User/`, params).pipe(
       map(

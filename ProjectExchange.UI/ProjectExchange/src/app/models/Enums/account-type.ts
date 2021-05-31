@@ -1,7 +1,7 @@
 export class AccountType {
-  private constructor(value: string) { this.value = value; }
-  value: string;
-  public static Taker: AccountType = new AccountType("Taker");
-  public static Selller: AccountType = new AccountType("Seller");
-  public static Admin: AccountType = new AccountType("Admin");
+  private constructor(value: number) { this.value = value; }
+  value: number;
+  public static Taker: AccountType = new AccountType(1);
+  public static Selller: AccountType = new AccountType(2);
+  public static Admin: AccountType = new AccountType(0);
 }

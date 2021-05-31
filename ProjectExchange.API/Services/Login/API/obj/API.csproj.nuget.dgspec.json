@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\omero\\OneDrive\\Masaüstü\\Yazılım Yapımı Proje\\Vize\\Vize_branch_1\\ProjectExchange.API\\Services\\Login\\API\\API.csproj": {}
+    "C:\\Users\\omero\\OneDrive\\Masaüstü\\Yazılım Yapımı Proje\\Final\\YazilimYapimiVizeProjesi\\ProjectExchange.API\\Services\\Login\\API\\API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\omero\\OneDrive\\Masaüstü\\Yazılım Yapımı Proje\\Vize\\Vize_branch_1\\ProjectExchange.API\\Services\\Login\\API\\API.csproj": {
+    "C:\\Users\\omero\\OneDrive\\Masaüstü\\Yazılım Yapımı Proje\\Final\\YazilimYapimiVizeProjesi\\ProjectExchange.API\\Services\\Login\\API\\API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\omero\\OneDrive\\Masaüstü\\Yazılım Yapımı Proje\\Vize\\Vize_branch_1\\ProjectExchange.API\\Services\\Login\\API\\API.csproj",
+        "projectUniqueName": "C:\\Users\\omero\\OneDrive\\Masaüstü\\Yazılım Yapımı Proje\\Final\\YazilimYapimiVizeProjesi\\ProjectExchange.API\\Services\\Login\\API\\API.csproj",
         "projectName": "API",
-        "projectPath": "C:\\Users\\omero\\OneDrive\\Masaüstü\\Yazılım Yapımı Proje\\Vize\\Vize_branch_1\\ProjectExchange.API\\Services\\Login\\API\\API.csproj",
+        "projectPath": "C:\\Users\\omero\\OneDrive\\Masaüstü\\Yazılım Yapımı Proje\\Final\\YazilimYapimiVizeProjesi\\ProjectExchange.API\\Services\\Login\\API\\API.csproj",
         "packagesPath": "C:\\Users\\omero\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\omero\\OneDrive\\Masaüstü\\Yazılım Yapımı Proje\\Vize\\Vize_branch_1\\ProjectExchange.API\\Services\\Login\\API\\obj\\",
+        "outputPath": "C:\\Users\\omero\\OneDrive\\Masaüstü\\Yazılım Yapımı Proje\\Final\\YazilimYapimiVizeProjesi\\ProjectExchange.API\\Services\\Login\\API\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
