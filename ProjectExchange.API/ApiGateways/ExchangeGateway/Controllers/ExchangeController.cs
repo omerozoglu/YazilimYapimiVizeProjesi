@@ -42,13 +42,32 @@ namespace ExchangeGateway.Controllers {
 
             #region Get products
             var productResponse = await _productService.GetProductsByName (_modelProductName);
-            if (productResponse.Status.Value != ResponseType.Success.Value) {
+            if (productResponse.Status.Value != ResponseStatus.Success.Value) {
                 response.Status = productResponse.Status;
                 response.Message = $"{nameof (TakeOperation)} was interrupted due to \"{productResponse.Message}\"";
                 return response;
             }
 
-            var products = productResponse.Content;
+            var products = productResponse.Content.FindAll (p => (p.UnitPrice == model.UnitPrice) && p.Status == 1);
+            if (products.Count == 0) {
+                Product product = new Product ();
+                product.Name = productResponse.Content[0].Name;
+                product.ImgUrl = productResponse.Content[0].ImgUrl;
+                product.UserId = model.UserId;
+                product.UnitPrice = model.UnitPrice;
+                product.Weight = model.Weight;
+                product.Status = 0;
+                var _createProductResponse = await _productService.CreateProduct (product);
+                //* If operation has interrupted on updating
+                if (_createProductResponse.Status.Value != ResponseStatus.Success.Value) {
+                    response.Status = _createProductResponse.Status;
+                    response.Message = $"{nameof (TakeOperation)} was interrupted due to \"{_createProductResponse.Message}\"";
+                }
+
+                response.Message = "Take Order Operation successfully";
+                response.Status = ResponseStatus.Success;
+                return response;
+            }
             //* If operation has interrupted on updating
 
             //* Sorting products
@@ -74,10 +93,11 @@ namespace ExchangeGateway.Controllers {
                 _tmpTakerProduct.ImgUrl = products[0].ImgUrl;
                 _tmpTakerProduct.UserId = _modelUserId;
                 _tmpTakerProduct.Weight = 0;
+                _tmpTakerProduct.Status = 1;
                 //* else, create a new one
                 var _createTakerProductResponse = await _productService.CreateProduct (_tmpTakerProduct);
                 //* If operation has interrupted on updating
-                if (_createTakerProductResponse.Status.Value != ResponseType.Success.Value) {
+                if (_createTakerProductResponse.Status.Value != ResponseStatus.Success.Value) {
                     response.Status = _createTakerProductResponse.Status;
                     response.Message = $"{nameof (TakeOperation)} was interrupted due to \"{_createTakerProductResponse.Message}\"";
                 }
@@ -86,7 +106,7 @@ namespace ExchangeGateway.Controllers {
                 _takerUser.Products.Add (_tmpTakerProduct.Id);
                 var _updateTakerResponse = await _userService.UpdateUser (_takerUser);
                 //* If operation has interrupted on updating
-                if (_createTakerProductResponse.Status.Value != ResponseType.Success.Value) {
+                if (_createTakerProductResponse.Status.Value != ResponseStatus.Success.Value) {
                     response.Status = _createTakerProductResponse.Status;
                     response.Message = $"{nameof (TakeOperation)} was interrupted due to \"{_createTakerProductResponse.Message}\"";
                 }
@@ -106,7 +126,7 @@ namespace ExchangeGateway.Controllers {
                     _tmpTakerProdcutWeight -= _tmpSellerProdcut.Weight;
                     var _deleteSellerProductResponse = await _productService.DeleteProduct (_tmpSellerProdcut.Id);
                     //* If operation has interrupted on deleting
-                    if (_deleteSellerProductResponse.Status.Value != ResponseType.Success.Value) {
+                    if (_deleteSellerProductResponse.Status.Value != ResponseStatus.Success.Value) {
                         response.Status = _deleteSellerProductResponse.Status;
                         response.Message = $"{nameof (TakeOperation)} was interrupted due to \"{_deleteSellerProductResponse.Message}\"";
                         break;
@@ -124,7 +144,7 @@ namespace ExchangeGateway.Controllers {
                     _tmpSellerProdcut.Weight -= _tmpTakerProdcutWeight;
                     var _updateSellerProductResponse = await _productService.UpdateProduct (_tmpSellerProdcut);
                     //* If operation has interrupted on updating
-                    if (_updateSellerProductResponse.Status.Value != ResponseType.Success.Value) {
+                    if (_updateSellerProductResponse.Status.Value != ResponseStatus.Success.Value) {
                         response.Status = _updateSellerProductResponse.Status;
                         response.Message = $"{nameof (TakeOperation)} was interrupted due to \"{_updateSellerProductResponse.Message}\"";
                         break;
@@ -140,7 +160,7 @@ namespace ExchangeGateway.Controllers {
 
                 var _updateSellerResponse = await _userService.UpdateUser (_sellerUser);
                 //* If operation has interrupted on updating
-                if (_updateSellerResponse.Status.Value != ResponseType.Success.Value) {
+                if (_updateSellerResponse.Status.Value != ResponseStatus.Success.Value) {
                     response.Status = _updateSellerResponse.Status;
                     response.Message = $"{nameof (TakeOperation)} was interrupted due to \"{_updateSellerResponse.Message}\"";
                     break;
@@ -148,7 +168,7 @@ namespace ExchangeGateway.Controllers {
 
                 var _updateTakerResponse = await _userService.UpdateUser (_takerUser);
                 //* If operation has interrupted on updating
-                if (_updateTakerResponse.Status.Value != ResponseType.Success.Value) {
+                if (_updateTakerResponse.Status.Value != ResponseStatus.Success.Value) {
                     response.Status = _updateTakerResponse.Status;
                     response.Message = $"{nameof (TakeOperation)} was interrupted due to \"{_updateTakerResponse.Message}\"";
                     break;
@@ -156,7 +176,7 @@ namespace ExchangeGateway.Controllers {
 
                 var _updateTakerProductResponse = await _productService.UpdateProduct (_tmpTakerProduct);
                 //* If operation has interrupted on updating
-                if (_updateTakerProductResponse.Status.Value != ResponseType.Success.Value) {
+                if (_updateTakerProductResponse.Status.Value != ResponseStatus.Success.Value) {
                     response.Status = _updateTakerProductResponse.Status;
                     response.Message = $"{nameof (TakeOperation)} was interrupted due to \"{_updateTakerProductResponse.Message}\"";
                     break;
@@ -170,7 +190,7 @@ namespace ExchangeGateway.Controllers {
             #endregion
 
             response.Message = "Take Operation successfully";
-            response.Status = ResponseType.Success;
+            response.Status = ResponseStatus.Success;
             return response;
         }
 
@@ -185,7 +205,7 @@ namespace ExchangeGateway.Controllers {
 
             //* Get Seller User
             var sellerUserReponse = await _userService.GetUser (_modelUserId);
-            if (sellerUserReponse.Status.Value != ResponseType.Success.Value) {
+            if (sellerUserReponse.Status.Value != ResponseStatus.Success.Value) {
                 response.Status = sellerUserReponse.Status;
                 response.Message = $"{nameof (SellOperation)} was interrupted due to \"{sellerUserReponse.Message}\"";
                 return response;
@@ -194,7 +214,7 @@ namespace ExchangeGateway.Controllers {
 
             //*Get Seller's Product
             var sellerProductResponse = await _productService.GetProduct (_modelProductId);
-            if (sellerProductResponse.Status.Value != ResponseType.Success.Value) {
+            if (sellerProductResponse.Status.Value != ResponseStatus.Success.Value) {
                 response.Status = sellerProductResponse.Status;
                 response.Message = $"{nameof (SellOperation)} was interrupted due to \"{sellerProductResponse.Message}\"";
                 return response;
@@ -209,14 +229,14 @@ namespace ExchangeGateway.Controllers {
             if (sellerProduct.Weight == 0) {
                 //*delete seller product
                 var deleteSellerProductResponse = await _productService.DeleteProduct (sellerProduct.Id);
-                if (deleteSellerProductResponse.Status.Value != ResponseType.Success.Value) {
+                if (deleteSellerProductResponse.Status.Value != ResponseStatus.Success.Value) {
                     response.Status = deleteSellerProductResponse.Status;
                     response.Message = $"{nameof (SellOperation)} was interrupted due to \"{deleteSellerProductResponse.Message}\"";
                     return response;
                 }
                 sellerUser.Products.Remove (sellerProduct.Id);
                 var updateSellerUserResponse = await _userService.UpdateUser (sellerUser);
-                if (updateSellerUserResponse.Status.Value != ResponseType.Success.Value) {
+                if (updateSellerUserResponse.Status.Value != ResponseStatus.Success.Value) {
                     response.Status = updateSellerUserResponse.Status;
                     response.Message = $"{nameof (SellOperation)} was interrupted due to \"{updateSellerUserResponse.Message}\"";
                     return response;
@@ -225,28 +245,70 @@ namespace ExchangeGateway.Controllers {
             } else {
                 //* update seller product
                 var updateSellerProductResponse = await _productService.UpdateProduct (sellerProduct);
-                if (updateSellerProductResponse.Status.Value != ResponseType.Success.Value) {
+                if (updateSellerProductResponse.Status.Value != ResponseStatus.Success.Value) {
                     response.Status = updateSellerProductResponse.Status;
                     response.Message = $"{nameof (SellOperation)} was interrupted due to \"{updateSellerProductResponse.Message}\"";
                     return response;
                 }
             }
+
             sellerProduct.UnitPrice = _modelProductUnitPrice;
             //* Create new product item
             Product newProduct = new Product ();
             newProduct = sellerProduct;
             newProduct.Weight = _modelProdcutWeight;
             newProduct.Id = null;
-
+            newProduct.Status = 1;
             var createSellerProductResponse = await _productService.CreateProduct (newProduct);
-            if (createSellerProductResponse.Status.Value != ResponseType.Success.Value) {
+            if (createSellerProductResponse.Status.Value != ResponseStatus.Success.Value) {
                 response.Status = createSellerProductResponse.Status;
                 response.Message = $"{nameof (SellOperation)} was interrupted due to \"{createSellerProductResponse.Message}\"";
                 return response;
             }
 
+            var productWithStatusByNameResponse = await _productService.GetProductsWithStatusByName (sellerProduct.Name);
+            if (productWithStatusByNameResponse.Status.Value != ResponseStatus.Success.Value) {
+                response.Status = productWithStatusByNameResponse.Status;
+                response.Message = $"{nameof (SellOperation)} was interrupted due to \"{productWithStatusByNameResponse.Message}\"";
+                return response;
+            }
+            /*
+             *If the weight of the product, which is a purchase order at the sold price, 
+             *is greater or equal to the weight of the currently sold product; Perform the sell transaction and ignore the next steps, update the weight of the remaining buy order after the sell transaction. 
+             *If it is small; Execute the sell transaction and delete the buy order. Update weight of remaining sell order and apply next steps 
+             */
+            foreach (Product product in productWithStatusByNameResponse.Content) {
+                if (product.Weight >= _modelProdcutWeight) {
+                    TakerModel takerModel = new TakerModel ();
+                    takerModel.UnitPrice = product.UnitPrice;
+                    takerModel.Weight = _modelProdcutWeight;
+                    takerModel.UserId = product.UserId;
+                    takerModel.ProductName = product.Name;
+                    await TakeOperation (takerModel);
+                    product.Weight -= _modelProdcutWeight;
+                    var updateProductResponse = await _productService.UpdateProduct (product);
+                    if (updateProductResponse.Status.Value != ResponseStatus.Success.Value) {
+                        response.Status = updateProductResponse.Status;
+                        response.Message = $"{nameof (SellOperation)} was interrupted due to \"{updateProductResponse.Message}\"";
+                        return response;
+                    }
+                } else {
+                    TakerModel takerModel = new TakerModel ();
+                    takerModel.UnitPrice = product.UnitPrice;
+                    takerModel.Weight = product.Weight;
+                    takerModel.UserId = product.UserId;
+                    takerModel.ProductName = product.Name;
+                    await TakeOperation (takerModel);
+                    var deleteProductResponse = await _productService.DeleteProduct (product.Id);
+                    if (deleteProductResponse.Status.Value != ResponseStatus.Success.Value) {
+                        response.Status = deleteProductResponse.Status;
+                        response.Message = $"{nameof (SellOperation)} was interrupted due to \"{deleteProductResponse.Message}\"";
+                        return response;
+                    }
+                }
+            }
             response.Message = "Operation successfully";
-            response.Status = ResponseType.Success;
+            response.Status = ResponseStatus.Success;
             return response;
         }
 
@@ -268,14 +330,14 @@ namespace ExchangeGateway.Controllers {
                 ProductWeight = model.ProductWeight
             };
             var productApprovalResponse = await _productApprovalService.CreateApprovalEntity (ProductApproval);
-            if (productApprovalResponse.Status.Value != ResponseType.Success.Value) {
+            if (productApprovalResponse.Status.Value != ResponseStatus.Success.Value) {
                 response.Status = productApprovalResponse.Status;
                 response.Message = $"{nameof (ProductLoadOperation)} was interrupted due to \"{productApprovalResponse.Message}\"";
                 return response;
             }
 
             response.Message = "Operation successfully submitted to admin for approval ";
-            response.Status = ResponseType.Success;
+            response.Status = ResponseStatus.Success;
             return response;
         }
 
@@ -294,14 +356,14 @@ namespace ExchangeGateway.Controllers {
                 Deposit = model.Deposit
             };
             var moneyApprovalResponse = await _moneyApprovalService.CreateApprovalEntity (MoneyApproval);
-            if (moneyApprovalResponse.Status.Value != ResponseType.Success.Value) {
+            if (moneyApprovalResponse.Status.Value != ResponseStatus.Success.Value) {
                 response.Status = moneyApprovalResponse.Status;
                 response.Message = $"{nameof (MoneyDepositOperation)} was interrupted due to \"{moneyApprovalResponse.Message}\"";
                 return response;
             }
 
             response.Message = "Operation successfully submitted to admin for approval ";
-            response.Status = ResponseType.Success;
+            response.Status = ResponseStatus.Success;
             return response;
         }
 
@@ -316,7 +378,7 @@ namespace ExchangeGateway.Controllers {
             if (model.Status.Value == ApprovalStatus.Approved.Value) {
 
                 var userGetResponse = await _userService.GetUser (model.UserId);
-                if (userGetResponse.Status.Value != ResponseType.Success.Value) {
+                if (userGetResponse.Status.Value != ResponseStatus.Success.Value) {
                     response.Status = userGetResponse.Status;
                     response.Message = $"{nameof (LoadConfirmOperation)} was interrupted due to \"{userGetResponse.Message}\"";
                     return response;
@@ -334,16 +396,16 @@ namespace ExchangeGateway.Controllers {
                     }
                 }
                 if (!isThereProduct) {
-                    Product newProduct = new Product () { UserId = model.UserId, Name = model.ProductName, ImgUrl = model.ProductImgUrl, Weight = model.ProductWeight, UnitPrice = 0 };
+                    Product newProduct = new Product () { UserId = model.UserId, Name = model.ProductName, ImgUrl = model.ProductImgUrl, Weight = model.ProductWeight, UnitPrice = 0, Status = 1 };
                     var userProductResponse = await _productService.CreateProduct (newProduct);
-                    if (userProductResponse.Status.Value != ResponseType.Success.Value) {
+                    if (userProductResponse.Status.Value != ResponseStatus.Success.Value) {
                         response.Status = userProductResponse.Status;
                         response.Message = $"{nameof (LoadConfirmOperation)} was interrupted due to \"{userProductResponse.Message}\"";
                         return response;
                     }
                     user.Products.Add (userProductResponse.Content[0].Id);
                     var userResponse = await _userService.UpdateUser (user);
-                    if (userResponse.Status.Value != ResponseType.Success.Value) {
+                    if (userResponse.Status.Value != ResponseStatus.Success.Value) {
                         response.Status = userResponse.Status;
                         response.Message = $"{nameof (LoadConfirmOperation)} was interrupted due to \"{userResponse.Message}\"";
                         return response;
@@ -351,7 +413,7 @@ namespace ExchangeGateway.Controllers {
                 } else {
                     _tmpProduct.Weight += model.ProductWeight;
                     var userProductResponse = await _productService.UpdateProduct (_tmpProduct);
-                    if (userProductResponse.Status.Value != ResponseType.Success.Value) {
+                    if (userProductResponse.Status.Value != ResponseStatus.Success.Value) {
                         response.Status = userProductResponse.Status;
                         response.Message = $"{nameof (LoadConfirmOperation)} was interrupted due to \"{userProductResponse.Message}\"";
                         return response;
@@ -362,14 +424,14 @@ namespace ExchangeGateway.Controllers {
             //* Updating ApprovalEntity 
             var productApproval = model;
             var productApprovalResponse = await _productApprovalService.UpdateApprovalEntity (productApproval);
-            if (productApprovalResponse.Status.Value != ResponseType.Success.Value) {
+            if (productApprovalResponse.Status.Value != ResponseStatus.Success.Value) {
                 response.Status = productApprovalResponse.Status;
                 response.Message = $"{nameof (LoadConfirmOperation)} was interrupted due to \"{productApprovalResponse.Message}\"";
                 return response;
             }
 
             response.Message = "Operation successfully submitted";
-            response.Status = ResponseType.Success;
+            response.Status = ResponseStatus.Success;
             return response;
         }
 
@@ -383,7 +445,7 @@ namespace ExchangeGateway.Controllers {
             if (model.Status.Value == ApprovalStatus.Approved.Value) {
 
                 var userGetResponse = await _userService.GetUser (model.UserId);
-                if (userGetResponse.Status.Value != ResponseType.Success.Value) {
+                if (userGetResponse.Status.Value != ResponseStatus.Success.Value) {
                     response.Status = userGetResponse.Status;
                     response.Message = $"{nameof (DepositConfirmOperation)} was interrupted due to \"{userGetResponse.Message}\"";
                     return response;
@@ -391,7 +453,7 @@ namespace ExchangeGateway.Controllers {
                 User user = userGetResponse.Content[0];
                 user.Credit += model.Deposit;
                 var userResponse = await _userService.UpdateUser (user);
-                if (userResponse.Status.Value != ResponseType.Success.Value) {
+                if (userResponse.Status.Value != ResponseStatus.Success.Value) {
                     response.Status = userResponse.Status;
                     response.Message = $"{nameof (DepositConfirmOperation)} was interrupted due to \"{userResponse.Message}\"";
                     return response;
@@ -400,13 +462,13 @@ namespace ExchangeGateway.Controllers {
             //* Updating ApprovalEntity 
             var moneyApproval = model;
             var moneyApprovalResponse = await _moneyApprovalService.UpdateApprovalEntity (moneyApproval);
-            if (moneyApprovalResponse.Status.Value != ResponseType.Success.Value) {
+            if (moneyApprovalResponse.Status.Value != ResponseStatus.Success.Value) {
                 response.Status = moneyApprovalResponse.Status;
                 response.Message = $"{nameof (DepositConfirmOperation)} was interrupted due to \"{moneyApprovalResponse.Message}\"";
                 return response;
             }
             response.Message = "Operation successfully submitted";
-            response.Status = ResponseType.Success;
+            response.Status = ResponseStatus.Success;
             return response;
         }
     }

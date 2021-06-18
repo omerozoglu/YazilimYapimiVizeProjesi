@@ -21,7 +21,7 @@ namespace ExchangeGateway.Services {
                 var response = new ResponseModel<User> () {
                     ReponseName = nameof (GetUser) + "in" + nameof (ExchangeGateway),
                     Message = ex.Message,
-                    Status = ResponseType.Error,
+                    Status = ResponseStatus.Error,
                     Content = null
                 };
                 return response;
@@ -35,7 +35,7 @@ namespace ExchangeGateway.Services {
                 var response = new ResponseModel<User> () {
                     ReponseName = nameof (UpdateUser) + "in" + nameof (ExchangeGateway),
                     Message = ex.Message,
-                    Status = ResponseType.Error,
+                    Status = ResponseStatus.Error,
                     Content = null
                 };
                 return response;

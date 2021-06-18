@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "0/Pu22aIF5DNUh/MkXBdHxKBwm2zS+zh+9bNR5Y9EktrLPy2Kgu9EyEHEq3QC1fHtAmKtNhigAF3FYqw46ItGA==",
+  "dgSpecHash": "HDJVuCxZbu7GVKPVhZkB0s+evyAXbVP+YhcPrSsgYsf/88p8rCDwW0zlvRoNCl8k6UXvaRt7rbN/VleDu0KIzg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\omero\\OneDrive\\Masaüstü\\Yazılım Yapımı Proje\\Final\\YazilimYapimiVizeProjesi\\ProjectExchange.API\\Services\\Admin\\Domain\\Domain.csproj",
+  "projectFilePath": "D:\\Personal\\Desktop\\Yazılım Yapımı Proje\\Final\\YazilimYapimiVizeProjesi\\ProjectExchange.API\\Services\\Admin\\Domain\\Domain.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\omero\\.nuget\\packages\\dnsclient\\1.4.0\\dnsclient.1.4.0.nupkg.sha512",
     "C:\\Users\\omero\\.nuget\\packages\\microsoft.netcore.platforms\\2.1.2\\microsoft.netcore.platforms.2.1.2.nupkg.sha512",

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\omero\\OneDrive\\Masaüstü\\Yazılım Yapımı Proje\\Final\\YazilimYapimiVizeProjesi\\ProjectExchange.API\\Services\\User\\API\\API.csproj": {}
+    "D:\\Personal\\Desktop\\Yazılım Yapımı Proje\\Final\\YazilimYapimiVizeProjesi\\ProjectExchange.API\\Services\\User\\API\\API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\omero\\OneDrive\\Masaüstü\\Yazılım Yapımı Proje\\Final\\YazilimYapimiVizeProjesi\\ProjectExchange.API\\Services\\User\\API\\API.csproj": {
+    "D:\\Personal\\Desktop\\Yazılım Yapımı Proje\\Final\\YazilimYapimiVizeProjesi\\ProjectExchange.API\\Services\\User\\API\\API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\omero\\OneDrive\\Masaüstü\\Yazılım Yapımı Proje\\Final\\YazilimYapimiVizeProjesi\\ProjectExchange.API\\Services\\User\\API\\API.csproj",
+        "projectUniqueName": "D:\\Personal\\Desktop\\Yazılım Yapımı Proje\\Final\\YazilimYapimiVizeProjesi\\ProjectExchange.API\\Services\\User\\API\\API.csproj",
         "projectName": "API",
-        "projectPath": "C:\\Users\\omero\\OneDrive\\Masaüstü\\Yazılım Yapımı Proje\\Final\\YazilimYapimiVizeProjesi\\ProjectExchange.API\\Services\\User\\API\\API.csproj",
+        "projectPath": "D:\\Personal\\Desktop\\Yazılım Yapımı Proje\\Final\\YazilimYapimiVizeProjesi\\ProjectExchange.API\\Services\\User\\API\\API.csproj",
         "packagesPath": "C:\\Users\\omero\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\omero\\OneDrive\\Masaüstü\\Yazılım Yapımı Proje\\Final\\YazilimYapimiVizeProjesi\\ProjectExchange.API\\Services\\User\\API\\obj\\",
+        "outputPath": "D:\\Personal\\Desktop\\Yazılım Yapımı Proje\\Final\\YazilimYapimiVizeProjesi\\ProjectExchange.API\\Services\\User\\API\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -29,11 +29,11 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "C:\\Users\\omero\\OneDrive\\Masaüstü\\Yazılım Yapımı Proje\\Final\\YazilimYapimiVizeProjesi\\ProjectExchange.API\\Services\\User\\Application\\Application.csproj": {
-                "projectPath": "C:\\Users\\omero\\OneDrive\\Masaüstü\\Yazılım Yapımı Proje\\Final\\YazilimYapimiVizeProjesi\\ProjectExchange.API\\Services\\User\\Application\\Application.csproj"
+              "D:\\Personal\\Desktop\\Yazılım Yapımı Proje\\Final\\YazilimYapimiVizeProjesi\\ProjectExchange.API\\Services\\User\\Application\\Application.csproj": {
+                "projectPath": "D:\\Personal\\Desktop\\Yazılım Yapımı Proje\\Final\\YazilimYapimiVizeProjesi\\ProjectExchange.API\\Services\\User\\Application\\Application.csproj"
               },
-              "C:\\Users\\omero\\OneDrive\\Masaüstü\\Yazılım Yapımı Proje\\Final\\YazilimYapimiVizeProjesi\\ProjectExchange.API\\Services\\User\\Infrastructure\\Infrastructure.csproj": {
-                "projectPath": "C:\\Users\\omero\\OneDrive\\Masaüstü\\Yazılım Yapımı Proje\\Final\\YazilimYapimiVizeProjesi\\ProjectExchange.API\\Services\\User\\Infrastructure\\Infrastructure.csproj"
+              "D:\\Personal\\Desktop\\Yazılım Yapımı Proje\\Final\\YazilimYapimiVizeProjesi\\ProjectExchange.API\\Services\\User\\Infrastructure\\Infrastructure.csproj": {
+                "projectPath": "D:\\Personal\\Desktop\\Yazılım Yapımı Proje\\Final\\YazilimYapimiVizeProjesi\\ProjectExchange.API\\Services\\User\\Infrastructure\\Infrastructure.csproj"
               }
             }
           }
@@ -75,14 +75,14 @@
         }
       }
     },
-    "C:\\Users\\omero\\OneDrive\\Masaüstü\\Yazılım Yapımı Proje\\Final\\YazilimYapimiVizeProjesi\\ProjectExchange.API\\Services\\User\\Application\\Application.csproj": {
+    "D:\\Personal\\Desktop\\Yazılım Yapımı Proje\\Final\\YazilimYapimiVizeProjesi\\ProjectExchange.API\\Services\\User\\Application\\Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\omero\\OneDrive\\Masaüstü\\Yazılım Yapımı Proje\\Final\\YazilimYapimiVizeProjesi\\ProjectExchange.API\\Services\\User\\Application\\Application.csproj",
+        "projectUniqueName": "D:\\Personal\\Desktop\\Yazılım Yapımı Proje\\Final\\YazilimYapimiVizeProjesi\\ProjectExchange.API\\Services\\User\\Application\\Application.csproj",
         "projectName": "Application",
-        "projectPath": "C:\\Users\\omero\\OneDrive\\Masaüstü\\Yazılım Yapımı Proje\\Final\\YazilimYapimiVizeProjesi\\ProjectExchange.API\\Services\\User\\Application\\Application.csproj",
+        "projectPath": "D:\\Personal\\Desktop\\Yazılım Yapımı Proje\\Final\\YazilimYapimiVizeProjesi\\ProjectExchange.API\\Services\\User\\Application\\Application.csproj",
         "packagesPath": "C:\\Users\\omero\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\omero\\OneDrive\\Masaüstü\\Yazılım Yapımı Proje\\Final\\YazilimYapimiVizeProjesi\\ProjectExchange.API\\Services\\User\\Application\\obj\\",
+        "outputPath": "D:\\Personal\\Desktop\\Yazılım Yapımı Proje\\Final\\YazilimYapimiVizeProjesi\\ProjectExchange.API\\Services\\User\\Application\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -100,8 +100,8 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "C:\\Users\\omero\\OneDrive\\Masaüstü\\Yazılım Yapımı Proje\\Final\\YazilimYapimiVizeProjesi\\ProjectExchange.API\\Services\\User\\Domain\\Domain.csproj": {
-                "projectPath": "C:\\Users\\omero\\OneDrive\\Masaüstü\\Yazılım Yapımı Proje\\Final\\YazilimYapimiVizeProjesi\\ProjectExchange.API\\Services\\User\\Domain\\Domain.csproj"
+              "D:\\Personal\\Desktop\\Yazılım Yapımı Proje\\Final\\YazilimYapimiVizeProjesi\\ProjectExchange.API\\Services\\User\\Domain\\Domain.csproj": {
+                "projectPath": "D:\\Personal\\Desktop\\Yazılım Yapımı Proje\\Final\\YazilimYapimiVizeProjesi\\ProjectExchange.API\\Services\\User\\Domain\\Domain.csproj"
               }
             }
           }
@@ -160,14 +160,14 @@
         }
       }
     },
-    "C:\\Users\\omero\\OneDrive\\Masaüstü\\Yazılım Yapımı Proje\\Final\\YazilimYapimiVizeProjesi\\ProjectExchange.API\\Services\\User\\Domain\\Domain.csproj": {
+    "D:\\Personal\\Desktop\\Yazılım Yapımı Proje\\Final\\YazilimYapimiVizeProjesi\\ProjectExchange.API\\Services\\User\\Domain\\Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\omero\\OneDrive\\Masaüstü\\Yazılım Yapımı Proje\\Final\\YazilimYapimiVizeProjesi\\ProjectExchange.API\\Services\\User\\Domain\\Domain.csproj",
+        "projectUniqueName": "D:\\Personal\\Desktop\\Yazılım Yapımı Proje\\Final\\YazilimYapimiVizeProjesi\\ProjectExchange.API\\Services\\User\\Domain\\Domain.csproj",
         "projectName": "Domain",
-        "projectPath": "C:\\Users\\omero\\OneDrive\\Masaüstü\\Yazılım Yapımı Proje\\Final\\YazilimYapimiVizeProjesi\\ProjectExchange.API\\Services\\User\\Domain\\Domain.csproj",
+        "projectPath": "D:\\Personal\\Desktop\\Yazılım Yapımı Proje\\Final\\YazilimYapimiVizeProjesi\\ProjectExchange.API\\Services\\User\\Domain\\Domain.csproj",
         "packagesPath": "C:\\Users\\omero\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\omero\\OneDrive\\Masaüstü\\Yazılım Yapımı Proje\\Final\\YazilimYapimiVizeProjesi\\ProjectExchange.API\\Services\\User\\Domain\\obj\\",
+        "outputPath": "D:\\Personal\\Desktop\\Yazılım Yapımı Proje\\Final\\YazilimYapimiVizeProjesi\\ProjectExchange.API\\Services\\User\\Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -221,14 +221,14 @@
         }
       }
     },
-    "C:\\Users\\omero\\OneDrive\\Masaüstü\\Yazılım Yapımı Proje\\Final\\YazilimYapimiVizeProjesi\\ProjectExchange.API\\Services\\User\\Infrastructure\\Infrastructure.csproj": {
+    "D:\\Personal\\Desktop\\Yazılım Yapımı Proje\\Final\\YazilimYapimiVizeProjesi\\ProjectExchange.API\\Services\\User\\Infrastructure\\Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\omero\\OneDrive\\Masaüstü\\Yazılım Yapımı Proje\\Final\\YazilimYapimiVizeProjesi\\ProjectExchange.API\\Services\\User\\Infrastructure\\Infrastructure.csproj",
+        "projectUniqueName": "D:\\Personal\\Desktop\\Yazılım Yapımı Proje\\Final\\YazilimYapimiVizeProjesi\\ProjectExchange.API\\Services\\User\\Infrastructure\\Infrastructure.csproj",
         "projectName": "Infrastructure",
-        "projectPath": "C:\\Users\\omero\\OneDrive\\Masaüstü\\Yazılım Yapımı Proje\\Final\\YazilimYapimiVizeProjesi\\ProjectExchange.API\\Services\\User\\Infrastructure\\Infrastructure.csproj",
+        "projectPath": "D:\\Personal\\Desktop\\Yazılım Yapımı Proje\\Final\\YazilimYapimiVizeProjesi\\ProjectExchange.API\\Services\\User\\Infrastructure\\Infrastructure.csproj",
         "packagesPath": "C:\\Users\\omero\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\omero\\OneDrive\\Masaüstü\\Yazılım Yapımı Proje\\Final\\YazilimYapimiVizeProjesi\\ProjectExchange.API\\Services\\User\\Infrastructure\\obj\\",
+        "outputPath": "D:\\Personal\\Desktop\\Yazılım Yapımı Proje\\Final\\YazilimYapimiVizeProjesi\\ProjectExchange.API\\Services\\User\\Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -246,8 +246,8 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "C:\\Users\\omero\\OneDrive\\Masaüstü\\Yazılım Yapımı Proje\\Final\\YazilimYapimiVizeProjesi\\ProjectExchange.API\\Services\\User\\Application\\Application.csproj": {
-                "projectPath": "C:\\Users\\omero\\OneDrive\\Masaüstü\\Yazılım Yapımı Proje\\Final\\YazilimYapimiVizeProjesi\\ProjectExchange.API\\Services\\User\\Application\\Application.csproj"
+              "D:\\Personal\\Desktop\\Yazılım Yapımı Proje\\Final\\YazilimYapimiVizeProjesi\\ProjectExchange.API\\Services\\User\\Application\\Application.csproj": {
+                "projectPath": "D:\\Personal\\Desktop\\Yazılım Yapımı Proje\\Final\\YazilimYapimiVizeProjesi\\ProjectExchange.API\\Services\\User\\Application\\Application.csproj"
               }
             }
           }

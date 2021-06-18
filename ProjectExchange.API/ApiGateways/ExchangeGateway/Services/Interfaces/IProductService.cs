@@ -9,5 +9,6 @@ namespace ExchangeGateway.Services.Interfaces {
         Task<ResponseModel<Product>> UpdateProduct (Product model);
         Task<ResponseModel<Product>> CreateProduct (Product model);
         Task<ResponseModel<Product>> DeleteProduct (string id);
+        Task<ResponseModel<Product>> GetProductsWithStatusByName (string productName);
     }
 }

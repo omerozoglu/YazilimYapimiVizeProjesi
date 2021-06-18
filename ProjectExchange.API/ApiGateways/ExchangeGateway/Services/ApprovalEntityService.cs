@@ -22,7 +22,7 @@ namespace ExchangeGateway.Services {
                 var response = new ResponseModel<T> () {
                     ReponseName = nameof (GetApprovalEntity) + "in" + nameof (ExchangeGateway),
                     Message = ex.Message,
-                    Status = ResponseType.Error,
+                    Status = ResponseStatus.Error,
                     Content = null
                 };
                 return response;
@@ -37,7 +37,7 @@ namespace ExchangeGateway.Services {
                 var response = new ResponseModel<T> () {
                     ReponseName = nameof (CreateApprovalEntity) + "in" + nameof (ExchangeGateway),
                     Message = ex.Message,
-                    Status = ResponseType.Error,
+                    Status = ResponseStatus.Error,
                     Content = null
                 };
                 return response;
@@ -51,7 +51,7 @@ namespace ExchangeGateway.Services {
                 var response = new ResponseModel<T> () {
                     ReponseName = nameof (UpdateApprovalEntity) + "in" + nameof (ExchangeGateway),
                     Message = ex.Message,
-                    Status = ResponseType.Error,
+                    Status = ResponseStatus.Error,
                     Content = null
                 };
                 return response;

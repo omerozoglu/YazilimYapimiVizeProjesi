@@ -10,6 +10,7 @@ using Application.Features.Queries.Get;
 using Application.Features.Queries.GetList;
 using Application.Features.Queries.GetList.GetProductsByName;
 using Application.Features.Queries.GetList.GetProductsUser;
+using Application.Features.Queries.GetList.GetProductsWithStatusByName;
 using Domain.Common;
 using Domain.Common.Enums;
 using Domain.Entities;
@@ -103,6 +104,26 @@ namespace API.Controllers {
         public async Task<ActionResult<EntityResponse<Product>>> GetProductByName (string productName) {
             try {
                 var query = new GetProductsByNameQuery (productName);
+                var result = await _mediator.Send (query);
+                return Ok (result);
+            } catch (Exception ex) {
+                var err = new EntityResponse<Product> ();
+                err.ReponseName = nameof (GetProductByName);
+                err.Status = ResponseType.Error;
+                err.Message = ex.Message;
+                err.Content = null;
+                return Ok (err);
+            }
+        }
+        #endregion
+
+        #region GetProductsWithStatusByName ()
+        [HttpGet ("ps/{productstatusName}")]
+        // [Route ("GetProductByName")]
+        [ProducesResponseType (typeof (EntityResponse<Product>), (int) HttpStatusCode.OK)]
+        public async Task<ActionResult<EntityResponse<Product>>> GetProductsWithStatusByName (string productstatusName) {
+            try {
+                var query = new GetProductsWithStatusByNameQuery (productstatusName);
                 var result = await _mediator.Send (query);
                 return Ok (result);
             } catch (Exception ex) {

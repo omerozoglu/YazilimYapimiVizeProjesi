@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "CkNf5JmxTYa6BTBKgFZlCmXRKUwIeCbWxSXGGw2v1NUKBcb1OXPjFI8jFsnGihr3k97oc9wdgKW2zzcEbI+0Tw==",
+  "dgSpecHash": "md7zrwXVLW8gqgeVr63R5wtDN7F9DVgxOsddAS4VPIQqnLYdf8/GblDzx/BMd+TO39nb+nL7KZxM6bzzRWIUrw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\omero\\OneDrive\\Masaüstü\\Yazılım Yapımı Proje\\Final\\YazilimYapimiVizeProjesi\\ProjectExchange.API\\ApiGateways\\ExchangeGateway\\ExchangeGateway.csproj",
+  "projectFilePath": "D:\\Personal\\Desktop\\Yazılım Yapımı Proje\\Final\\YazilimYapimiVizeProjesi\\ProjectExchange.API\\ApiGateways\\ExchangeGateway\\ExchangeGateway.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\omero\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
     "C:\\Users\\omero\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",

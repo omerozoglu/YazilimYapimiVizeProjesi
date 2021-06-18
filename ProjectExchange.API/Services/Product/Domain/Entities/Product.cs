@@ -9,5 +9,6 @@ namespace Domain.Entities {
         public string ImgUrl { get; set; }
         public double Weight { get; set; }
         public double UnitPrice { get; set; }
+        public int Status { get; set; }
     }
 }

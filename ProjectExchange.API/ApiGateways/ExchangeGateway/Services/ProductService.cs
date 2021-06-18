@@ -22,7 +22,7 @@ namespace ExchangeGateway.Services {
                 var response = new ResponseModel<Product> () {
                     ReponseName = nameof (GetProduct) + "in" + nameof (ExchangeGateway),
                     Message = ex.Message,
-                    Status = ResponseType.Error,
+                    Status = ResponseStatus.Error,
                     Content = null
                 };
                 return response;
@@ -36,7 +36,22 @@ namespace ExchangeGateway.Services {
                 var response = new ResponseModel<Product> () {
                     ReponseName = nameof (GetProductsByName) + "in" + nameof (ExchangeGateway),
                     Message = ex.Message,
-                    Status = ResponseType.Error,
+                    Status = ResponseStatus.Error,
+                    Content = null
+                };
+                return response;
+            }
+        }
+
+        public async Task<ResponseModel<Product>> GetProductsWithStatusByName (string productName) {
+            try {
+                var response = await _client.GetAsync ($"/api/v1/Product/ps/{productName}");
+                return await response.ReadContentAs<ResponseModel<Product>> ();
+            } catch (Exception ex) {
+                var response = new ResponseModel<Product> () {
+                    ReponseName = nameof (GetProductsByName) + "in" + nameof (ExchangeGateway),
+                    Message = ex.Message,
+                    Status = ResponseStatus.Error,
                     Content = null
                 };
                 return response;
@@ -51,7 +66,7 @@ namespace ExchangeGateway.Services {
                 var response = new ResponseModel<Product> () {
                     ReponseName = nameof (CreateProduct) + "in" + nameof (ExchangeGateway),
                     Message = ex.Message,
-                    Status = ResponseType.Error,
+                    Status = ResponseStatus.Error,
                     Content = null
                 };
                 return response;
@@ -66,7 +81,7 @@ namespace ExchangeGateway.Services {
                 var response = new ResponseModel<Product> () {
                     ReponseName = nameof (UpdateProduct) + "in" + nameof (ExchangeGateway),
                     Message = ex.Message,
-                    Status = ResponseType.Error,
+                    Status = ResponseStatus.Error,
                     Content = null
                 };
                 return response;
@@ -81,7 +96,7 @@ namespace ExchangeGateway.Services {
                 var response = new ResponseModel<Product> () {
                     ReponseName = nameof (DeleteProduct) + "in" + nameof (ExchangeGateway),
                     Message = ex.Message,
-                    Status = ResponseType.Error,
+                    Status = ResponseStatus.Error,
                     Content = null
                 };
                 return response;

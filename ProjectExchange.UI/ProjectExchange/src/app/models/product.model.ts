@@ -5,4 +5,5 @@ export class Product {
   imgUrl: string;
   weight: number;
   unitPrice: number;
+  status:number;
 }

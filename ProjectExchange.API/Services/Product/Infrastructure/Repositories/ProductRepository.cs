@@ -19,7 +19,7 @@ namespace Infrastructure.Repositories {
             double tmpweight = 0;
             var result = new List<Product> ();
             try {
-                var productList = await _context.Collection.Find (p => p.UnitPrice != 0).ToListAsync ();
+                var productList = await _context.Collection.Find (p => (p.UnitPrice != 0) && (p.Status == 1)).ToListAsync ();
                 var groupedProductList = productList.GroupBy (p => p.Name, (Key, g) => new Product () { UserId = g.First ().UserId, Name = g.First ().Name, ImgUrl = g.First ().ImgUrl, Weight = g.First ().Weight, UnitPrice = g.First ().UnitPrice });
                 foreach (var item in groupedProductList) {
                     var products = productList.FindAll (p => p.Name == item.Name);

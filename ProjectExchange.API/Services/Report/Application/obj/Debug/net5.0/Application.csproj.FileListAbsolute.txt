@@ -1,0 +1,15 @@
+D:\Personal\Desktop\Yazılım Yapımı Proje\Final\YazilimYapimiVizeProjesi\ProjectExchange.API\Services\Report\Application\bin\Debug\net5.0\Application.deps.json
+D:\Personal\Desktop\Yazılım Yapımı Proje\Final\YazilimYapimiVizeProjesi\ProjectExchange.API\Services\Report\Application\bin\Debug\net5.0\Application.dll
+D:\Personal\Desktop\Yazılım Yapımı Proje\Final\YazilimYapimiVizeProjesi\ProjectExchange.API\Services\Report\Application\bin\Debug\net5.0\ref\Application.dll
+D:\Personal\Desktop\Yazılım Yapımı Proje\Final\YazilimYapimiVizeProjesi\ProjectExchange.API\Services\Report\Application\bin\Debug\net5.0\Application.pdb
+D:\Personal\Desktop\Yazılım Yapımı Proje\Final\YazilimYapimiVizeProjesi\ProjectExchange.API\Services\Report\Application\bin\Debug\net5.0\Domain.dll
+D:\Personal\Desktop\Yazılım Yapımı Proje\Final\YazilimYapimiVizeProjesi\ProjectExchange.API\Services\Report\Application\bin\Debug\net5.0\Domain.pdb
+D:\Personal\Desktop\Yazılım Yapımı Proje\Final\YazilimYapimiVizeProjesi\ProjectExchange.API\Services\Report\Application\obj\Debug\net5.0\Application.csprojAssemblyReference.cache
+D:\Personal\Desktop\Yazılım Yapımı Proje\Final\YazilimYapimiVizeProjesi\ProjectExchange.API\Services\Report\Application\obj\Debug\net5.0\Application.GeneratedMSBuildEditorConfig.editorconfig
+D:\Personal\Desktop\Yazılım Yapımı Proje\Final\YazilimYapimiVizeProjesi\ProjectExchange.API\Services\Report\Application\obj\Debug\net5.0\Application.AssemblyInfoInputs.cache
+D:\Personal\Desktop\Yazılım Yapımı Proje\Final\YazilimYapimiVizeProjesi\ProjectExchange.API\Services\Report\Application\obj\Debug\net5.0\Application.AssemblyInfo.cs
+D:\Personal\Desktop\Yazılım Yapımı Proje\Final\YazilimYapimiVizeProjesi\ProjectExchange.API\Services\Report\Application\obj\Debug\net5.0\Application.csproj.CoreCompileInputs.cache
+D:\Personal\Desktop\Yazılım Yapımı Proje\Final\YazilimYapimiVizeProjesi\ProjectExchange.API\Services\Report\Application\obj\Debug\net5.0\Application.csproj.CopyComplete
+D:\Personal\Desktop\Yazılım Yapımı Proje\Final\YazilimYapimiVizeProjesi\ProjectExchange.API\Services\Report\Application\obj\Debug\net5.0\Application.dll
+D:\Personal\Desktop\Yazılım Yapımı Proje\Final\YazilimYapimiVizeProjesi\ProjectExchange.API\Services\Report\Application\obj\Debug\net5.0\ref\Application.dll
+D:\Personal\Desktop\Yazılım Yapımı Proje\Final\YazilimYapimiVizeProjesi\ProjectExchange.API\Services\Report\Application\obj\Debug\net5.0\Application.pdb

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\omero\\OneDrive\\Masaüstü\\Yazılım Yapımı Proje\\Final\\YazilimYapimiVizeProjesi\\ProjectExchange.API\\ApiGateways\\ExchangeGateway\\ExchangeGateway.csproj": {}
+    "D:\\Personal\\Desktop\\Yazılım Yapımı Proje\\Final\\YazilimYapimiVizeProjesi\\ProjectExchange.API\\ApiGateways\\ExchangeGateway\\ExchangeGateway.csproj": {}
   },
   "projects": {
-    "C:\\Users\\omero\\OneDrive\\Masaüstü\\Yazılım Yapımı Proje\\Final\\YazilimYapimiVizeProjesi\\ProjectExchange.API\\ApiGateways\\ExchangeGateway\\ExchangeGateway.csproj": {
+    "D:\\Personal\\Desktop\\Yazılım Yapımı Proje\\Final\\YazilimYapimiVizeProjesi\\ProjectExchange.API\\ApiGateways\\ExchangeGateway\\ExchangeGateway.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\omero\\OneDrive\\Masaüstü\\Yazılım Yapımı Proje\\Final\\YazilimYapimiVizeProjesi\\ProjectExchange.API\\ApiGateways\\ExchangeGateway\\ExchangeGateway.csproj",
+        "projectUniqueName": "D:\\Personal\\Desktop\\Yazılım Yapımı Proje\\Final\\YazilimYapimiVizeProjesi\\ProjectExchange.API\\ApiGateways\\ExchangeGateway\\ExchangeGateway.csproj",
         "projectName": "ExchangeGateway",
-        "projectPath": "C:\\Users\\omero\\OneDrive\\Masaüstü\\Yazılım Yapımı Proje\\Final\\YazilimYapimiVizeProjesi\\ProjectExchange.API\\ApiGateways\\ExchangeGateway\\ExchangeGateway.csproj",
+        "projectPath": "D:\\Personal\\Desktop\\Yazılım Yapımı Proje\\Final\\YazilimYapimiVizeProjesi\\ProjectExchange.API\\ApiGateways\\ExchangeGateway\\ExchangeGateway.csproj",
         "packagesPath": "C:\\Users\\omero\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\omero\\OneDrive\\Masaüstü\\Yazılım Yapımı Proje\\Final\\YazilimYapimiVizeProjesi\\ProjectExchange.API\\ApiGateways\\ExchangeGateway\\obj\\",
+        "outputPath": "D:\\Personal\\Desktop\\Yazılım Yapımı Proje\\Final\\YazilimYapimiVizeProjesi\\ProjectExchange.API\\ApiGateways\\ExchangeGateway\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
