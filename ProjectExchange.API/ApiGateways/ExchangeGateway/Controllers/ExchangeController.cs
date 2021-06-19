@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Domain.Entities;
+using Domain.Entities.Enums;
 using ExchangeGateway.CommonAlgorithms.Sorting;
 using ExchangeGateway.Models;
 using ExchangeGateway.Models.EntityModels;
@@ -20,11 +21,13 @@ namespace ExchangeGateway.Controllers {
         private readonly IProductService _productService;
         private readonly IAprpovalEntityService<MoneyApproval> _moneyApprovalService;
         private readonly IAprpovalEntityService<ProductApproval> _productApprovalService;
-        public ExchangeController (IUserService userService, IProductService productService, IAprpovalEntityService<MoneyApproval> moneyApprovalService, IAprpovalEntityService<ProductApproval> productApprovalService) {
+        private readonly IReportService _reportService;
+        public ExchangeController (IUserService userService, IProductService productService, IAprpovalEntityService<MoneyApproval> moneyApprovalService, IAprpovalEntityService<ProductApproval> productApprovalService, IReportService reportService) {
             _userService = userService;
             _productService = productService;
             _moneyApprovalService = moneyApprovalService;
             _productApprovalService = productApprovalService;
+            _reportService = reportService;
         }
 
         [HttpPut]
@@ -189,6 +192,13 @@ namespace ExchangeGateway.Controllers {
 
             #endregion
 
+            Report report = new Report () { CreatedBy = model.UserId, CreatedDate = DateTime.UtcNow, Operation = OperationType.Take };
+            var ReportResponse = await _reportService.CreateReport (report);
+            if (ReportResponse.Status.Value != ResponseStatus.Success.Value) {
+                response.Status = ReportResponse.Status;
+                response.Message = $"{nameof (TakeOperation)} was interrupted due to \"{ReportResponse.Message}\"";
+                return response;
+            }
             response.Message = "Take Operation successfully";
             response.Status = ResponseStatus.Success;
             return response;
@@ -306,6 +316,14 @@ namespace ExchangeGateway.Controllers {
                         return response;
                     }
                 }
+            }
+
+            Report report = new Report () { CreatedBy = model.UserId, CreatedDate = DateTime.UtcNow, Operation = OperationType.Sell };
+            var ReportResponse = await _reportService.CreateReport (report);
+            if (ReportResponse.Status.Value != ResponseStatus.Success.Value) {
+                response.Status = ReportResponse.Status;
+                response.Message = $"{nameof (TakeOperation)} was interrupted due to \"{ReportResponse.Message}\"";
+                return response;
             }
             response.Message = "Operation successfully";
             response.Status = ResponseStatus.Success;
