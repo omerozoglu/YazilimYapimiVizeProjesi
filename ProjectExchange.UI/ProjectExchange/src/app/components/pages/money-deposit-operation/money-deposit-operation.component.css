@@ -84,6 +84,12 @@
   font-size: 10px;
 }
 
+.container form .form-item select {
+  width: 100%;
+  height: 30px;
+  border: none;
+}
+
 .container form button {
   width: 100%;
   height: 40px;

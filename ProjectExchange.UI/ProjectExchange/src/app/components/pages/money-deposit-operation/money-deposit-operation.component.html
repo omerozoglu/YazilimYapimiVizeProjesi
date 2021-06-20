@@ -12,6 +12,14 @@
     <div class="container flat">
       <form>
         <div class="form-item">
+          <select name="currency" #currency>
+            <option value="TRY">Türk Lirası</option>
+            <option value="EUR">Euro</option>
+            <option value="GBP">Sterling</option>
+            <option value="CHF">Swiss Franc</option>
+          </select>
+        </div>
+        <div class="form-item">
           <input
             #moneyinput
             type="number"
@@ -21,10 +29,14 @@
             required
           />
           <label for="money" class="label-name">
-            <span class="content-name">Money (₺)</span>
+            <span class="content-name">Money</span>
           </label>
         </div>
-        <button type="button" (click)="DepositOperaiton(moneyinput.value)">
+
+        <button
+          type="button"
+          (click)="DepositOperaiton(moneyinput.value, currency.value)"
+        >
           Deposit
         </button>
       </form>

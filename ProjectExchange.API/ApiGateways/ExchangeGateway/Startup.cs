@@ -56,9 +56,8 @@ namespace ExchangeGateway {
                 .AllowAnyOrigin ()
                 .AllowAnyMethod ()
                 .AllowAnyHeader ());
-            app.UseAuthorization ();
             app.UseRouting ();
-
+            app.UseAuthorization ();
             app.UseEndpoints (endpoints => {
                 endpoints.MapControllers ();
             });
