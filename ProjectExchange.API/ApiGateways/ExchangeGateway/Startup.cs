@@ -30,6 +30,8 @@ namespace ExchangeGateway {
                 c.BaseAddress = new Uri (Configuration["ApiSettings:UserUrl"]));
             services.AddHttpClient<IProductService, ProductService> (c =>
                 c.BaseAddress = new Uri (Configuration["ApiSettings:ProductUrl"]));
+            services.AddHttpClient<IReportService, ReportService> (c =>
+                c.BaseAddress = new Uri (Configuration["ApiSettings:ReportUrl"]));
             services.AddHttpClient<IAprpovalEntityService<MoneyApproval>, ApprovalEntityService<MoneyApproval>> (c =>
                 c.BaseAddress = new Uri (Configuration["ApiSettings:AdminUrl"]));
             services.AddHttpClient<IAprpovalEntityService<ProductApproval>, ApprovalEntityService<ProductApproval>> (c =>

@@ -8,6 +8,7 @@ export const environment = {
   userApiUrl: "http://localhost:5000/api/v1",
   productApiUrl: "http://localhost:5002/api/v1",
   adminApiUrl: "http://localhost:5004/api/v1",
+  reportApiUrl: "http://localhost:5006/api/v1"
 };
 
 /*

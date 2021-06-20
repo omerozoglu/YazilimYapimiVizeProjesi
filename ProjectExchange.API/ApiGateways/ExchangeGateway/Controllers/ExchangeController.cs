@@ -192,7 +192,7 @@ namespace ExchangeGateway.Controllers {
 
             #endregion
 
-            Report report = new Report () { CreatedBy = model.UserId, CreatedDate = DateTime.UtcNow, Operation = OperationType.Take };
+            Report report = new Report () { CreatedBy = model.UserId, CreatedDate = DateTime.UtcNow, Operation = OperationType.Take, ProductName = model.ProductName, Weight = model.Weight, UnitPrice = model.UnitPrice };
             var ReportResponse = await _reportService.CreateReport (report);
             if (ReportResponse.Status.Value != ResponseStatus.Success.Value) {
                 response.Status = ReportResponse.Status;
@@ -318,7 +318,7 @@ namespace ExchangeGateway.Controllers {
                 }
             }
 
-            Report report = new Report () { CreatedBy = model.UserId, CreatedDate = DateTime.UtcNow, Operation = OperationType.Sell };
+            Report report = new Report () { CreatedBy = model.UserId, CreatedDate = DateTime.UtcNow, Operation = OperationType.Sell, ProductName = sellerProduct.Name, Weight = model.Weight, UnitPrice = model.UnitPrice };
             var ReportResponse = await _reportService.CreateReport (report);
             if (ReportResponse.Status.Value != ResponseStatus.Success.Value) {
                 response.Status = ReportResponse.Status;
