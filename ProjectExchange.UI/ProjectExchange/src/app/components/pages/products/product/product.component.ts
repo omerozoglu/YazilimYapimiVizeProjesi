@@ -11,6 +11,7 @@ import { User } from 'src/app/models/user.model';
   templateUrl: './product.component.html',
   styleUrls: ['./product.component.scss']
 })
+
 export class ProductComponent implements OnInit {
   @Input() Product: Product;
   @Input() OperationName: string;
@@ -28,10 +29,11 @@ export class ProductComponent implements OnInit {
       this.user.id = localStorage.getItem('id');
     }
   }
-  public TakeOperaiton(weight) {
+  public TakeOperaiton(weight: number, unitprice: number) {
     this.TakerModel.productName = this.Product.name;
     this.TakerModel.userId = this.user.id;
     this.TakerModel.weight = weight;
+    this.TakerModel.unitPrice = unitprice;
     console.log(this.TakerModel);
     this.takeService.TakeOperation(this.TakerModel).subscribe(operation => {
       console.log(operation);
@@ -42,10 +44,8 @@ export class ProductComponent implements OnInit {
     this.SellerModel.productId = this.Product.id;
     this.SellerModel.weight = weight;
     this.SellerModel.unitPrice = unitprice;
-
     this.sellService.SellOperation(this.SellerModel).subscribe(operation => {
       console.log(operation);
     });
-
   }
 }

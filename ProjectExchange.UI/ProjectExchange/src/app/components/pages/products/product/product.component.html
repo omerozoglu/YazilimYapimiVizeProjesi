@@ -70,8 +70,24 @@
             <span class="content-name">Weight (KG)</span>
           </label>
         </div>
+        <div class="form-item">
+          <input
+            #unitpriceinput
+            type="number"
+            step="0.2"
+            name="unitprice"
+            autocomplete="off"
+            required
+          />
+          <label for="unitprice" class="label-name">
+            <span class="content-name">Unit Price(₺)</span>
+          </label>
+        </div>
         <div class="row">
-          <button type="button" (click)="TakeOperaiton(weightinput.value)">
+          <button
+            type="button"
+            (click)="TakeOperaiton(weightinput.value, unitpriceinput.value)"
+          >
             Take
           </button>
           <button type="reset" (click)="isClick = false" class="cancel">
