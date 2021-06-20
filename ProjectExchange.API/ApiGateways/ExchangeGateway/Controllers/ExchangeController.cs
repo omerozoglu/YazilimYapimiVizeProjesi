@@ -168,7 +168,24 @@ namespace ExchangeGateway.Controllers {
                     response.Message = $"{nameof (TakeOperation)} was interrupted due to \"{_updateSellerResponse.Message}\"";
                     break;
                 }
-
+                User accounter = new User ();
+                var _getAccounterResponse = await _userService.GetUser ("60cf52c9f33b98db66afd71d");
+                //* If operation has interrupted on getting
+                if (_getAccounterResponse.Status.Value != ResponseStatus.Success.Value) {
+                    response.Status = _getAccounterResponse.Status;
+                    response.Message = $"{nameof (TakeOperation)} was interrupted due to \"{_getAccounterResponse.Message}\"";
+                    break;
+                }
+                accounter = _getAccounterResponse.Content[0];
+                accounter.Credit += _takerUser.Credit * (0.01);
+                var _updateAccounterResponse = await _userService.UpdateUser (accounter);
+                //* If operation has interrupted on updating
+                if (_updateAccounterResponse.Status.Value != ResponseStatus.Success.Value) {
+                    response.Status = _updateAccounterResponse.Status;
+                    response.Message = $"{nameof (TakeOperation)} was interrupted due to \"{_updateAccounterResponse.Message}\"";
+                    break;
+                }
+                _takerUser.Credit -= _takerUser.Credit * (0.01);
                 var _updateTakerResponse = await _userService.UpdateUser (_takerUser);
                 //* If operation has interrupted on updating
                 if (_updateTakerResponse.Status.Value != ResponseStatus.Success.Value) {
