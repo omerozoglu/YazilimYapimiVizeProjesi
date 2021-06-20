@@ -1,4 +1,5 @@
 using ExchangeGateway.Models.EntityModels;
+using ExchangeGateway.Models.EntityModels.Enums;
 
 namespace Domain.Entities {
     public class ProductApproval : ApprovalEntityBase {

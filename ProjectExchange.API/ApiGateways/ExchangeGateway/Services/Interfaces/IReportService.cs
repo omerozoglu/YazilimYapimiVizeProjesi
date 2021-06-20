@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using Domain.Entities;
 using ExchangeGateway.Models;
+using ExchangeGateway.Models.EntityModels;
 
 namespace ExchangeGateway.Services.Interfaces {
     public interface IReportService {

@@ -1,7 +1,7 @@
 using System;
-using Domain.Entities.Enums;
+using ExchangeGateway.Models.EntityModels.Enums;
 
-namespace Domain.Entities {
+namespace ExchangeGateway.Models.EntityModels {
     public class Report {
         public string CreatedBy { get; set; }
         public DateTime CreatedDate { get; set; }

@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Domain.Entities;
-using Domain.Entities.Enums;
 using ExchangeGateway.CommonAlgorithms.Sorting;
 using ExchangeGateway.Models;
 using ExchangeGateway.Models.EntityModels;
@@ -22,12 +21,14 @@ namespace ExchangeGateway.Controllers {
         private readonly IAprpovalEntityService<MoneyApproval> _moneyApprovalService;
         private readonly IAprpovalEntityService<ProductApproval> _productApprovalService;
         private readonly IReportService _reportService;
-        public ExchangeController (IUserService userService, IProductService productService, IAprpovalEntityService<MoneyApproval> moneyApprovalService, IAprpovalEntityService<ProductApproval> productApprovalService, IReportService reportService) {
+        private readonly ICurrencyService _currencyService;
+        public ExchangeController (IUserService userService, IProductService productService, IAprpovalEntityService<MoneyApproval> moneyApprovalService, IAprpovalEntityService<ProductApproval> productApprovalService, IReportService reportService, ICurrencyService currencyService) {
             _userService = userService;
             _productService = productService;
             _moneyApprovalService = moneyApprovalService;
             _productApprovalService = productApprovalService;
             _reportService = reportService;
+            _currencyService = currencyService;
         }
 
         [HttpPut]
@@ -388,7 +389,8 @@ namespace ExchangeGateway.Controllers {
                 UserId = model.UserId,
                 Type = ApprovalType.Deposit,
                 Status = ApprovalStatus.Pending,
-                Deposit = model.Deposit
+                Deposit = model.Deposit,
+                Currency = model.Currency
             };
             var moneyApprovalResponse = await _moneyApprovalService.CreateApprovalEntity (MoneyApproval);
             if (moneyApprovalResponse.Status.Value != ResponseStatus.Success.Value) {
@@ -486,7 +488,13 @@ namespace ExchangeGateway.Controllers {
                     return response;
                 }
                 User user = userGetResponse.Content[0];
-                user.Credit += model.Deposit;
+
+                #region Currency Operation
+
+                CurrencyModel currencyModel = new CurrencyModel () { Amount = model.Deposit, From = model.Currency.Value, To = "TRY" };
+                double _deposit = await _currencyService.RequestCurrencyAPI (currencyModel);
+                user.Credit += _deposit; //model.Deposit;
+                #endregion
                 var userResponse = await _userService.UpdateUser (user);
                 if (userResponse.Status.Value != ResponseStatus.Success.Value) {
                     response.Status = userResponse.Status;

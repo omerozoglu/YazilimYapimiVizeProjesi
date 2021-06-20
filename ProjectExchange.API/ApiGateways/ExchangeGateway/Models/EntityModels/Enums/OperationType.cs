@@ -1,4 +1,4 @@
-namespace Domain.Entities.Enums {
+namespace ExchangeGateway.Models.EntityModels.Enums {
     public class OperationType {
 
         //* Enum kullanımı gibi string kullanımı bknz:https://stackoverflow.com/questions/630803/associating-enums-with-strings-in-c-sharp?page=1&tab=votes#tab-top

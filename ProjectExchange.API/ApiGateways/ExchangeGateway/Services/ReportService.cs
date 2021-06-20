@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Domain.Entities;
 using ExchangeGateway.Extensions;
 using ExchangeGateway.Models;
+using ExchangeGateway.Models.EntityModels;
 using ExchangeGateway.Services.Interfaces;
 
 namespace ExchangeGateway.Services {
