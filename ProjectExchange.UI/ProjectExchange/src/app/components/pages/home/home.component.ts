@@ -33,7 +33,7 @@ export class HomeComponent implements OnInit {
     this.reportService.getAllReport().subscribe(reports => {
       var text = "";
       reports.forEach(r => {
-        text += "Tarih: " + r.createdDate + "\n Ürün Adı:" + + r.productName + "\n İşlem Fiyatı:" + r.unitPrice + "\n İşlem Ağırlığı:" + r.weight;
+        text += "Tarih: " + r.createdDate + "\n Urun Adi:" + r.productName + "\n Islem Fiyati:" + r.unitPrice + "\n Islem Agirligi:" + r.weight;
       });
       doc.text(text, 10, 10);
       doc.save("Report.pdf");
